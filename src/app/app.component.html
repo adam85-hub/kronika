@@ -1,2 +1,41 @@
+<div id="title-image">
+  <img src="http://fzskatowicepodlesie.pl/parafia/AAAA/logo_MBCZ.gif">
+  <span>
+    Parafia Matki Boskiej Częstochowskiej Katowice Podlesie
+  </span>
+</div>
 
-<router-outlet></router-outlet>
+<!-- Nawigacja po kronice -->
+<nav id="nav-bar" (window:scroll)="onScroll($event)" [ngClass]="fixedClass">
+  <div *ngIf="isNavbarExtended; else navbarCollapsed">
+    <a>Strona główna</a>
+    <a>Kronika</a>
+    <a>Youtube</a>
+    <a>Ewangelia</a>
+    <a (mouseover)="expandInne($event)" (mouseleave)="collapseInne($event)" [ngStyle]="{'padding-bottom': innePadding}">
+        Inne
+      <div *ngIf="isInneExpanded" id="inne-expand-container">
+        <a class="inne-a">Linki</a>
+        <a class="inne-a">Adoracja</a>
+        <a class="inne-a">Modlitwy</a>
+        <a class="inne-a">Panel moderatora</a>
+      </div>
+    </a>
+    <a id="last-link">Strona parafii</a>
+  </div>
+
+  <ng-template #navbarCollapsed>
+    <div id="collapsed">
+      Collapsed
+    </div>
+  </ng-template>
+</nav>
+
+<!-- Główna zawartość strony sterowana przez routing -->
+<div class="container-lg" id="main-container">
+  <router-outlet></router-outlet>
+</div>
+
+<footer>
+  Adam Bialik 2021 &copy; Wszystkie prawa zastrzeżone
+</footer>
