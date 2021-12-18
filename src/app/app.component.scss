@@ -1,10 +1,11 @@
+@use "sass:math";
 @import "../variables";
 
 $font-size: 20px;
 $navbar-height: 70px;
 
 @function calculateNavbarPadding($navbar-height, $navbar-font-size){
-    @return (($navbar-height -  ($navbar-font-size + 10px))/2) - 0px;
+    @return math.div(($navbar-height -  ($navbar-font-size + 10px)), 2) - 0px;
 }
 
 @mixin link {
@@ -98,5 +99,9 @@ footer {
 
 #inne-expand-container {
     padding-top: 20px;
+    position: relative;
+}
+
+main {
     position: relative;
 }

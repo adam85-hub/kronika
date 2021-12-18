@@ -8,12 +8,12 @@
 <!-- Nawigacja po kronice -->
 <nav id="nav-bar" (window:scroll)="onScroll($event)" [ngClass]="fixedClass">
   <div *ngIf="isNavbarExtended; else navbarCollapsed">
-    <a>Strona główna</a>
-    <a>Kronika</a>
+    <a routerLink="/strona-główna">Strona główna</a>
+    <a routerLink="/kronika">Kronika</a>
     <a>Youtube</a>
     <a>Ewangelia</a>
     <a (mouseover)="expandInne($event)" (mouseleave)="collapseInne($event)" [ngStyle]="{'padding-bottom': innePadding}">
-        Inne
+      Inne
       <div *ngIf="isInneExpanded" id="inne-expand-container">
         <a class="inne-a">Linki</a>
         <a class="inne-a">Adoracja</a>
@@ -21,7 +21,8 @@
         <a class="inne-a">Panel moderatora</a>
       </div>
     </a>
-    <a id="last-link">Strona parafii</a>
+    <a href="http://www.parafia-podlesie.pl/" target="_blank">Strona parafii</a>
+    <a id="last-link">Kontakt</a>
   </div>
 
   <ng-template #navbarCollapsed>
@@ -32,9 +33,11 @@
 </nav>
 
 <!-- Główna zawartość strony sterowana przez routing -->
-<div class="container-lg" id="main-container">
-  <router-outlet></router-outlet>
-</div>
+<main>
+  <div class="container-lg" id="main-container">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</main>
 
 <footer>
   Adam Bialik 2021 &copy; Wszystkie prawa zastrzeżone
