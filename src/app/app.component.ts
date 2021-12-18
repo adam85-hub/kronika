@@ -8,6 +8,16 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 })
 export class AppComponent implements OnInit {
   
+  ngOnInit(): void {
+    //Change navbar state
+    let e = {
+      target: {
+        innerWidth: window.innerWidth
+      }
+    };
+    this.onResize(e);
+  }
+
   //#region NavbarLogic
   // Responsywny navbar
   isNavbarExtended: boolean = true;
@@ -19,15 +29,6 @@ export class AppComponent implements OnInit {
   isInneExpanded: boolean = false;
   innePadding: string = "20px";
 
-  ngOnInit(): void {
-    let e = {
-      target: {
-        innerWidth: window.innerWidth
-      }
-    };
-
-    this.onResize(e);
-  }
 
   //Obsługuje zmienianie się navbara przy zmianie wielkości okna
   @HostListener('window:resize', ['$event'])
@@ -50,11 +51,13 @@ export class AppComponent implements OnInit {
     }
   }
 
+  //Navbar element inne expand
   expandInne(e : Event): void {
     this.isInneExpanded = true;
     this.innePadding = "0";
   }
 
+  //Navbar element inne collapse
   collapseInne(e : Event): void {
     this.isInneExpanded = false;
     this.innePadding = "20px";
@@ -65,4 +68,3 @@ export class AppComponent implements OnInit {
 }
 
 // Set-ExecutionPolicy -Scope Process Unrestricted
-

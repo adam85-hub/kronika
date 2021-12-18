@@ -16,7 +16,7 @@ $navbar-height: 70px;
     border-right: 1px solid $font-color;
     text-align: center;
     width: 180px;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 #nav-bar {
@@ -28,9 +28,10 @@ $navbar-height: 70px;
 
     a {
         @include link;
+        transition: background-color 0.2s, color 0.2s;
         &:hover {
             background-color: darken($main-accent, 30%);
-            color: lighten($font-color, 70%);
+            color: lighten($font-color, 70%);            
 
             .inne-a {
                 color: $font-color;
