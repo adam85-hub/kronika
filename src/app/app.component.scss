@@ -94,7 +94,7 @@ footer {
 }
 
 #main-container {
-    padding-top: $navbar-height;
+    padding-top: $navbar-height;    
 }
 
 #inne-expand-container {
@@ -104,4 +104,13 @@ footer {
 
 main {
     position: relative;
+}
+
+#collapsed {
+    all: unset;  
+    font-size: 20px;
+    padding: calculateNavbarPadding($navbar-height, 20px);
+    display: block;
+    width: 100%;
+    cursor: pointer;
 }

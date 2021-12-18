@@ -1,0 +1,22 @@
+@import "../../../variables.scss";
+
+#no-entries {
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.entry-container {
+    margin-bottom: 15px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px darken($second-accent, 50%);
+
+    div {
+        padding-left: 10px;
+        border-left: 2px solid $font-color;
+
+        span {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    }
+}

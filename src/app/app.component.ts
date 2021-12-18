@@ -9,6 +9,8 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 })
 export class AppComponent implements OnInit {
   
+  titleStyle: string = "";
+
   ngOnInit(): void {
     //Change navbar state
     let e = {
@@ -19,9 +21,11 @@ export class AppComponent implements OnInit {
     this.onResize(e);
   }
 
-  //#region NavbarLogic
+  //#region NavbarLogic  
+
   // Responsywny navbar
-  isNavbarExtended: boolean = true;
+  isNavbarExpanded: boolean = true;
+  mainWhenNavbarNotCollapsed: string = "";
   
   //Zmienne przechowujące klasy odpowiadają za to że navbar przykleja się do góry strony przy przewijaniu
   fixedClass: string = "navbar-absolute";
@@ -34,11 +38,13 @@ export class AppComponent implements OnInit {
   //Obsługuje zmienianie się navbara przy zmianie wielkości okna
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if(event.target.innerWidth < 910) {
-      this.isNavbarExtended = false;
+    //Navbar collapsed
+    if(event.target.innerWidth < 1270) {
+      this.isNavbarExpanded = false;
     }
+    //Navbar expanded
     else {
-      this.isNavbarExtended = true;
+      this.isNavbarExpanded = true;
     }
   }
 
@@ -63,9 +69,14 @@ export class AppComponent implements OnInit {
     this.isInneExpanded = false;
     this.innePadding = "20px";
   }
+
+  //Otwiera boczną nawigację kiedy navbar jest collapsed
+  openSideNav() : void {
+    console.log("ujhehe");
+  }
+
   //#endregion
   
-
 }
 
 // Set-ExecutionPolicy -Scope Process Unrestricted

@@ -1,4 +1,4 @@
-<div id="title-image">
+<div id="title-image" [style]="titleStyle">
   <img src="http://fzskatowicepodlesie.pl/parafia/AAAA/logo_MBCZ.gif">
   <span>
     Parafia Matki Boskiej Częstochowskiej Katowice Podlesie
@@ -7,7 +7,7 @@
 
 <!-- Nawigacja po kronice -->
 <nav id="nav-bar" (window:scroll)="onScroll($event)" [ngClass]="fixedClass">
-  <div *ngIf="isNavbarExtended; else navbarCollapsed">
+  <div *ngIf="isNavbarExpanded; else navbarCollapsed">
     <a routerLink="/strona-główna">Strona główna</a>
     <a routerLink="/kronika">Kronika</a>
     <a>Youtube</a>
@@ -26,15 +26,17 @@
   </div>
 
   <ng-template #navbarCollapsed>
-    <div id="collapsed">
-      Collapsed
-    </div>
+    <button id="collapsed" (click)="openSideNav()">
+      przycisk
+    </button>
   </ng-template>
 </nav>
 
+
+
 <!-- Główna zawartość strony sterowana przez routing -->
 <main>
-  <div class="container-lg" id="main-container">
+  <div class="container-lg" id="main-container" [ngClass]="mainWhenNavbarNotCollapsed">
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
 </main>

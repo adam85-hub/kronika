@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Entry } from 'src/app/models/entry.model';
+import { EntriesService } from 'src/app/services/entries.service';
 import { PageComponent } from '../page/page.component';
 
 @Component({
@@ -9,9 +11,12 @@ import { PageComponent } from '../page/page.component';
 })
 export class KronikaComponent extends PageComponent implements OnInit {
   override pageTitle: string = "Kronika";
+  entries: Entry[] = [];
 
-  constructor(titleService: Title) {
+  constructor(titleService: Title, private entriesService: EntriesService) {
     super(titleService);
+
+    this.entriesService.getEntries().subscribe(entries => this.entries = entries);
    }
 
 }
