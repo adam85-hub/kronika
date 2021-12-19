@@ -1,0 +1,22 @@
+<ng-container *ngIf="!isWaiting; else waitingTemplate">
+    <div class="row" id="login-container">
+        <div class="col-md-2">
+            <label for="password">Hasło:</label>
+        </div>
+        <div class="col-md-8">
+            <input [(ngModel)]="password" type="password" id="password">
+        </div>
+        <div class="col-md-2">
+            <button id="btn-login" (click)="logIn()">Zaloguj</button>
+        </div>
+    </div>
+    <div *ngIf="isGoodPassword == false" class="alert alert-danger">
+        Złe hasło!
+    </div>
+</ng-container>
+
+<ng-template #waitingTemplate>
+    <div>
+        Please wait...
+    </div>
+</ng-template>

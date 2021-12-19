@@ -10,15 +10,15 @@
   <div *ngIf="isNavbarExpanded; else navbarCollapsed">
     <a routerLink="/strona-główna">Strona główna</a>
     <a routerLink="/kronika">Kronika</a>
-    <a>Youtube</a>
-    <a>Ewangelia</a>
+    <a href="https://www.youtube.com/channel/UCBEM_qBwUvQvkGgh-YARZGg/videos" target="_blank">Youtube</a>
+    <a href="http://biblijni.pl/" target="_blank">Ewangelia</a>
     <a (mouseover)="expandInne($event)" (mouseleave)="collapseInne($event)" [ngStyle]="{'padding-bottom': innePadding}">
       Inne
       <div *ngIf="isInneExpanded" id="inne-expand-container">
         <a class="inne-a">Linki</a>
-        <a class="inne-a">Adoracja</a>
+        <a class="inne-a" href="https://www.youtube.com/watch?v=P9U27wo7FlY" target="_blank">Adoracja</a>
         <a class="inne-a">Modlitwy</a>
-        <a class="inne-a">Panel moderatora</a>
+        <a class="inne-a" routerLink="/login">Panel moderatora</a>
       </div>
     </a>
     <a href="http://www.parafia-podlesie.pl/" target="_blank">Strona parafii</a>

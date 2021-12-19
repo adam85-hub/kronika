@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,10 +10,10 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { TitleComponent } from './shared/title/title.component';
 import { ArticleComponent } from './shared/article/article.component';
 import { KronikaComponent } from './pages/kronika/kronika.component';
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Error404Component } from './pages/error404/error404.component';
 import { PageComponent } from './pages/page/page.component';
+import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login.component';
+import { ModeratorPanelComponent } from './pages/moderator-panel/moderator-panel.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,16 @@ import { PageComponent } from './pages/page/page.component';
     ArticleComponent,
     KronikaComponent,
     Error404Component,
-    PageComponent
+    PageComponent,
+    ModeratorLoginComponent,
+    ModeratorPanelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
