@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { PageComponent } from './pages/page/page.component';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 export class AppComponent implements OnInit {
   
   titleStyle: string = "";
+  isMainDisplayed: boolean = true;
 
   ngOnInit(): void {
     //Change navbar state
@@ -18,6 +20,19 @@ export class AppComponent implements OnInit {
       }
     };
     this.onResize(e);
+  }
+
+  changePage(e: PageComponent) {
+    this.isMainDisplayed = e.isMain();
+    //Jeżeli wyświetlana strona nie jest stroną główną to nie wyświetlaj sekcji z tytułem i logiem parafii
+    if(this.isMainDisplayed === false){
+      this.titleStyle = "display: none";
+      this.fixedClass = "navbar-fixed";
+    }
+    else {
+      this.titleStyle = "";
+      this.onScroll();
+    }    
   }
 
   //#region NavbarLogic  
@@ -48,11 +63,11 @@ export class AppComponent implements OnInit {
   }
 
   //Obsługuje przyklejanie się navbara do góry okna przy przewijaniu
-  onScroll(event: Event){
-    if(window.scrollY >= 140) {
+  onScroll(event?: Event){
+    if(window.scrollY >= 140 && this.isMainDisplayed) {
       this.fixedClass = "navbar-fixed";
     }
-    else { 
+    else if (window.scrollY < 140 && this.isMainDisplayed) { 
       this.fixedClass = "navbar-absolute";
     }
   }

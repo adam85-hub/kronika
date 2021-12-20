@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -7,15 +7,20 @@ import { Title } from '@angular/platform-browser';
   styles: []
 })
 export class PageComponent implements OnInit {
-  isMainPage: boolean = false;
+  protected isMainPage: boolean = false;
   pageTitle: string = "Page";
 
+  
   constructor(private titleService: Title) { }
-
+  
   ngOnInit(): void {
     this.setTitle();
   }
-
+  
+  public isMain(): boolean {
+    return this.isMainPage;
+  }
+  
   setTitle() {
     this.titleService.setTitle(this.pageTitle); //+ " - Parafia Katowice Podlesie");
   }

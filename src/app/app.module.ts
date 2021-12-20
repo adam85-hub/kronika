@@ -14,6 +14,7 @@ import { Error404Component } from './pages/error404/error404.component';
 import { PageComponent } from './pages/page/page.component';
 import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login.component';
 import { ModeratorPanelComponent } from './pages/moderator-panel/moderator-panel.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ModeratorPanelComponent } from './pages/moderator-panel/moderator-panel
     Error404Component,
     PageComponent,
     ModeratorLoginComponent,
-    ModeratorPanelComponent
+    ModeratorPanelComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

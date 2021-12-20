@@ -12,7 +12,7 @@ import { PageComponent } from '../page/page.component';
 export class ModeratorLoginComponent extends PageComponent implements OnInit {
   override pageTitle: string = "Logowanie do panelu moderatora";
   password: string = "";
-  isWaiting: boolean = false;
+  isWaiting: boolean = true;
   isGoodPassword: boolean | undefined = undefined;
 
   constructor(titleService: Title, private authService: AuthenticationService, private router: Router) { 
