@@ -4,7 +4,7 @@
             <label for="password">Hasło:</label>
         </div>
         <div class="col-md-8">
-            <input [(ngModel)]="password" type="password" id="password">
+            <input [(ngModel)]="password" type="password" id="password" (keydown.enter)="logIn()">
         </div>
         <div class="col-md-2">
             <button id="btn-login" (click)="logIn()">Zaloguj</button>

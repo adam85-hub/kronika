@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, catchError, Observable, Subject, throwError } from 'rxjs';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { BehaviorSubject, catchError, Observable, Subject, throwError } from 'rx
 export class AuthenticationService {
   private password: string = 'none';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   /**
    * Handles errors in connetcions with back-end
@@ -37,7 +38,7 @@ export class AuthenticationService {
       params: new HttpParams().set('password', password)
     }
 
-    return this.http.get<boolean>("", options).pipe(
+    return this.http.get<boolean>("http://localhost:80/kronika/api/login", options).pipe(
       catchError(this.handleError)
     );
   }
@@ -59,7 +60,6 @@ export class AuthenticationService {
         return false;
       }
     })
-
 
     return response;
   }

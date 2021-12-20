@@ -37,7 +37,9 @@
 <!-- Główna zawartość strony sterowana przez routing -->
 <main>
   <div class="container-lg" id="main-container" [ngClass]="mainWhenNavbarNotCollapsed">
-    <router-outlet #outlet="outlet" (activate)="changePage($event)"></router-outlet>
+    <article>
+      <router-outlet #outlet="outlet" (activate)="changePage($event)"></router-outlet>
+    </article>
   </div>
 </main>
 
