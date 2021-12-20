@@ -1,18 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ENTRIES } from '../mock-entries';
+import { Observable } from 'rxjs';
 import { Entry } from '../models/entry.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntriesService {
-  private entries$: BehaviorSubject<Entry[]> = new BehaviorSubject<Entry[]>(ENTRIES);
-
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   getEntries() : Observable<Entry[]> {
-    return this.entries$.asObservable();
+    return this.http.get<Entry[]>("http://localhost:80/kronika/api/posts");
   }
 }

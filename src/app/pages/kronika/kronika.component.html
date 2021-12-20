@@ -1,17 +1,26 @@
 <app-title style="margin-bottom: 5px;">Kronika wydarzeń</app-title>
 
-<ng-container *ngIf="entries.length > 0; else noEntriesTemplate">
-    <div class="entry-container row" *ngFor="let entry of entries;">
-        <img [src]="entry.titlePhoto.src" loading="lazy" class="col-lg-3">
-        <div class="col-lg-9">
-            <span>{{entry.title}} | Data: {{entry.getDate()}} </span> <br/>
-            {{entry.description}}
+<ng-container *ngIf="!isLoading; else loading">
+    <ng-container *ngIf="entries.length > 0; else noEntriesTemplate">
+        <div class="entry-container row" *ngFor="let entry of entries;">
+            <img [src]="entry.titlePhoto" loading="lazy" class="col-lg-3">
+            <div class="col-lg-9">
+                <span>{{entry.title}} | Data: {{entry.date}} </span> <br />
+                {{entry.description}}
+            </div>
         </div>
-    </div>
+    </ng-container>
 </ng-container>
 
 <ng-template #noEntriesTemplate>
     <div id="no-entries">
-        Nie ma żadnych wpisów (napisz na adres email: <b>adam.bialik85@gmail.com</b>, ponieważ jest to najprawdopodobniej błąd).
+        Nie ma żadnych wpisów (napisz na adres email: <b>adam.bialik85@gmail.com</b>, ponieważ jest to
+        najprawdopodobniej błąd).
+    </div>
+</ng-template>
+
+<ng-template #loading>
+    <div id="loading-container">
+        <app-loading [animation]="'rotate'"></app-loading>
     </div>
 </ng-template>

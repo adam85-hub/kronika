@@ -12,11 +12,19 @@ import { PageComponent } from '../page/page.component';
 export class KronikaComponent extends PageComponent implements OnInit {
   override pageTitle: string = "Kronika";
   entries: Entry[] = [];
+  isLoading: boolean = false;
 
   constructor(titleService: Title, private entriesService: EntriesService) {
-    super(titleService);
+    super(titleService);    
+  }
 
-    this.entriesService.getEntries().subscribe(entries => this.entries = entries);
-   }
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.isLoading = true;
+    this.entriesService.getEntries().subscribe(entries => {
+      this.entries = entries;
+      this.isLoading = false;
+    });
+  }
 
 }
