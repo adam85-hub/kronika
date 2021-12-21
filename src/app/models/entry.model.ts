@@ -1,5 +1,5 @@
 /**
- * Klasa ilustrująca wpis do kroniki
+ * Interfejs ilustrująca wpis do kroniki
  */
 export interface Entry {
     title: string
