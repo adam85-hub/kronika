@@ -1,4 +1,5 @@
 {
+  "id": id_wpisu
   "title": "Tytuł wpisu",
   "description": "Zawartość wpisu do kroniki",
   "date": "Data wydarzenia utworzonego w wpisie",
