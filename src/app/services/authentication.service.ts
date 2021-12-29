@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, catchError, Observable, Subject, throwError } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private password: string = 'none';
+  private token?: string = undefined;
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -21,6 +22,10 @@ export class AuthenticationService {
       console.error("An error ocurred: ", error.error);
       return throwError(() => new Error("Sprawdź swoje połączenie internetowe."));
     }
+    else if (error.status === 403){
+      console.error("An error ocurred: ", error.error);
+      return throwError(() => new Error("Nie jesteś zalogowany."));
+    }
     else {
       console.error(`Backend returned code of ${error.status}, body of error was: `, error.error);
     }
@@ -29,44 +34,59 @@ export class AuthenticationService {
   }
 
   /**
-   * Sprawdza czy hasło jest poprawne
-   * @param password Hasło do sprawdzenia
-   * @returns Prawdę albo fałsz w zależności od poprawności hasła
+   * Służy do uzyskania tokenu pozwalającego na edytowanie danych
+   * @param password Hasło pozwalające uzyskać token
+   * @returns "yes+token" jeżeli prawda "no" jeżeli nie
    */
-  public isLoggedIn(password: string): Observable<boolean> {
+  public logIn(password: string): Observable<string> {
     const options = {
       params: new HttpParams().set('password', password)
     }
 
-    return this.http.get<boolean>("http://localhost:80/kronika/api/login", options).pipe(
+    return this.http.get<string>("http://localhost:80/kronika/api/login", options).pipe(
       catchError(this.handleError)
     );
   }
 
   /**
-   * Ustawia hasło z którym wysyłane są requesty
-   * @param password Wartość hasła do ustawienia
+   * Wylogowuje (unieważnia token)
    */
-  public setPassword(password: string): void {
-    this.password = password;
+  public logOut(): void {
+    this.http.get<boolean>("http://localhost:80/kronika/api/logout");
   }
 
-  public async testLogin(): Promise<boolean> {
-    const response: boolean = await this.later(1000).then(() => {
-      if (this.password === "twojastarsza") {
-        return true;
-      }
-      else {
-        return false;
-      }
-    })
+  /**
+   * Ustawia token i ciasteczko które go przechowuje
+   * @param token token do ustawienia
+   */
+  public setToken(token: string): void{
+    this.token = token;
 
-    return response;
+    let expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + 1);
+
+    this.cookieService.set("token", token, expireDate);
   }
 
-  private later(delay: number) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, delay);
-    });
+
+  /**
+   * Verifies if token is still valid
+   * @returns true if token is valid false if not
+   */
+  public verifyToken() : Observable<boolean> {
+    let token = this.cookieService.get("token");
+    let obs$ = new BehaviorSubject<boolean>(false);    
+
+    if(token != undefined || token != null) {
+      const options = {
+        params: new HttpParams().set('token', token)
+      }
+
+      return this.http.get<boolean>("http://localhost:80/kronika/api/verifytoken", options).pipe(
+        catchError(this.handleError)
+      );
+    }
+
+    return obs$.asObservable();
   }
 }

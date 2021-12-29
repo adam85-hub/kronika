@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { last } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PageComponent } from '../page/page.component';
 
@@ -17,19 +18,29 @@ export class ModeratorLoginComponent extends PageComponent implements OnInit {
 
   constructor(titleService: Title, private authService: AuthenticationService, private router: Router) { 
     super(titleService);
+    this.authService.verifyToken().pipe(last()).subscribe(s => {
+      s ? this.router.navigateByUrl('/panel') : undefined;
+    });
   }
 
-  async logIn() {
+  logIn() {
     this.isWaiting = true;
-    this.authService.setPassword(this.password);
-    await this.authService.testLogin().then((s) => this.onSuccess(s));
+    this.authService.logIn(this.password).pipe(last()).subscribe(s => this.onSuccess(s));
   }
 
-  onSuccess(success: boolean) {
-    if(success == true) {
+  onSuccess(success: string) {
+    if(success.startsWith("yes")) {
+      let token = success.substring(3);
+      console.log(token); // ! to remove (only for debugging)
+      this.authService.setToken(token);
+
       this.router.navigateByUrl('/panel');
+      this.isGoodPassword = true;        
+    }
+    else {
+      this.isGoodPassword = false;  
     }
     this.isWaiting = false;
-    this.isGoodPassword = success;  
+    
   }
 }
