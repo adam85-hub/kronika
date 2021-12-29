@@ -8,5 +8,5 @@ export interface EntryInterface {
     Title: string
     Date: string
     TitlePhoto: string
-    Elements: ElementInterface
+    Elements?: ElementInterface[]
 }

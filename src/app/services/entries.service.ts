@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResponseInterface } from '../interfaces/response.model';
+import { ResponseInterface } from '../interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,9 @@ export class EntriesService {
 
   getEntries() : Observable<ResponseInterface> {
     return this.http.get<ResponseInterface>("http://localhost:80/kronika/api/entries");
+  }
+
+  getEntriesByYear(year: number) : Observable<ResponseInterface> {
+    return this.http.get<ResponseInterface>(`http://localhost:80/kronika/api/entries/year/${year}`);
   }
 }
