@@ -1,0 +1,8 @@
+{
+  "id": "id_wpisu(numeric)"
+  "title": "Tytuł wpisu",
+  "description": "Zawartość wpisu do kroniki",
+  "date": "Data wydarzenia utworzonego w wpisie",
+  "photos": ["link_do_zdjęcia_1", "link_do_zdjęcia_2"],
+  "titlePhoto": "link_do_zdjęcia_tytułowego"
+}
