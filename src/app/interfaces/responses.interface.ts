@@ -4,3 +4,8 @@ export interface ResponseInterface
 { 
     entries: EntryInterface[]
 }
+
+export interface YearsResponseInterface
+{
+    years: number[]
+}
