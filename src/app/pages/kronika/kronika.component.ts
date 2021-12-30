@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { last } from 'rxjs';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -17,7 +18,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
   years: number[] = [];
   selectedYear = 2021;
 
-  constructor(titleService: Title, private entriesService: EntriesService) {
+  constructor(titleService: Title, private entriesService: EntriesService, private router: Router) {
     super(titleService);    
   }
 
@@ -56,4 +57,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.getEntries();
   }
 
+  toEntry(id: number) {
+    this.router.navigateByUrl(`/kronika/${id}`);
+  }
 }

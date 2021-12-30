@@ -1,0 +1,42 @@
+<ng-template [ngIf]="entry != null">
+    <div id="title-section">
+        {{entry.Title}} <br/>
+        {{entry.Date | date: 'dd.MM.yyyy'}}
+    </div>
+    <div id="elements-section" *ngIf="entry.Elements != null">
+        <div class="element" *ngFor="let element of entry.Elements">
+            <ng-template [ngIf]="element.type == 'Paragraph'">
+                <div class="paragraph-el">
+                    {{element.getAttr()}}
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="element.type == 'Image'">
+                <div class="image-el">
+                    <img [src]="element.getAttr()" loading="lazy">
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="element.type == 'Video'">
+                <div class="video-el">
+                    <youtube-player [videoId]="getVideoId(element.getAttr())" [width]="widthOfVideos" [height]="heightOfVideos"></youtube-player>   
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template [ngIf]="failedEntry != null">
+    <div id="failed-entry">
+        <app-title>Uszkodzony wpis</app-title>
+        <p>
+            Pobranie wpisu o id {{id}} ze starej strony <b>nie powiodło się</b>. <br/>
+            Link do starego wpisu: 
+            <a [href]="failedEntry.url" target="_blank">{{failedEntry.url}}</a>
+        </p>
+    </div>
+</ng-template>
+
+<ng-template [ngIf]="failedEntry == null && entry == null">
+    <div id="loader">
+        <app-loading [animation]="'rotate'"></app-loading>
+    </div>
+</ng-template>

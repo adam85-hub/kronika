@@ -7,4 +7,8 @@ export class ParagraphModel extends ElementModel {
         super(index, "Paragraph");
         this.content = content;
     }
+
+    getAttr(): string {
+        return this.content;
+    }
 }

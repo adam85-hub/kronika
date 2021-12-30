@@ -10,3 +10,8 @@ export interface EntryInterface {
     TitlePhoto: string
     Elements?: ElementInterface[]
 }
+
+export interface FailedEntryInterface {
+    id: number,
+    url: string
+}

@@ -1,0 +1,55 @@
+@import '../../../variables.scss';
+
+#loader {
+    width: 150px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+#failed-entry {
+    b {
+        color: $error-color;
+    }
+    
+    p {
+        font-size: 20px;
+        text-align: center;
+    }
+}
+
+#title-section {
+    padding: 10px;
+    margin: 10px 0px;
+    font-size: 30px;
+    box-shadow: 0 0 3px 0px darken($second-accent, 50%);
+    text-align: center;
+}
+
+#elements-section {
+    margin-bottom: 10px;
+    border-radius: 2px;
+    box-shadow: 0 0 3px 0px darken($second-accent, 50%);
+}
+
+.element {
+    padding: 10px;
+}
+
+.paragraph-el {
+    text-align: justify;
+}
+
+.image-el {
+    width: fit-content;    
+    margin: 0 auto;
+    height: fit-content;
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.video-el {
+    width: fit-content;
+    margin: 0 auto;
+}

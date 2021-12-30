@@ -7,4 +7,8 @@ export class VideoModel extends ElementModel {
         super(index, "Video");
         this.src = src;
     }
+
+    getAttr(): string {
+        return this.src;
+    }
 }

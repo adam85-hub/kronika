@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,8 @@ import { PageComponent } from './pages/page/page.component';
 import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login.component';
 import { ModeratorPanelComponent } from './pages/moderator-panel/moderator-panel.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { WpisComponent } from './pages/wpis/wpis.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
     PageComponent,
     ModeratorLoginComponent,
     ModeratorPanelComponent,
-    LoadingComponent
+    LoadingComponent,
+    WpisComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +40,18 @@ import { LoadingComponent } from './shared/loading/loading.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    YouTubePlayerModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    { provide:LocationStrategy, useClass: HashLocationStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+export var apiLoaded = false;
+export function changeApiLoaded(state: boolean) {
+  apiLoaded = state;
+}
