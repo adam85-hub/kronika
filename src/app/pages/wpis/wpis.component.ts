@@ -51,26 +51,26 @@ export class WpisComponent extends PageComponent implements OnInit {
   loadEntry() : void {
     this.entriesService.getEntry(this.id).pipe(
       catchError(this.handleError), last()
-    ).subscribe((entry) => {
+    ).subscribe({next: (entry) => {
       if('url' in entry) {
         this.failedEntry = entry;
         this.entry = undefined;
       }
-      else {
+      else {        
         let elements = entry.Elements;
         if(elements != undefined) elements.sort((a,b) => a.index - b.index);
         this.entry = new EntryModel(entry, elements);  
         this.failedEntry = undefined;
         setTimeout(() => this.onResize(), 100);
       }    
+    },
+      error: (e) => {
+        this.router.navigateByUrl('/error404');
+      }
     });
   }
 
   handleError(error: HttpErrorResponse) {
-    if(error.status == 404)
-    {      
-    }
-
     return throwError(() => new Error("Wpis o takim id nie istnieje!"));
   }
 
