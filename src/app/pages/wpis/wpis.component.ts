@@ -61,7 +61,7 @@ export class WpisComponent extends PageComponent implements OnInit {
         if(elements != undefined) elements.sort((a,b) => a.index - b.index);
         this.entry = new EntryModel(entry, elements);  
         this.failedEntry = undefined;
-        setTimeout(() => this.onResize(), 1000);
+        setTimeout(() => this.onResize(), 100);
       }    
     });
   }
@@ -76,7 +76,7 @@ export class WpisComponent extends PageComponent implements OnInit {
 
   getVideoId(url: string): string {
     let re = /embed\//;
-    let id = url.split(re)[1];
+    let id = url.split(re)[1];    
     return id;
   }
 
@@ -91,5 +91,18 @@ export class WpisComponent extends PageComponent implements OnInit {
       this.widthOfVideos = el_section?.clientWidth - 0.3 * el_section?.clientWidth;
       this.heightOfVideos = this.widthOfVideos / 1.618;
     }
+  }
+
+  getClassForEl(index: number) : string {
+    let els = this.entry?.Elements;
+    if(els != null)
+    {
+      if(els[index].type == 'Image' && (els[index+1].type == 'Image' || els[index-1].type == 'Image'))
+      {
+        return "col-md-6";
+      }
+    }
+
+    return "none";
   }
 }
