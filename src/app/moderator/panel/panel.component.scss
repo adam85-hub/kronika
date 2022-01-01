@@ -1,0 +1,113 @@
+@import "../../../variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,700;1,400;1,700&display=swap');
+
+//* Palette: https://coolors.co/eee3ab-437c90-7fc998-ff6b6c
+
+$btn-red: #FF6B6C;
+$btn-green: #7FC998;
+$btn-blue: #437C90;
+$grey-accent: rgb(66, 66, 66);
+
+@mixin cantSelect {
+    //You can't select this shit
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none; 
+}
+
+div {
+    font-family: 'Roboto Mono', sans-serif;
+}
+
+#left-container {
+    padding: 10px;
+}
+
+.tile {
+    border: 3px solid $font-color;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#title-section {
+    span {
+        margin-bottom: 10px;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: underline 2px;
+    }
+
+    button {
+        margin-right: 5px;
+    }
+}
+
+button {
+    all: unset;
+    @include cantSelect();
+    border: 1px solid $font-color;
+    padding: 2px 10px;
+    font-weight: bold;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: pointer;    
+
+    &:hover {
+        color: $btn-blue;
+        border-color: $btn-blue;
+    }
+}
+
+.btn-red:hover {
+    color: $btn-red;   
+    border-color: $btn-red;
+}
+
+.btn-green:hover {
+    color: $btn-green;
+    border-color: $btn-green;
+}
+
+#search {
+    display: flex;
+    font-size: 20px;
+
+    button {
+        margin-left: 10px;
+    }
+
+    input {
+        width: 100%;
+        padding: 5px 10px;
+    }
+}
+
+#menu {
+    font-size: 18px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid $font-color;
+    @include cantSelect();
+
+    button {        
+        all: unset;
+        padding: 5px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid $font-color;   
+        
+        &:hover {
+            background-color: $alternative-font-color;            
+        }
+
+        &:last-child {
+            border: none;
+        }
+    }    
+
+    .active {
+        background-color: $grey-accent;
+    }
+}

@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   
   titleStyle: string = "";
   isMainDisplayed: boolean = true;
+  isModeratorDisplayed: boolean = false;
 
   ngOnInit(): void {
     //Change navbar state
@@ -33,6 +34,8 @@ export class AppComponent implements OnInit {
       this.titleStyle = "";
       this.onScroll();
     }    
+
+    this.isModeratorDisplayed = e.isModerator;
   }
 
   //#region NavbarLogic  

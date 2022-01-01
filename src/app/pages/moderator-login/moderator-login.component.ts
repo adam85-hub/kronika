@@ -16,25 +16,25 @@ export class ModeratorLoginComponent extends PageComponent implements OnInit {
   isWaiting: boolean = false;
   isGoodPassword: boolean | undefined = undefined;
 
-  constructor(titleService: Title, private authService: AuthenticationService, private router: Router) { 
+  constructor(titleService: Title, private router: Router, private authService: AuthenticationService) { 
     super(titleService);
     this.authService.verifyToken().pipe(last()).subscribe(s => {
-      s ? this.router.navigateByUrl('/panel') : undefined;
+      s ? this.router.navigateByUrl('/moderator/panel') : undefined;
     });
   }
 
   logIn() {
     this.isWaiting = true;
-    this.authService.logIn(this.password).pipe(last()).subscribe(s => this.onSuccess(s));
+    this.authService.logIn(this.password).pipe(last()).subscribe(s => this.onSuccess(s.text));
   }
 
-  onSuccess(success: string) {
+  onSuccess(success: String) {
     if(success.startsWith("yes")) {
-      let token = success.substring(3);
+      let token = success.substring(4);
       console.log(token); // ! to remove (only for debugging)
       this.authService.setToken(token);
 
-      this.router.navigateByUrl('/panel');
+      this.router.navigateByUrl('/moderator/panel');
       this.isGoodPassword = true;        
     }
     else {

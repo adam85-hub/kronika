@@ -15,7 +15,6 @@ import { KronikaComponent } from './pages/kronika/kronika.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { PageComponent } from './pages/page/page.component';
 import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login.component';
-import { ModeratorPanelComponent } from './pages/moderator-panel/moderator-panel.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WpisComponent } from './pages/wpis/wpis.component';
@@ -30,7 +29,6 @@ import { WpisComponent } from './pages/wpis/wpis.component';
     Error404Component,
     PageComponent,
     ModeratorLoginComponent,
-    ModeratorPanelComponent,
     LoadingComponent,
     WpisComponent
   ],

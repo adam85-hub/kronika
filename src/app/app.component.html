@@ -1,48 +1,57 @@
-<div id="title-image" [style]="titleStyle">
-  <img src="http://fzskatowicepodlesie.pl/parafia/AAAA/logo_MBCZ.gif">
-  <span>
-    Parafia Matki Boskiej Częstochowskiej Katowice Podlesie
-  </span>
-</div>
-
-<!-- Nawigacja po kronice -->
-<nav id="nav-bar" (window:scroll)="onScroll($event)" [ngClass]="fixedClass">
-  <div *ngIf="isNavbarExpanded; else navbarCollapsed">
-    <a routerLink="/strona-główna">Strona główna</a>
-    <a routerLink="/kronika">Kronika</a>
-    <a href="https://www.youtube.com/channel/UCBEM_qBwUvQvkGgh-YARZGg/videos" target="_blank">Youtube</a>
-    <a href="http://biblijni.pl/" target="_blank">Ewangelia</a>
-    <a (mouseover)="expandInne($event)" (mouseleave)="collapseInne($event)" [ngStyle]="{'padding-bottom': innePadding}">
-      Inne
-      <div *ngIf="isInneExpanded" id="inne-expand-container">
-        <a class="inne-a">Linki</a>
-        <a class="inne-a" href="https://www.youtube.com/watch?v=P9U27wo7FlY" target="_blank">Adoracja</a>
-        <a class="inne-a">Modlitwy</a>
-        <a class="inne-a" routerLink="/login">Panel moderatora</a>
-      </div>
-    </a>
-    <a href="http://www.parafia-podlesie.pl/" target="_blank">Strona parafii</a>
-    <a id="last-link">Kontakt</a>
+<ng-container *ngIf="isModeratorDisplayed === false; else moderator">
+  <div id="title-image" [style]="titleStyle">
+    <img src="http://fzskatowicepodlesie.pl/parafia/AAAA/logo_MBCZ.gif">
+    <span>
+      Parafia Matki Boskiej Częstochowskiej Katowice Podlesie
+    </span>
   </div>
 
-  <ng-template #navbarCollapsed>
-    <button id="collapsed" (click)="openSideNav()">
-      przycisk
-    </button>
-  </ng-template>
-</nav>
+  <!-- Nawigacja po kronice -->
+  <nav id="nav-bar" (window:scroll)="onScroll($event)" [ngClass]="fixedClass">
+    <div *ngIf="isNavbarExpanded; else navbarCollapsed">
+      <a routerLink="/strona-główna">Strona główna</a>
+      <a routerLink="/kronika">Kronika</a>
+      <a href="https://www.youtube.com/channel/UCBEM_qBwUvQvkGgh-YARZGg/videos" target="_blank">Youtube</a>
+      <a href="http://biblijni.pl/" target="_blank">Ewangelia</a>
+      <a (mouseover)="expandInne($event)" (mouseleave)="collapseInne($event)"
+        [ngStyle]="{'padding-bottom': innePadding}">
+        Inne
+        <div *ngIf="isInneExpanded" id="inne-expand-container">
+          <a class="inne-a">Linki</a>
+          <a class="inne-a" href="https://www.youtube.com/watch?v=P9U27wo7FlY" target="_blank">Adoracja</a>
+          <a class="inne-a">Modlitwy</a>
+          <a class="inne-a" routerLink="/login">Panel moderatora</a>
+        </div>
+      </a>
+      <a href="http://www.parafia-podlesie.pl/" target="_blank">Strona parafii</a>
+      <a id="last-link">Kontakt</a>
+    </div>
+
+    <ng-template #navbarCollapsed>
+      <button id="collapsed" (click)="openSideNav()">
+        przycisk
+      </button>
+    </ng-template>
+  </nav>
 
 
 
-<!-- Główna zawartość strony sterowana przez routing -->
-<main>
-  <div class="container-lg" id="main-container" [ngClass]="mainWhenNavbarNotCollapsed">
-    <article>
-      <router-outlet #outlet="outlet" (activate)="changePage($event)"></router-outlet>
-    </article>
+  <!-- Główna zawartość strony sterowana przez routing -->
+  <main>
+    <div class="container-lg" id="main-container" [ngClass]="mainWhenNavbarNotCollapsed">
+      <article>
+        <router-outlet #outlet="outlet" (activate)="changePage($event)"></router-outlet>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    Adam Bialik 2021 &copy; Wszystkie prawa zastrzeżone
+  </footer>
+</ng-container>
+
+<ng-template #moderator>
+  <div id="moderator-container" class="container-fluid">
+    <router-outlet #outlet="outlet" (activate)="changePage($event)"></router-outlet>
   </div>
-</main>
-
-<footer>
-  Adam Bialik 2021 &copy; Wszystkie prawa zastrzeżone
-</footer>
+</ng-template>

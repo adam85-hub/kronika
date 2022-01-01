@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, catchError, Observable, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -9,6 +9,7 @@ import { BehaviorSubject, catchError, Observable, Subject, throwError } from 'rx
 })
 export class AuthenticationService {
   private token?: string = undefined;
+  private baseUrl: string = "http://localhost:80";
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -38,12 +39,12 @@ export class AuthenticationService {
    * @param password Hasło pozwalające uzyskać token
    * @returns "yes+token" jeżeli prawda "no" jeżeli nie
    */
-  public logIn(password: string): Observable<string> {
+  public logIn(password: string): Observable<any> {
     const options = {
       params: new HttpParams().set('password', password)
     }
 
-    return this.http.get<string>("http://localhost:80/kronika/api/login", options).pipe(
+    return this.http.get<any>(this.baseUrl + "/kronika/api/login", options).pipe(
       catchError(this.handleError)
     );
   }
@@ -51,8 +52,19 @@ export class AuthenticationService {
   /**
    * Wylogowuje (unieważnia token)
    */
-  public logOut(): void {
-    this.http.get<boolean>("http://localhost:80/kronika/api/logout");
+  public logOut(): Observable<boolean> {
+    let token = this.cookieService.get("token");
+    let obs$ = new BehaviorSubject<boolean>(false);    
+
+    if(token != undefined || token != null) {
+      const headers = new HttpHeaders().set('Token', token);
+
+      return this.http.get<boolean>(this.baseUrl + "/kronika/api/logout", {'headers' : headers}).pipe(
+        catchError(this.handleError)
+      );
+    }
+
+    return obs$.asObservable();
   }
 
   /**
@@ -75,14 +87,12 @@ export class AuthenticationService {
    */
   public verifyToken() : Observable<boolean> {
     let token = this.cookieService.get("token");
-    let obs$ = new BehaviorSubject<boolean>(false);    
+    let obs$ = new BehaviorSubject<boolean>(false);  
 
-    if(token != undefined || token != null) {
-      const options = {
-        params: new HttpParams().set('token', token)
-      }
+    if(token != undefined && token != null && token != '') {
+      const headers = new HttpHeaders().append('Token', token);
 
-      return this.http.get<boolean>("http://localhost:80/kronika/api/verifytoken", options).pipe(
+      return this.http.get<boolean>(this.baseUrl + "/kronika/api/verifytoken", { 'headers': headers }).pipe(
         catchError(this.handleError)
       );
     }

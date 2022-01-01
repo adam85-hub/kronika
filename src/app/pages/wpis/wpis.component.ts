@@ -45,7 +45,7 @@ export class WpisComponent extends PageComponent implements OnInit {
         this.id = params["id"];
         this.paramsLoaded.subscribe(() => this.loadEntry());
         this.paramsLoaded.emit();
-      });       
+      });    
   }
 
   loadEntry() : void {

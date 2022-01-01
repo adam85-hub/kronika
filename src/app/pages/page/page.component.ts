@@ -9,6 +9,7 @@ import { Title } from '@angular/platform-browser';
 export class PageComponent implements OnInit {
   protected isMainPage: boolean = false;
   pageTitle: string = "Page";
+  isModerator: boolean = false;
 
   
   constructor(private titleService: Title) { }
