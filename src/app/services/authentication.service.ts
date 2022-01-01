@@ -52,14 +52,14 @@ export class AuthenticationService {
   /**
    * Wylogowuje (unieważnia token)
    */
-  public logOut(): Observable<boolean> {
+  public logOut(): Observable<any> {
     let token = this.cookieService.get("token");
-    let obs$ = new BehaviorSubject<boolean>(false);    
+    let obs$ = new BehaviorSubject<any>('false');    
 
     if(token != undefined || token != null) {
       const headers = new HttpHeaders().set('Token', token);
 
-      return this.http.get<boolean>(this.baseUrl + "/kronika/api/logout", {'headers' : headers}).pipe(
+      return this.http.get(this.baseUrl + "/kronika/api/logout", {'headers' : headers, responseType: 'text'}).pipe(
         catchError(this.handleError)
       );
     }

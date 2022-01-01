@@ -1,0 +1,18 @@
+@import "../moderator.variables.scss";
+
+#title-section {
+    display: flex;
+    @include cantSelect();
+
+    #title {
+        font-size: 25px;
+        width: fit-content;
+        margin-right: 10px;
+        flex: 1;
+    }    
+
+    #year {
+        width: 100%;
+        flex: 4;
+    }
+}

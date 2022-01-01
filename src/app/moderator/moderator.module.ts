@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { ModeratorRoutingModule } from './moderator-routing.module';
 import { PanelComponent } from './panel/panel.component';
+import { EntriesListComponent } from './entries-list/entries-list.component';
 
 
 @NgModule({
   declarations: [
-    PanelComponent
+    PanelComponent,
+    EntriesListComponent
   ],
   imports: [
     CommonModule,

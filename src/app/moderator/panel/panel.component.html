@@ -2,7 +2,7 @@
     <div class="col-xl-4" id="left-container">
         <div id="title-section" class="tile">
             <span>Panel Moderatora</span> <br />
-            <button class="btn-red">Wyloguj</button>
+            <button class="btn-red" (click)="logout()">Wyloguj</button>
             <button (click)="returnToMain()">Powrót</button>
         </div>
         <div class="tile">
@@ -11,11 +11,11 @@
                 <button>Szukaj</button>
             </div>
             <div id="menu">
-                <button *ngFor="let option of menuOptions">{{option.name}}</button>                
+                <button *ngFor="let option of menuOptions" (click)="changeDisplayedOption(option)">{{option.name}}</button>             
             </div>
         </div>
     </div>
     <div class="col-xl-8" id="right-container">
-        test2
+        <router-outlet></router-outlet>
     </div>
 </div>

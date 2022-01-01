@@ -11,11 +11,12 @@ import { ModeratorComponent } from '../moderator.component';
 })
 export class PanelComponent extends ModeratorComponent implements OnInit {
   search: string = "Szukaj...";
+  basePath = '/moderator/panel';
   menuOptions: MenuOption[] = [
-    {name: 'Wpisy'},
-    {name: 'Zepsute wpisy'},
-    {name: 'Strona główna'},
-    {name: 'Pomoc'}
+    {name: 'Wpisy', path: '/entries'},
+    {name: 'Zepsute wpisy', path: ''},
+    {name: 'Strona główna', path: ''},
+    {name: 'Pomoc', path: ''}
   ];
 
   constructor(titleService: Title, private auth: AuthenticationService, private router: Router) {
@@ -30,8 +31,17 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   returnToMain(): void {
     this.router.navigateByUrl("/strona-główna");
   }
+
+  changeDisplayedOption(option: MenuOption) {
+    this.router.navigateByUrl(this.basePath + option.path);
+  }
+
+  logout() {
+    this.auth.logOut().subscribe(s => this.router.navigateByUrl('/strona-główna'));   
+  }
 }
 
 interface MenuOption {
   name: string;
+  path: string;
 }

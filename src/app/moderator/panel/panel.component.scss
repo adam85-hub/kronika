@@ -1,28 +1,19 @@
 @import "../../../variables.scss";
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,700;1,400;1,700&display=swap');
+@import "../moderator.variables.scss";
 
 //* Palette: https://coolors.co/eee3ab-437c90-7fc998-ff6b6c
-
-$btn-red: #FF6B6C;
-$btn-green: #7FC998;
-$btn-blue: #437C90;
-$grey-accent: rgb(66, 66, 66);
-
-@mixin cantSelect {
-    //You can't select this shit
-    -webkit-touch-callout: none;
-    -webkit-user-select: none; 
-     -khtml-user-select: none; 
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none; 
-}
 
 div {
     font-family: 'Roboto Mono', sans-serif;
 }
 
 #left-container {
+    padding: 10px;
+    @include cantSelect();
+}
+
+#right-container {
     padding: 10px;
 }
 

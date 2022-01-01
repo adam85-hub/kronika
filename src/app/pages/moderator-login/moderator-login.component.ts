@@ -30,8 +30,7 @@ export class ModeratorLoginComponent extends PageComponent implements OnInit {
 
   onSuccess(success: String) {
     if(success.startsWith("yes")) {
-      let token = success.substring(4);
-      console.log(token); // ! to remove (only for debugging)
+      let token = success.substring(4);      
       this.authService.setToken(token);
 
       this.router.navigateByUrl('/moderator/panel');
