@@ -34,6 +34,8 @@ export class KronikaComponent extends PageComponent implements OnInit {
       this.years.sort((a,b) => b - a);
       this.selectedYear = this.years[0];
       this.getEntries();
+    }, error => {
+      this.isLoading = false;
     });
   }
 
@@ -45,6 +47,8 @@ export class KronikaComponent extends PageComponent implements OnInit {
         this.entries.push(new EntryModel(entry, entry.Elements));
       })
       this.entries.sort((b,a) => a.Date.valueOf() - b.Date.valueOf());
+      this.isLoading = false;
+    }, error => {
       this.isLoading = false;
     });
   }

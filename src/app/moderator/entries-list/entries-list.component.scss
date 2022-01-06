@@ -1,8 +1,11 @@
 @import "../moderator.variables.scss";
+@import "../../../variables.scss";
+@import "../panel/panel.component.scss";
 
 #title-section {
     display: flex;
     @include cantSelect();
+    margin-bottom: 10px;
 
     #title {
         font-size: 25px;
@@ -14,5 +17,50 @@
     #year {
         width: 100%;
         flex: 4;
+    }
+}
+
+#loading-container {
+    padding: 20px;
+    width: 120px;
+    margin: 0 auto;
+}
+
+.entry {
+    border: 2px solid $font-color;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .entry-title {
+        display: flex;
+        flex-wrap: wrap;
+
+        .title {
+            margin-right: 10px;
+        }
+    
+        .date {
+            color: $grey-accent;
+        }
+    }    
+
+    .entry-controls {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center; 
+        gap: 10px;
+        flex-wrap: wrap; 
+
+        .btn-edit {         
+            @include button($btn-green);           
+        }
+
+        .btn-delete {
+            @include button($btn-red);
+        }
     }
 }

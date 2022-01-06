@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ModeratorRoutingModule } from './moderator-routing.module';
 import { PanelComponent } from './panel/panel.component';
 import { EntriesListComponent } from './entries-list/entries-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EntriesListComponent } from './entries-list/entries-list.component';
   imports: [
     CommonModule,
     ModeratorRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class ModeratorModule { }

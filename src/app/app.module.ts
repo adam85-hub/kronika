@@ -9,27 +9,22 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
-import { TitleComponent } from './shared/title/title.component';
-import { ArticleComponent } from './shared/article/article.component';
 import { KronikaComponent } from './pages/kronika/kronika.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { PageComponent } from './pages/page/page.component';
 import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login.component';
-import { LoadingComponent } from './shared/loading/loading.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WpisComponent } from './pages/wpis/wpis.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    TitleComponent,
-    ArticleComponent,
     KronikaComponent,
     Error404Component,
     PageComponent,
     ModeratorLoginComponent,
-    LoadingComponent,
     WpisComponent
   ],
   imports: [
@@ -38,13 +33,14 @@ import { WpisComponent } from './pages/wpis/wpis.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    SharedModule
   ],
   providers: [
     CookieService,
     { provide:LocationStrategy, useClass: HashLocationStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
 

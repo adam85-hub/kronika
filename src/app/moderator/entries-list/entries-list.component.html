@@ -1,6 +1,30 @@
 <div id="title-section">
     <div id="title">Wpisy z roku: </div>
-    <select class="form-select" id="year">
-
+    <select class="form-select" id="year" (change)="selectedYearChanged($event)">
+        <ng-container *ngIf="years.length != 0; else yearsLoading">
+            <option *ngFor="let year of years" [value]="year"> {{year}} </option>
+        </ng-container>
+        <ng-template #yearsLoading>
+            <option>Ładowanie...</option>
+        </ng-template>
     </select>
+</div>
+<div id="entries-list">
+    <ng-container *ngIf="entries.length != 0; else entriesLoading">
+        <div class="entry" *ngFor="let entry of entries">
+            <div class="entry-title">
+                <div class="title">{{entry.Title}}</div>
+                <div class="date"> {{entry.Date | date: 'dd.MM.yyyy'}} </div>
+            </div>
+            <div class="entry-controls">
+                <button class="btn-edit">Edytuj</button>
+                <button class="btn-delete">Usuń</button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #entriesLoading>
+        <div id="loading-container">
+            <app-loading [animation]="'rotate'"></app-loading>
+        </div>
+    </ng-template>
 </div>

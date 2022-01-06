@@ -4,6 +4,21 @@
 
 //* Palette: https://coolors.co/eee3ab-437c90-7fc998-ff6b6c
 
+@mixin button($color: $btn-blue) {
+    all: unset;
+    @include cantSelect();
+    border: 1px solid $font-color;
+    padding: 2px 10px;
+    font-weight: bold;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: pointer;    
+
+    &:hover {
+        color: $color;
+        border-color: $color;
+    }
+}
+
 div {
     font-family: 'Roboto Mono', sans-serif;
 }
@@ -37,28 +52,15 @@ div {
 }
 
 button {
-    all: unset;
-    @include cantSelect();
-    border: 1px solid $font-color;
-    padding: 2px 10px;
-    font-weight: bold;
-    transition: color 0.2s, border-color 0.2s;
-    cursor: pointer;    
-
-    &:hover {
-        color: $btn-blue;
-        border-color: $btn-blue;
-    }
+    @include button();
 }
 
-.btn-red:hover {
-    color: $btn-red;   
-    border-color: $btn-red;
+.btn-red {
+    @include button($btn-red);
 }
 
 .btn-green:hover {
-    color: $btn-green;
-    border-color: $btn-green;
+    @include button($btn-green);
 }
 
 #search {
