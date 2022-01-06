@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { last } from 'rxjs';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -18,7 +18,7 @@ export class EntriesListComponent implements OnInit {
     this.entriesService.getYears().pipe(last()).subscribe(response => {
       this.years = response.years.sort((a, b) => b - a);
       this.getEntries(this.years[0]);      
-    });
+    });    
   }
 
   selectedYearChanged(e: Event) {
@@ -34,7 +34,19 @@ export class EntriesListComponent implements OnInit {
     this.entriesService.getEntriesByYear(year).pipe(last()).subscribe(response => {
       response.entries.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
+        this.entries.sort((a, b) => b.Date.getTime() - a.Date.getTime());
+        this.onResize();
       })
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) { 
+    let entriesList = document.getElementById("entries-list") as HTMLDivElement;
+    entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 10) + "px";
+  }
+
+  edit(entry: EntryModel): void {
+    console.log(entry.id);
   }
 }
