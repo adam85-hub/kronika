@@ -3,6 +3,12 @@ $btn-green: #7FC998;
 $btn-blue: #437C90;
 $grey-accent: rgb(66, 66, 66);
 
+//* Palette: https://coolors.co/eee3ab-437c90-7fc998-ff6b6c
+
+div {
+  font-family: 'Roboto Mono', sans-serif;
+}
+
 @mixin cantSelect {
     //You can't select this shit
     -webkit-touch-callout: none;
@@ -11,4 +17,19 @@ $grey-accent: rgb(66, 66, 66);
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none; 
+}
+
+@mixin button($color: $btn-blue) {
+  all: unset;
+  @include cantSelect();
+  border: 1px solid $font-color;
+  padding: 2px 10px;
+  font-weight: bold;
+  transition: color 0.2s, border-color 0.2s;
+  cursor: pointer;    
+
+  &:hover {
+      color: $color;
+      border-color: $color;
+  }
 }

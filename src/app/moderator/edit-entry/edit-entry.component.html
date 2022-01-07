@@ -1,29 +1,44 @@
 <div id="container" class="container-xl">
-    <ng-container *ngIf="entry != undefined; else failedEntry">
+    <!-- Displays if entry was saved succesfuly -->
+    <ng-container *ngIf="entry != undefined; else entryLoading">
+        <!-- Nav of page -->
         <div id="nav">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" (click)="exitDialog = true">
             <div id="title">Edycja wydarzenia:</div>
         </div>
+        <!-- Display title of entry -->
         <div id="title-section">
             <textarea type="text" [(ngModel)]="entry.Title"></textarea>
-            <input type="date" [value]="entry.Date | date: 'yyyy-MM-dd'">
+            <input type="date" [ngModel]="entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="entry.Date = $event">            
         </div>
+        <!-- Display elements of entry -->
         <div class="element" *ngFor="let element of entry.Elements" [ngClass]="element.type">
             <ng-template [ngIf]="element.type === 'Paragraph'">
                 <textarea type="text" [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)" appTextareaFitContent></textarea>
             </ng-template>
             <ng-template [ngIf]="element.type === 'Image'">
-                Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">
-                <button>Prześlij</button>
+                <div>Url: {{element.getAttr()}} <img [src]="element.getAttr()"></div>
+                <button>Usuń</button>
             </ng-template>
-        </div>
-        
+            <ng-template [ngIf]="element.type === 'Video'">
+                <div>Iframe url: {{element.getAttr()}}</div>
+                <button>Usuń</button>
+            </ng-template>
+        </div>  
+        <div id="controls">            
+            <button>Cofnij zmiany</button>
+            <button>Zapisz</button>
+            <button>Dodaj element</button>
+        </div>      
     </ng-container>
 
-    <ng-template #failedEntry>
-        Failed
+    <ng-template #entryLoading>
+        <div id="loader">
+            <app-loading [animation]="'rotate'"></app-loading>
+        </div>
     </ng-template>
 
+    <!-- Exit dialog -->
     <app-dialog [isVisible]="exitDialog" (stay)="exitDialog = false" (exit)="exitClicked()"
             [content]="'Jeżeli wyjdziesz w tym momencie niezapisane zmiany zostaną utracone!'"></app-dialog>
 </div>

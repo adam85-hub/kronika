@@ -27,7 +27,8 @@ export class EntryModel
             elements.forEach(element => {
                 this.Elements.push(fromElementInterface(element));
             });
-        }
+            this.Elements.sort((a, b) => a.index - b.index);
+        }        
     }
 }
 

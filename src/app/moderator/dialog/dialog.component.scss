@@ -1,16 +1,13 @@
 @import "../../../variables.scss";
-@import "../panel/panel.component.scss";
+@import "../moderator.variables.scss";
 // @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,700;1,400;1,700&display=swap');
 
 #dialog-container {
     font-family: 'Roboto Mono', sans-serif;
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    @include absolute-center();
     height: 300px;
     width: 500px;
-    transform: translate(-50%, -50%);
 
     border: 2px solid $font-color;
     background-color: $second-accent;

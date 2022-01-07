@@ -6,7 +6,7 @@ import { EntryModel } from 'src/app/models/entry.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EntriesService } from 'src/app/services/entries.service';
 import { ModeratorComponent } from '../moderator.component';
-import { FailedEntryInterface } from '../../interfaces/entry.interface';
+import { EntryInterface, FailedEntryInterface } from '../../interfaces/entry.interface';
 
 @Component({
   selector: 'app-edit-entry',
@@ -16,12 +16,11 @@ import { FailedEntryInterface } from '../../interfaces/entry.interface';
 export class EditEntryComponent extends ModeratorComponent implements OnInit {
   paramsLoaded = new EventEmitter();
   entry?: EntryModel;
-  failedEntry?: FailedEntryInterface;
   exitDialog = false;
 
   constructor(private route: ActivatedRoute, titleService: Title, private router: Router, private auth: AuthenticationService, private entriesService: EntriesService) { 
     super(titleService);
-    this.pageTitle = "Edycja wydarzenia";
+    this.pageTitle = "Edycja wydarzenia";    
   }
 
   override ngOnInit(): void {
@@ -38,12 +37,10 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   loadEntry(id: number) {    
     this.entriesService.getEntry(id).pipe(last()).subscribe(response => {     
       if('Title' in response) {
-        this.entry = new EntryModel(response, response.Elements);
-        this.failedEntry = undefined;
+        this.entry = new EntryModel(response, response.Elements);     
       }
       else {
-        this.failedEntry = response;
-        this.entry = undefined;
+        this.router.navigateByUrl("/error404");
       }
     });
   }
