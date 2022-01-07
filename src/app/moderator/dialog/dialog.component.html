@@ -1,0 +1,14 @@
+<div id="zaslona-nocy" [ngStyle]="{ 'display': _visibility}">
+    <div id="dialog-container">
+        <div id="dialog-title">
+            <div>{{title}}</div>
+        </div>
+        <div id="dialog-content">
+            {{content}}
+        </div>
+        <div id="dialog-controls">
+            <button (click)="exit.emit()">Wyjdź</button>
+            <button (click)="stay.emit()">Zostań</button>
+        </div>
+    </div>    
+</div>

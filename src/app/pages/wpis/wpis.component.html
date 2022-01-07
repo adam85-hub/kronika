@@ -4,7 +4,7 @@
         {{entry.Date | date: 'dd.MM.yyyy'}}
     </div>
     <div id="elements-section" *ngIf="entry.Elements != null" class="row">
-        <div class="element" *ngFor="let element of entry.Elements; let i = index" [ngClass]="getClassForEl(i)">
+        <div class="element" *ngFor="let element of entry.Elements; let i = index" [ngClass]="classes[i]">
             <ng-template [ngIf]="element.type == 'Paragraph'">
                 <div class="paragraph-el">
                     {{element.getAttr()}}

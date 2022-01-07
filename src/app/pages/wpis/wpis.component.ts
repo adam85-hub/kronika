@@ -21,6 +21,7 @@ export class WpisComponent extends PageComponent implements OnInit {
   failedEntry?: FailedEntryInterface;
   widthOfVideos: number = 500;
   heightOfVideos: number = 300;
+  classes: string[] = [];
 
   constructor(private route: ActivatedRoute, private title: Title, private router: Router, private entriesService: EntriesService) {     
     super(title);    
@@ -62,6 +63,7 @@ export class WpisComponent extends PageComponent implements OnInit {
         this.entry = new EntryModel(entry, elements);  
         this.failedEntry = undefined;
         setTimeout(() => this.onResize(), 100);
+        for (let i = 0; i < this.entry.Elements.length; i++) this.classes.push(this.getClassForEl(i));
       }    
     },
       error: (e) => {
@@ -96,9 +98,9 @@ export class WpisComponent extends PageComponent implements OnInit {
   getClassForEl(index: number) : string {
     let els = this.entry?.Elements;
     if(els != null)
-    {
-      if(els[index].type == 'Image' && (els[index+1].type == 'Image' || els[index-1].type == 'Image'))
-      {
+    {      
+      if(els[index].type == 'Image' && els[index+1].type == 'Image')      
+      {        
         return "col-md-6";
       }
     }

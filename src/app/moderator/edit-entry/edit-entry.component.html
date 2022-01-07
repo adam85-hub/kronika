@@ -1,0 +1,21 @@
+<div id="container" class="container-xl">
+    <ng-container *ngIf="entry != undefined; else failedEntry">
+        <div id="nav">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" (click)="exitDialog = true">
+            <div id="title">Edycja wydarzenia:</div>
+        </div>
+        <div id="title-section">
+            <textarea type="text" [(ngModel)]="entry.Title"></textarea>
+            <input type="date" [value]="entry.Date | date: 'yyyy-MM-dd'">
+        </div>
+        <div class="element">
+            dfsd
+        </div>
+        <app-dialog [isVisible]="exitDialog" (stay)="exitDialog = false" (exit)="exitClicked()"
+            [content]="'Jeżeli wyjdziesz w tym momencie niezapisane zmiany zostaną utracone!'"></app-dialog>
+    </ng-container>
+
+    <ng-template #failedEntry>
+        Failed
+    </ng-template>
+</div>

@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { last } from 'rxjs';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -12,7 +13,7 @@ export class EntriesListComponent implements OnInit {
   years: number[] = [];
   entries: EntryModel[] = [];
 
-  constructor(private entriesService: EntriesService) { }
+  constructor(private entriesService: EntriesService, private router: Router) { }
 
   ngOnInit(): void {
     this.entriesService.getYears().pipe(last()).subscribe(response => {
@@ -47,6 +48,6 @@ export class EntriesListComponent implements OnInit {
   }
 
   edit(entry: EntryModel): void {
-    console.log(entry.id);
+    this.router.navigateByUrl(`/moderator/edit/${entry.id}`);
   }
 }
