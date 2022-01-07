@@ -11,4 +11,8 @@ export class VideoModel extends ElementModel {
     getAttr(): string {
         return this.src;
     }
+
+    setAttr(value: string): void {
+        this.src = value;
+    }
 }

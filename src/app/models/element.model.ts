@@ -9,4 +9,5 @@ export abstract class ElementModel
     }        
 
     abstract getAttr(): string;
+    abstract setAttr(value: string): void;
 }

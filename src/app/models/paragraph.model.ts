@@ -11,4 +11,8 @@ export class ParagraphModel extends ElementModel {
     getAttr(): string {
         return this.content;
     }
+
+    setAttr(value: string): void {
+        this.content = value;
+    }
 }

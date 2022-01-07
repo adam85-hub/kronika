@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,700;1,400;1,700&display=swap');
 @import "../../../variables.scss";
+@import "../panel/panel.component.scss";
 
 @mixin unset-and-fill {
     all: unset;
@@ -44,32 +45,35 @@
     }
 }
 
-#elements-section {
-    margin-bottom: 10px;
-    border-radius: 2px;
-    box-shadow: 0 0 3px 0px darken($second-accent, 50%);
-}
 
 .element {
     padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    box-shadow: 0 0 3px 0px darken($second-accent, 50%);            
 }
 
-.paragraph-el {
-    text-align: justify;
-    font-size: 20px;
-}
-
-.image-el {
-    width: fit-content;    
-    margin: 0 auto;
+.Paragraph {
     height: fit-content;
 
-    img {
-        max-width: 100%;
+    textarea {
+        @include unset-and-fill();  
+        height: fit-content;      
     }
 }
 
-.video-el {
-    width: fit-content;
-    margin: 0 auto;
+.Image {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+
+    input {
+        width: 100%;
+    }
+
+    button {
+        @include button($btn-green);
+    }
 }
