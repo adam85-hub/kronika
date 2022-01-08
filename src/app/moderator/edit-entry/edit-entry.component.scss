@@ -92,7 +92,13 @@
 }
 
 #controls {
+    @include cantSelect();
+
     display: flex;
     gap: 10px;
     justify-content: flex-end;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
 }

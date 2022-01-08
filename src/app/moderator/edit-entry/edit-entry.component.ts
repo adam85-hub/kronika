@@ -48,4 +48,10 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   exitClicked() {
     this.router.navigateByUrl("/moderator/panel/entries");
   }
+
+  elementDrop(e: any) {
+    if(this.entry?.Elements != null) {
+      this.entry.MoveElement(e.previousIndex, e.currentIndex);
+    }
+  }
 }

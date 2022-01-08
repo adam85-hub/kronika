@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ModeratorRoutingModule } from './moderator-routing.module';
 import { PanelComponent } from './panel/panel.component';
@@ -23,7 +24,8 @@ import { TextareaFitContentDirective } from './textarea-fit-content.directive';
     CommonModule,
     ModeratorRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    DragDropModule
   ]
 })
 export class ModeratorModule { }

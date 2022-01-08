@@ -30,6 +30,24 @@ export class EntryModel
             this.Elements.sort((a, b) => a.index - b.index);
         }        
     }
+
+    MoveElement(currentIndex: number, newIndex: number) {        
+        //Gets element with currentIndex out of array
+        let before = this.Elements.slice(0, currentIndex+1);
+        let after = this.Elements.slice(currentIndex+1);
+        let element = before.pop();
+        let elements = before.concat(after);
+
+        if(element == undefined) throw Error("Element o indeksie currentIndex nie istnieje.");
+        //Inserts it to new index          
+        elements = elements.slice(0, newIndex).concat([element]).concat(elements.slice(newIndex));
+
+        this.Elements = elements;
+
+        for(let i = 0; i < this.Elements.length; i++) {
+            this.Elements[i].index = i+1;
+        }
+    }
 }
 
 function fromElementInterface(element: ElementInterface): ElementModel

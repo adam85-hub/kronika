@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } 
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
+import { SETUP } from './web.setup';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 })
 export class AuthenticationService {
   private token?: string = undefined;
-  private baseUrl: string = "http://localhost:80";
+  private baseUrl: string = SETUP.baseUrl;
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 

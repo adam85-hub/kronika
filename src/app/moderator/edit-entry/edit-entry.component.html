@@ -12,24 +12,26 @@
             <input type="date" [ngModel]="entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="entry.Date = $event">            
         </div>
         <!-- Display elements of entry -->
-        <div class="element" *ngFor="let element of entry.Elements" [ngClass]="element.type">
-            <ng-template [ngIf]="element.type === 'Paragraph'">
-                <textarea type="text" [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)" appTextareaFitContent></textarea>
-            </ng-template>
-            <ng-template [ngIf]="element.type === 'Image'">
-                <div>Url: {{element.getAttr()}} <img [src]="element.getAttr()"></div>
-                <button>Usuń</button>
-            </ng-template>
-            <ng-template [ngIf]="element.type === 'Video'">
-                <div>Iframe url: {{element.getAttr()}}</div>
-                <button>Usuń</button>
-            </ng-template>
-        </div>  
+        <div cdkDropList (cdkDropListDropped)="elementDrop($event)">
+            <div class="element" *ngFor="let element of entry.Elements" [ngClass]="element.type" cdkDrag>
+                <ng-template [ngIf]="element.type === 'Paragraph'">
+                    <textarea type="text" [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)" appTextareaFitContent></textarea>
+                </ng-template>
+                <ng-template [ngIf]="element.type === 'Image'">
+                    <div>Url: {{element.getAttr()}} <img [src]="element.getAttr()"></div>
+                    <button>Usuń</button>
+                </ng-template>
+                <ng-template [ngIf]="element.type === 'Video'">
+                    <div>Iframe url: {{element.getAttr()}}</div>
+                    <button>Usuń</button>
+                </ng-template>
+            </div>             
+        </div>
         <div id="controls">            
             <button>Cofnij zmiany</button>
             <button>Zapisz</button>
             <button>Dodaj element</button>
-        </div>      
+        </div>  
     </ng-container>
 
     <ng-template #entryLoading>
