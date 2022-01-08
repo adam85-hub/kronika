@@ -8,16 +8,13 @@ import { PanelComponent } from './panel/panel.component';
 import { EntriesListComponent } from './entries-list/entries-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { EditEntryComponent } from './edit-entry/edit-entry.component';
-import { DialogComponent } from './dialog/dialog.component';
 import { TextareaFitContentDirective } from './textarea-fit-content.directive';
-
 
 @NgModule({
   declarations: [
     PanelComponent,
     EntriesListComponent,
     EditEntryComponent,
-    DialogComponent,
     TextareaFitContentDirective
   ],
   imports: [

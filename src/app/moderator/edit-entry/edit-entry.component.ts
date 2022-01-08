@@ -6,7 +6,10 @@ import { EntryModel } from 'src/app/models/entry.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EntriesService } from 'src/app/services/entries.service';
 import { ModeratorComponent } from '../moderator.component';
-import { EntryInterface, FailedEntryInterface } from '../../interfaces/entry.interface';
+import { EntryInterface } from '../../interfaces/entry.interface';
+import { ParagraphModel } from 'src/app/models/paragraph.model';
+import { ImageModel } from 'src/app/models/image.model';
+import { VideoModel } from 'src/app/models/video.model';
 
 @Component({
   selector: 'app-edit-entry',
@@ -16,7 +19,10 @@ import { EntryInterface, FailedEntryInterface } from '../../interfaces/entry.int
 export class EditEntryComponent extends ModeratorComponent implements OnInit {
   paramsLoaded = new EventEmitter();
   entry?: EntryModel;
+  orginalEntry?: EntryInterface;
+
   exitDialog = false;
+  addElementDialog = false;
 
   constructor(private route: ActivatedRoute, titleService: Title, private router: Router, private auth: AuthenticationService, private entriesService: EntriesService) { 
     super(titleService);
@@ -37,7 +43,8 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   loadEntry(id: number) {    
     this.entriesService.getEntry(id).pipe(last()).subscribe(response => {     
       if('Title' in response) {
-        this.entry = new EntryModel(response, response.Elements);     
+        this.entry = new EntryModel(response, response.Elements); 
+        this.orginalEntry = response;
       }
       else {
         this.router.navigateByUrl("/error404");
@@ -53,5 +60,25 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     if(this.entry?.Elements != null) {
       this.entry.MoveElement(e.previousIndex, e.currentIndex);
     }
+  }
+
+  revertChanges() {
+    if(this.orginalEntry === undefined) throw Error("Coś jest nie tak (orginalEntry = undefined)");
+    this.entry = new EntryModel(this.orginalEntry, this.orginalEntry?.Elements);
+  }
+
+  addNewElement() {
+    let select = (document.getElementById("elementTypeSelect") as HTMLSelectElement);
+    if(select.selectedIndex === 0) {
+      this.entry?.Elements.push(new ParagraphModel(this.entry.Elements.length+1, ""));
+    }
+    else if(select.selectedIndex === 1) {
+      this.entry?.Elements.push(new ImageModel(this.entry.Elements.length+1, ""));
+    }
+    else if(select.selectedIndex === 2) {
+      this.entry?.Elements.push(new VideoModel(this.entry.Elements.length+1, ""));
+    }
+
+    this.addElementDialog = false;    
   }
 }

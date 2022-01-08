@@ -8,10 +8,10 @@ import { PageComponent } from '../page/page.component';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent extends PageComponent implements OnInit {
-  override pageTitle: string = "Strona główna";
-  override isMainPage: boolean = true;
 
   constructor(titleService: Title) { 
     super(titleService);
+    this.pageTitle = "Strona główna";
+    this.isMainPage = true;
   }
 }

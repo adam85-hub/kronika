@@ -11,27 +11,44 @@
             <textarea type="text" [(ngModel)]="entry.Title"></textarea>
             <input type="date" [ngModel]="entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="entry.Date = $event">            
         </div>
+
         <!-- Display elements of entry -->
-        <div cdkDropList (cdkDropListDropped)="elementDrop($event)">
-            <div class="element" *ngFor="let element of entry.Elements" [ngClass]="element.type" cdkDrag>
-                <ng-template [ngIf]="element.type === 'Paragraph'">
-                    <textarea type="text" [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)" appTextareaFitContent></textarea>
-                </ng-template>
-                <ng-template [ngIf]="element.type === 'Image'">
-                    <div>Url: {{element.getAttr()}} <img [src]="element.getAttr()"></div>
-                    <button>Usuń</button>
-                </ng-template>
-                <ng-template [ngIf]="element.type === 'Video'">
-                    <div>Iframe url: {{element.getAttr()}}</div>
-                    <button>Usuń</button>
-                </ng-template>
-            </div>             
+        <div cdkDropList (cdkDropListDropped)="elementDrop($event)" id="drag-container">
+            <div class="element-container" *ngFor="let element of entry.Elements" cdkDrag cdkDragLockAxis="y">
+                <!-- Element drag & drop handle -->
+                <div class="element-handle" cdkDragHandle>
+                    <img src="../../../assets/updown.svg">
+                </div>
+                <!-- Actual element contents -->
+                <div class="element" [ngClass]="element.type">
+                    <ng-template [ngIf]="element.type === 'Paragraph'">
+                        <textarea type="text" [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)" appTextareaFitContent></textarea>                        
+                    </ng-template>
+                    <ng-template [ngIf]="element.type === 'Image'">
+                        <div>
+						    Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">                           
+                        </div>
+                        <img [src]="element.getAttr()" loading="lazy">
+                        <button class="btn-el">Prześlij</button>
+                    </ng-template>
+                    <ng-template [ngIf]="element.type === 'Video'">
+                        <div>
+                            Iframe url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">
+                        </div>
+                    </ng-template>
+                    <button class="btn-el">Usuń</button>
+                </div>             
+            </div>
         </div>
+
+        <!-- Controls -->
         <div id="controls">            
-            <button>Cofnij zmiany</button>
+            <button (click)="revertChanges()">Cofnij zmiany</button>
+            <button (click)="addElementDialog = true">Dodaj element</button>
             <button>Zapisz</button>
-            <button>Dodaj element</button>
-        </div>  
+        </div>
+        <!-- Scrolling fix -->
+        <div style="height: 200px;"></div>
     </ng-container>
 
     <ng-template #entryLoading>
@@ -40,7 +57,18 @@
         </div>
     </ng-template>
 
+    <!-- Add element dialog -->
+    <app-dialog [visible]="addElementDialog" [Title]="'Dodaj element'" [yesBtnText]="'Dodaj'" [noBtnText]="'Anuluj'" [order]="'Reverted'" 
+        (noClicked)="addElementDialog = false" (yesClicked)="addNewElement()">
+        Typ elementu:
+        <select class="form-select" id="elementTypeSelect">
+            <option value="Paragraph">Tekst</option>
+            <option value="Image">Zdjęcie</option>
+            <option value="Video">Filmik</option>
+        </select>
+    </app-dialog>
     <!-- Exit dialog -->
-    <app-dialog [isVisible]="exitDialog" (stay)="exitDialog = false" (exit)="exitClicked()"
-            [content]="'Jeżeli wyjdziesz w tym momencie niezapisane zmiany zostaną utracone!'"></app-dialog>
+    <app-dialog [visible]="exitDialog" [noBtnText]="'Wyjdź'" [yesBtnText]="'Zostań'" (noClicked)="exitClicked()" (yesClicked)="exitDialog = false">
+        Czy na pewno chcesz wyjść? Kiedy to zrobisz zmiany nie zostaną zapisane.
+    </app-dialog>
 </div>

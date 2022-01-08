@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
 import { ArticleComponent } from './article/article.component';
 import { TitleComponent } from './title/title.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
     LoadingComponent,
     ArticleComponent,
-    TitleComponent
+    TitleComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule
@@ -16,7 +18,8 @@ import { TitleComponent } from './title/title.component';
   exports: [
     LoadingComponent,
     ArticleComponent,
-    TitleComponent
+    TitleComponent,
+    DialogComponent
   ]
 })
 export class SharedModule { }
