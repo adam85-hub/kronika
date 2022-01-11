@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EditEntryComponent } from './edit-entry/edit-entry.component';
 import { TextareaFitContentDirective } from './textarea-fit-content.directive';
 import { FailedEntriesListComponent } from './failed-entries-list/failed-entries-list.component';
+import { PanelOptionComponent } from './panel-option/panel-option.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FailedEntriesListComponent } from './failed-entries-list/failed-entries
     EntriesListComponent,
     EditEntryComponent,
     TextareaFitContentDirective,
-    FailedEntriesListComponent
+    FailedEntriesListComponent,
+    PanelOptionComponent
   ],
   imports: [
     CommonModule,
