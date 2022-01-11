@@ -81,4 +81,11 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
     this.addElementDialog = false;    
   }
+
+  deleteElement(index: number): void {
+    this.entry?.Elements.splice(index, 1);
+    this.entry?.Elements.forEach((element, index) => {
+      element.index = index +1;
+    });    
+  }
 }

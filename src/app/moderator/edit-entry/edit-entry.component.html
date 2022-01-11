@@ -14,7 +14,7 @@
 
         <!-- Display elements of entry -->
         <div cdkDropList (cdkDropListDropped)="elementDrop($event)" id="drag-container">
-            <div class="element-container" *ngFor="let element of entry.Elements" cdkDrag cdkDragLockAxis="y">
+            <div class="element-container" *ngFor="let element of entry.Elements; let i = index" cdkDrag cdkDragLockAxis="y">
                 <!-- Element drag & drop handle -->
                 <div class="element-handle" cdkDragHandle>
                     <img src="../../../assets/updown.svg">
@@ -36,7 +36,7 @@
                             Iframe url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">
                         </div>
                     </ng-template>
-                    <button class="btn-el">Usuń</button>
+                    <button class="btn-el" (click)="deleteElement(i)">Usuń</button>
                 </div>             
             </div>
         </div>
