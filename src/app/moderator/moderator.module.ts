@@ -9,13 +9,15 @@ import { EntriesListComponent } from './entries-list/entries-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { EditEntryComponent } from './edit-entry/edit-entry.component';
 import { TextareaFitContentDirective } from './textarea-fit-content.directive';
+import { FailedEntriesListComponent } from './failed-entries-list/failed-entries-list.component';
 
 @NgModule({
   declarations: [
     PanelComponent,
     EntriesListComponent,
     EditEntryComponent,
-    TextareaFitContentDirective
+    TextareaFitContentDirective,
+    FailedEntriesListComponent
   ],
   imports: [
     CommonModule,

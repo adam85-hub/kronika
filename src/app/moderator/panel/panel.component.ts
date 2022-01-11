@@ -14,7 +14,7 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   basePath = '/moderator/panel';
   menuOptions: MenuOption[] = [
     {name: 'Wpisy', path: '/entries'},
-    {name: 'Zepsute wpisy', path: ''},
+    {name: 'Zepsute wpisy', path: '/failed-entries'},
     {name: 'Strona główna', path: ''},
     {name: 'Pomoc', path: ''}
   ];
@@ -24,7 +24,7 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
     this.pageTitle = "Panel moderatora";
 
     this.auth.verifyToken().subscribe(s => {
-      s ? undefined : this.router.navigateByUrl("/strona-główna");
+      s ? undefined : this.returnToMain();
     });
   }
 
@@ -37,7 +37,7 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logOut().subscribe(s => this.router.navigateByUrl('/strona-główna'));   
+    this.auth.logOut().subscribe(s => this.returnToMain());   
   }
 }
 

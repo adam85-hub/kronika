@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditEntryComponent } from './edit-entry/edit-entry.component';
 import { EntriesListComponent } from './entries-list/entries-list.component';
+import { FailedEntriesListComponent } from './failed-entries-list/failed-entries-list.component';
 import { PanelComponent } from './panel/panel.component';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
     component: PanelComponent,
     children: [
       { path: '', redirectTo: 'entries'},
-      { path: 'entries', component: EntriesListComponent }
+      { path: 'entries', component: EntriesListComponent },
+      { path: 'failed-entries', component: FailedEntriesListComponent}
     ]
   },  
   {path: 'edit/:id', component: EditEntryComponent}
