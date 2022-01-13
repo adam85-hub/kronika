@@ -1,0 +1,36 @@
+@import '../../../variables.scss';
+@import '../moderator.variables.scss';
+
+.loading-container {
+    $height: 80px;
+    width: $height;
+    height: $height;
+    margin: auto;
+}
+
+.failed-entry {
+    padding: 10px;
+    border: 2px solid $font-color;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .failed-entry-controls {
+        display: flex;
+        gap: 10px;
+
+        button:nth-of-type(1) {
+            @include button($btn-green);
+        }
+
+        button:nth-of-type(2) {
+            @include button($btn-red);
+        }
+    }
+}
+
+#failed-entries-list-container {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}

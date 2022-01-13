@@ -1,4 +1,4 @@
-import { EntryInterface } from "./entry.interface"
+import { EntryInterface, FailedEntryInterface } from "./entry.interface"
 
 export interface ResponseInterface 
 { 
@@ -8,4 +8,8 @@ export interface ResponseInterface
 export interface YearsResponseInterface
 {
     years: number[]
+}
+
+export interface FailedEntriesResponseInterface {
+    failedEntries: FailedEntryInterface[];
 }

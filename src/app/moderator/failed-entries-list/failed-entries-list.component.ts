@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { last } from 'rxjs';
+import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
 import { EntriesService } from 'src/app/services/entries.service';
 import { PanelOptionComponent } from '../panel-option/panel-option.component';
 
@@ -9,6 +11,7 @@ import { PanelOptionComponent } from '../panel-option/panel-option.component';
   styleUrls: ['./failed-entries-list.component.scss']
 })
 export class FailedEntriesListComponent extends PanelOptionComponent implements OnInit {
+  failedEntries: FailedEntryInterface[] = [];
 
   constructor(titleService: Title, private entriesService: EntriesService) {
     super(titleService);
@@ -17,7 +20,16 @@ export class FailedEntriesListComponent extends PanelOptionComponent implements 
 
   override ngOnInit(): void {
       super.ngOnInit();
-      this.entriesService;//! Get failed entries (i must implement it on server)
+      this.entriesService.getFailedEntries().pipe(last()).subscribe((response) => {
+        this.failedEntries = response.failedEntries;
+        this.onResize();
+      });     
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) { 
+    let entriesList = document.getElementById("failed-entries-list-container") as HTMLDivElement;
+    entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 10) + "px";
   }
 
 }
