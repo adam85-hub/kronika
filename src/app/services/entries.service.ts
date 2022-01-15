@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EntryInterface, FailedEntryInterface } from '../interfaces/entry.interface';
 import { FailedEntriesResponseInterface, ResponseInterface, YearsResponseInterface } from '../interfaces/responses.interface';
+import { AuthenticationService } from './authentication.service';
 import {SETUP} from './web.setup';
 
 @Injectable({
@@ -11,7 +12,7 @@ import {SETUP} from './web.setup';
 export class EntriesService {
   private baseUrl = SETUP.baseUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthenticationService) {
   }
 
   getEntries() : Observable<ResponseInterface> {
@@ -32,5 +33,10 @@ export class EntriesService {
 
   getFailedEntries(): Observable<FailedEntriesResponseInterface> {
     return this.http.get<FailedEntriesResponseInterface>(this.baseUrl + `/kronika/api/entries/failed`);
+  }
+
+  modifyEntry(entry: EntryInterface) {
+    const headers = new HttpHeaders().append('Token', this.auth.getToken());
+    return this.http.put<EntryInterface>(this.baseUrl + `/kronika/api/entry/modify`, entry, {'headers': headers});
   }
 }

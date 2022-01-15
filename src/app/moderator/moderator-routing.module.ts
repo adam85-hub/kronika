@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EditEntryComponent } from './edit-entry/edit-entry.component';
 import { EntriesListComponent } from './entries-list/entries-list.component';
 import { FailedEntriesListComponent } from './failed-entries-list/failed-entries-list.component';
+import { FixEntryComponent } from './fix-entry/fix-entry.component';
 import { PanelComponent } from './panel/panel.component';
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
       { path: 'failed-entries', component: FailedEntriesListComponent}
     ]
   },  
-  {path: 'edit/:id', component: EditEntryComponent}
+  {path: 'edit/:id', component: EditEntryComponent},
+  {path: 'fix/:id', component: FixEntryComponent}
 ];
 
 @NgModule({

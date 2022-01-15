@@ -24,8 +24,8 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   exitDialog = false;
   addElementDialog = false;
 
-  constructor(private route: ActivatedRoute, titleService: Title, private router: Router, private auth: AuthenticationService, private entriesService: EntriesService) { 
-    super(titleService);
+  constructor(private route: ActivatedRoute, titleService: Title, router: Router, auth: AuthenticationService, private entriesService: EntriesService) { 
+    super(titleService, auth, router);
     this.pageTitle = "Edycja wydarzenia";    
   }
 
@@ -47,7 +47,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
         this.orginalEntry = response;
       }
       else {
-        this.router.navigateByUrl("/error404");
+        this.router.navigateByUrl(`/moderator/fix/${id}`);
       }
     });
   }
@@ -87,5 +87,30 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     this.entry?.Elements.forEach((element, index) => {
       element.index = index +1;
     });    
+  }
+
+  saveChanges() {
+    if(this.entry != undefined) {
+      this.entriesService.modifyEntry(this.entry.toInterface()).subscribe((response) => {
+        this.router.navigateByUrl("/moderator/panel");
+      });
+    }
+  }
+
+  setDate(date: string) {
+    let dateT = date.split("-");
+    if(this.entry != undefined) this.entry.Date = new Date(Number(dateT[0]), Number(dateT[1]), Number(dateT[2]));
+  }
+
+  pastedToVideo(index: number) {
+    setTimeout(() => {
+      if(this.entry != undefined) {
+        let videoI = this.entry.Elements.findIndex((element) => element.index === index);
+        let link = this.entry.Elements[videoI].getAttr();
+        let indexs = link.indexOf("?v=");
+        let newValue = "/" + link.substring(indexs+3);
+        this.entry.Elements[videoI].setAttr(newValue); 
+      }
+    }, 10);    
   }
 }

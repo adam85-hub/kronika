@@ -12,7 +12,7 @@ export class EntryModel
     public Date: Date;
     public TitlePhoto: string;
     public Elements: ElementModel[];
-
+    
     constructor(entry: EntryInterface, elements?: ElementInterface[])
     { 
         this.id = entry.id;
@@ -47,6 +47,30 @@ export class EntryModel
         for(let i = 0; i < this.Elements.length; i++) {
             this.Elements[i].index = i+1;
         }
+    }
+
+    getStringDate(): string {
+        let day: string = this.Date.getDate().toString();
+        if(this.Date.getDate() < 10) day = "0" + day;
+        let month: string = this.Date.getMonth().toString();
+        if(this.Date.getMonth() < 10) month = "0" + month;
+        let year: string = this.Date.getFullYear().toString();
+
+        return `${day}.${month}.${year}`;
+    }
+
+    toInterface(): EntryInterface {
+        let entry: EntryInterface = {
+            id: this.id,
+            Title: this.Title,
+            Date: this.getStringDate(),
+            TitlePhoto: this.TitlePhoto,
+            Elements: []
+        }
+
+        this.Elements.forEach((element) => entry.Elements?.push(element.toInteface()));
+
+        return entry;
     }
 }
 

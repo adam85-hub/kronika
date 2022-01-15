@@ -9,7 +9,7 @@
         <!-- Display title of entry -->
         <div id="title-section">
             <textarea type="text" [(ngModel)]="entry.Title"></textarea>
-            <input type="date" [ngModel]="entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="entry.Date = $event">            
+            <input type="date" [ngModel]="entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="setDate($event)">         
         </div>
 
         <!-- Display elements of entry -->
@@ -33,7 +33,7 @@
                     </ng-template>
                     <ng-template [ngIf]="element.type === 'Video'">
                         <div>
-                            Iframe url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">
+                            Link do filmu: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)" (paste)="pastedToVideo(element.index)">
                         </div>
                     </ng-template>
                     <button class="btn-el" (click)="deleteElement(i)">Usuń</button>
@@ -45,7 +45,7 @@
         <div id="controls">            
             <button (click)="revertChanges()">Cofnij zmiany</button>
             <button (click)="addElementDialog = true">Dodaj element</button>
-            <button>Zapisz</button>
+            <button (click)="saveChanges()">Zapisz</button>
         </div>
         <!-- Scrolling fix -->
         <div style="height: 200px;"></div>

@@ -19,17 +19,13 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
     {name: 'Pomoc', path: ''}
   ];
 
-  constructor(titleService: Title, private auth: AuthenticationService, private router: Router) {
-    super(titleService);
+  constructor(titleService: Title, auth: AuthenticationService, router: Router) {
+    super(titleService, auth, router);
     this.pageTitle = "Panel moderatora";
 
     this.auth.verifyToken().subscribe(s => {
       s ? undefined : this.returnToMain();
     });
-  }
-
-  returnToMain(): void {
-    this.router.navigateByUrl("/strona-główna");
   }
 
   changeDisplayedOption(option: MenuOption) {

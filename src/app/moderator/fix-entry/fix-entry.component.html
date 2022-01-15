@@ -1,0 +1,24 @@
+<div *ngIf="FailedEntry != undefined && Entry != undefined; else loading" id="component-container">
+    <div id="title">
+        Naprawa wydarzenia
+    </div>
+    <div id="fix-entry">
+        <div class="i-pair">
+            <label for="entry-title">Tytuł: </label>
+            <input id="entry-title" type="text" [(ngModel)]="Entry.Title">
+        </div>
+        <div class="i-pair">
+            <label for="entry-title">Data: </label>
+            <input id="entry-title" type="date" [ngModel]="Entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="setDate($event)">
+        </div>        
+    </div>
+    <div id="entry-preview">
+        preview
+    </div>
+</div>
+
+<ng-template #loading>
+    <div id="loader">
+        <app-loading [animation]="'rotate'"></app-loading>
+    </div>
+</ng-template>

@@ -1,3 +1,6 @@
+<div id="failed-entries-left">
+    Do naprawienia pozostało <b>{{failedEntries.length}}</b> wpisów.
+</div>
 <div id="failed-entries-list-container">
     <ng-container *ngIf="failedEntries.length != 0; else loading">
         <div *ngFor="let failedEntry of failedEntries" class="failed-entry">
@@ -5,7 +8,7 @@
                 <b>Id:</b> {{failedEntry.id}} <b>Url:</b> {{failedEntry.url}}
             </div>
             <div class="failed-entry-controls">
-                <button>Napraw</button>
+                <button (click)="fixEntry(failedEntry.id)">Napraw</button>
                 <button>Usuń</button>
             </div>
         </div>

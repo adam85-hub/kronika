@@ -11,6 +11,7 @@ import { EditEntryComponent } from './edit-entry/edit-entry.component';
 import { TextareaFitContentDirective } from './textarea-fit-content.directive';
 import { FailedEntriesListComponent } from './failed-entries-list/failed-entries-list.component';
 import { PanelOptionComponent } from './panel-option/panel-option.component';
+import { FixEntryComponent } from './fix-entry/fix-entry.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PanelOptionComponent } from './panel-option/panel-option.component';
     EditEntryComponent,
     TextareaFitContentDirective,
     FailedEntriesListComponent,
-    PanelOptionComponent
+    PanelOptionComponent,
+    FixEntryComponent
   ],
   imports: [
     CommonModule,

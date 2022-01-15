@@ -1,3 +1,4 @@
+import { ElementInterface } from "../interfaces/element.interface";
 import { ElementModel } from "./element.model";
 
 export class ImageModel extends ElementModel {
@@ -14,5 +15,12 @@ export class ImageModel extends ElementModel {
 
     setAttr(value: string): void {
         this.src = value;
+    }
+
+    override toInteface(): ElementInterface {
+        let element = super.toInteface();
+        element.src = this.src;
+
+        return element;
     }
 }

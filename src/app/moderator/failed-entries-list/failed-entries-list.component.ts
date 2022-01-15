@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { last } from 'rxjs';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -13,7 +14,7 @@ import { PanelOptionComponent } from '../panel-option/panel-option.component';
 export class FailedEntriesListComponent extends PanelOptionComponent implements OnInit {
   failedEntries: FailedEntryInterface[] = [];
 
-  constructor(titleService: Title, private entriesService: EntriesService) {
+  constructor(titleService: Title, private entriesService: EntriesService, private router: Router) {
     super(titleService);
     this.title = "Zepsute wpisy";
   }
@@ -32,4 +33,7 @@ export class FailedEntriesListComponent extends PanelOptionComponent implements 
     entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 10) + "px";
   }
 
+  fixEntry(id: number) {
+    this.router.navigateByUrl(`/moderator/fix/${id}`);
+  }
 }

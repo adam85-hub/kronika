@@ -100,4 +100,8 @@ export class AuthenticationService {
 
     return obs$.asObservable();
   }
+
+  public getToken() {
+    return this.cookieService.get("token");
+  }
 }

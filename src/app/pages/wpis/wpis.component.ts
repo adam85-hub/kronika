@@ -77,6 +77,10 @@ export class WpisComponent extends PageComponent implements OnInit {
   }
 
   getVideoId(url: string): string {
+    if(url.startsWith("/")) {
+      console.log(url.substring(1));
+      return url.substring(1);
+    }
     let re = /embed\//;
     let id = url.split(re)[1];    
     return id;
