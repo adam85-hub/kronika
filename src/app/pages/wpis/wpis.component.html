@@ -1,7 +1,11 @@
-<ng-template [ngIf]="entry != null">
+<ng-template [ngIf]="entry != null">    
     <div id="title-section">
-        {{entry.Title}} <br/>
-        {{entry.Date | date: 'dd.MM.yyyy'}}
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" id="back-arrow" (click)="return()">
+        <div>
+            {{entry.Title}} <br/>
+            {{entry.Date | date: 'dd.MM.yyyy'}}
+        </div>
+        <div></div>
     </div>
     <div id="elements-section" *ngIf="entry.Elements != null" class="row">
         <div class="element" *ngFor="let element of entry.Elements; let i = index" [ngClass]="classes[i]">

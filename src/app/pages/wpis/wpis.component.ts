@@ -111,4 +111,8 @@ export class WpisComponent extends PageComponent implements OnInit {
 
     return "none";
   }
+
+  return() {
+    this.router.navigate(["kronika"], {relativeTo: this.route.parent, queryParams: {year: this.entry?.Date.getFullYear()}});
+  }
 }

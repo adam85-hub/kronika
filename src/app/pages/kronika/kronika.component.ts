@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { last } from 'rxjs';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -16,15 +16,19 @@ export class KronikaComponent extends PageComponent implements OnInit {
   isLoading: boolean = false;
   entries: EntryModel[] = [];
   years: number[] = [];
-  selectedYear = 2021;
+  selectedYear?: number;
 
-  constructor(titleService: Title, private entriesService: EntriesService, private router: Router) {
-    super(titleService);    
+  constructor(titleService: Title, private entriesService: EntriesService, private router: Router, private route: ActivatedRoute) {
+    super(titleService);     
   }
 
   override ngOnInit(): void {
     super.ngOnInit();    
     this.isLoading = true; 
+    let year = this.route.snapshot.queryParamMap.get("year");
+    if(year != null) {
+      if(Number(year) != NaN) this.selectedYear = Number(year);
+    }  
     this.setYearsToSelect();
   }
 
@@ -32,7 +36,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.entriesService.getYears().pipe(last()).subscribe(response => {
       this.years = response.years;
       this.years.sort((a,b) => b - a);
-      this.selectedYear = this.years[0];
+      if(this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
       this.getEntries();
     }, error => {
       this.isLoading = false;
@@ -42,6 +46,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
   public getEntries() {
     this.isLoading = true;
     this.entries = [];
+    if(this.selectedYear === undefined) throw new Error("Selected year is undefined");
     this.entriesService.getEntriesByYear(this.selectedYear).pipe(last()).subscribe(response => {  
       response.entries.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));

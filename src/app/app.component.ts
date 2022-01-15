@@ -36,6 +36,9 @@ export class AppComponent implements OnInit {
     }    
 
     this.isModeratorDisplayed = e.isModerator;
+    if(this.isModeratorDisplayed === true) {
+      this.collapseInne(new Event("null"));
+    }
   }
 
   //#region NavbarLogic  
