@@ -1,8 +1,24 @@
 {
   "id": "id_wpisu(numeric)"
-  "title": "Tytuł wpisu",
-  "description": "Zawartość wpisu do kroniki",
-  "date": "Data wydarzenia utworzonego w wpisie",
-  "photos": ["link_do_zdjęcia_1", "link_do_zdjęcia_2"],
-  "titlePhoto": "link_do_zdjęcia_tytułowego"
+  "Title": "Tytuł wpisu",
+  "Description": "Zawartość wpisu do kroniki",
+  "Date": "Data wydarzenia utworzonego w wpisie",
+  "TitlePhoto": "Url zdjęcia tytułowego",
+  "Elements" : [
+    {
+      "index": 1,
+      "type": "Photo"
+      "src": "Url zdjęcia"
+    },
+    {
+      "index": 2, 
+      "type": "Paragraph",
+      "content": "Zawartość paragrafu"
+    },
+    {
+      "index": 3,
+      "type": "Video",
+      "src": "Ścieżka do filmu z yt"
+    }
+  ]
 }
