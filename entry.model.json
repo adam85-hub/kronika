@@ -7,7 +7,7 @@
   "Elements" : [
     {
       "index": 1,
-      "type": "Photo"
+      "type": "Photo",
       "src": "Url zdjęcia"
     },
     {
