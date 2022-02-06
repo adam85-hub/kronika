@@ -34,7 +34,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
 
   public setYearsToSelect(): void {
     this.entriesService.getYears().pipe(last()).subscribe(response => {
-      this.years = response.years;
+      this.years = response;
       this.years.sort((a,b) => b - a);
       if(this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
       this.getEntries();
@@ -48,7 +48,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.entries = [];
     if(this.selectedYear === undefined) throw new Error("Selected year is undefined");
     this.entriesService.getEntriesByYear(this.selectedYear).pipe(last()).subscribe(response => {  
-      response.entries.forEach(entry => {
+      response.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
       })
       this.entries.sort((b,a) => a.Date.valueOf() - b.Date.valueOf());

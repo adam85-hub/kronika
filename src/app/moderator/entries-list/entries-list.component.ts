@@ -23,7 +23,7 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
   override ngOnInit(): void {
     super.ngOnInit();
     this.entriesService.getYears().pipe(last()).subscribe(response => {
-      this.years = response.years.sort((a, b) => b - a);
+      this.years = response.sort((a, b) => b - a);
       this.getEntries(this.years[0]);      
     });    
   }
@@ -39,7 +39,7 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
 
   getEntries(year: number) {
     this.entriesService.getEntriesByYear(year).pipe(last()).subscribe(response => {
-      response.entries.forEach(entry => {
+      response.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
         this.entries.sort((a, b) => b.Date.getTime() - a.Date.getTime());
         this.onResize();     

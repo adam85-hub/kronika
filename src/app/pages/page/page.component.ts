@@ -23,7 +23,8 @@ export class PageComponent implements OnInit {
   }
   
   setTitle() {
-    this.titleService.setTitle(this.pageTitle); //+ " - Parafia Katowice Podlesie");
+    if (this.isMainPage) this.titleService.setTitle("Kronika Parafii w Katowicach Podlesiu");
+    else this.titleService.setTitle(this.pageTitle);
   }
 
 }
