@@ -1,14 +1,8 @@
 <ng-container *ngIf="!isWaiting; else waitingTemplate">
-    <div class="row" id="login-container">
-        <div class="col-md-2">
+    <div id="login-container">
             <label for="password">Hasło:</label>
-        </div>
-        <div class="col-md-8">
             <input [(ngModel)]="password" type="password" id="password" (keydown.enter)="logIn()">
-        </div>
-        <div class="col-md-2">
             <button id="btn-login" (click)="logIn()">Zaloguj</button>
-        </div>
     </div>
     <div *ngIf="isGoodPassword == false" class="alert alert-danger">
         Złe hasło!
