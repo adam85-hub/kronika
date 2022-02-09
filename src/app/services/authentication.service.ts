@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } 
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
+import { LoginInterface } from '../interfaces/response.interfaces';
 import { SETUP } from './web.setup';
 
 
@@ -40,12 +41,12 @@ export class AuthenticationService {
    * @param password Hasło pozwalające uzyskać token
    * @returns "yes+token" jeżeli prawda "no" jeżeli nie
    */
-  public logIn(password: string): Observable<any> {
+  public logIn(password: string): Observable<LoginInterface> {
     const options = {
       params: new HttpParams().set('password', password)
     }
 
-    return this.http.get<any>(this.baseUrl + "/kronika/api/login", options).pipe(
+    return this.http.get<LoginInterface>(this.baseUrl + "/kronika/api/login", options).pipe(
       catchError(this.handleError)
     );
   }
