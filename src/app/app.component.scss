@@ -13,9 +13,7 @@ $main-width: 1300px;
     width: 180px;
     height:  $navbar-height;    
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
 }
 
 #nav-bar {
@@ -69,6 +67,7 @@ $main-width: 1300px;
     font-size: 40px;
     font-family: 'Josefin Sans', sans-serif;
     padding: 20px 0;
+    @include flex-center;
 
     img {
         display: inline-block;
