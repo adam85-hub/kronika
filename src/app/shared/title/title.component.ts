@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./title.component.scss']
 })
 export class TitleComponent implements OnInit {
-  @Input() fontSize: number = 50;
+  @Input() fontSize: string = "70px";
 
   constructor() { }
 

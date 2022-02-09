@@ -1,11 +1,19 @@
 p {
-    font-size: 20px;
+    font-size: 21px;
     text-align: justify;
 }
 
-#title-photo {
-    height: 400px; 
-    width: fit-content;
+$p-width: 670px;
+
+#title-photo {  
+    width: $p-width;
+    aspect-ratio: 16/10;
     margin: 0 auto; 
     display: block;
+}
+
+@media screen and (max-width: $p-width) {
+    #title-photo {
+        width: 95%;
+    }
 }

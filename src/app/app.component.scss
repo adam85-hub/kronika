@@ -3,21 +3,19 @@
 
 $font-size: 20px;
 $navbar-height: 70px;
-
-@function calculateNavbarPadding($navbar-height, $navbar-font-size){
-    @return math.div(($navbar-height -  ($navbar-font-size + 10px)), 2) - 0px;
-}
+$main-width: 1300px;
 
 @mixin link {
     all: unset;
-    display: block;
-    float: left;
-    $p: calculateNavbarPadding($navbar-height, $font-size);
-    padding: $p 0px $p 0px;
+    display: flex;
     border-right: 1px solid $font-color;
     text-align: center;
     width: 180px;
+    height:  $navbar-height;    
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #nav-bar {
@@ -44,9 +42,12 @@ $navbar-height: 70px;
         border-right: none;
     }
 
-    div {
+    #navbar-container {
         margin: 0 auto;
         width: fit-content;
+        display: flex;
+        flex-direction: row;  
+        flex-wrap: nowrap;
     }
 
     .inne-a {
@@ -94,16 +95,47 @@ footer {
 }
 
 #main-container {
-    padding-top: $navbar-height;    
+    padding-top: $navbar-height;
+}
+
+#inne-link {
+    display: flex;  
+
+    &:hover {
+        #inne-expand-container {
+            display: flex !important;
+        }        
+    }
+}
+
+#inne-link:hover ~ #inne-expand-container, #inne-expand-container:hover {
+    display: flex !important;
 }
 
 #inne-expand-container {
-    padding-top: 20px;
-    position: relative;
+    position: fixed;
+    display: none;
+    flex-direction: column;
+
+    .inne-a:nth-of-type(1) {
+        border-top: 1px solid $font-color;
+    }
 }
 
 main {
     position: relative;
+}
+
+#main-container {
+    width: $main-width;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: $main-width) {
+    #main-container {
+        width: 100%;
+    }
 }
 
 #collapsed {

@@ -33,12 +33,9 @@ export class AppComponent implements OnInit {
     else {
       this.titleStyle = "";
       this.onScroll();
-    }    
+    }
 
     this.isModeratorDisplayed = e.isModerator;
-    if(this.isModeratorDisplayed === true) {
-      this.collapseInne(new Event("null"));
-    }
   }
 
   //#region NavbarLogic  
@@ -49,11 +46,6 @@ export class AppComponent implements OnInit {
   
   //Zmienne przechowujące klasy odpowiadają za to że navbar przykleja się do góry strony przy przewijaniu
   fixedClass: string = "navbar-absolute";
-
-  //Zmienne odpowiedzalne za wyświetlanie innych
-  isInneExpanded: boolean = false;
-  innePadding: string = "20px";
-
 
   //Obsługuje zmienianie się navbara przy zmianie wielkości okna
   @HostListener('window:resize', ['$event'])
@@ -76,18 +68,6 @@ export class AppComponent implements OnInit {
     else if (window.scrollY < 140 && this.isMainDisplayed) { 
       this.fixedClass = "navbar-absolute";
     }
-  }
-
-  //Navbar element inne expand
-  expandInne(e : Event): void {
-    this.isInneExpanded = true;
-    this.innePadding = "0";
-  }
-
-  //Navbar element inne collapse
-  collapseInne(e : Event): void {
-    this.isInneExpanded = false;
-    this.innePadding = "20px";
   }
 
   //Otwiera boczną nawigację kiedy navbar jest collapsed
