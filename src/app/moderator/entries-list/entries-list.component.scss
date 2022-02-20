@@ -29,8 +29,6 @@
 .entry {
     border: 2px solid $font-color;
     padding: 5px 10px;
-    margin-bottom: 10px;
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -68,4 +66,7 @@
 #entries-list {
     overflow-y: scroll;
     scrollbar-width: thin;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
 }
