@@ -2,13 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;0,700;1,400;1,700&display=swap');
 @import "../moderator.variables.scss";
 
-#left-container {
-    padding: 10px;
-    @include cantSelect();
-}
+#grand-container {
+    display: flex;
 
-#right-container {
-    padding: 10px;
+    #left-container {
+        padding: 10px;
+        flex: 2;
+        @include cantSelect();
+        min-width: 300px;
+    }
+    
+    #right-container {
+        flex: 5;
+        padding: 10px;
+    }
 }
 
 .tile {
@@ -81,5 +88,12 @@ button {
 
     .active {
         background-color: $grey-accent;
+    }
+}
+
+@media screen and (max-width: $phone-width) {
+    #grand-container {
+        display: flex;
+        flex-direction: column;
     }
 }
