@@ -42,10 +42,10 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
       response.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
         this.entries.sort((a, b) => b.Date.getTime() - a.Date.getTime());
-        this.onResize();     
         this.updatePageTitle(`wpisy ${year}`);   
       })
     });
+    this.onResize(); 
   }
 
   @HostListener('window:resize', ['$event'])
