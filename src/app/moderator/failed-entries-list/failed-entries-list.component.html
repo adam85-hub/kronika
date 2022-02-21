@@ -1,8 +1,8 @@
-<div id="failed-entries-left">
-    Do naprawienia pozostało <b>{{failedEntries.length}}</b> wpisów.
-</div>
-<div id="failed-entries-list-container">
-    <ng-container *ngIf="failedEntries.length != 0; else loading">
+<ng-container *ngIf="failedEntries.length != 0; else loading">
+    <div id="failed-entries-left">
+        Do naprawienia pozostało <b>{{failedEntries.length}}</b> wpisów.
+    </div>
+    <div id="failed-entries-list-container">
         <div *ngFor="let failedEntry of failedEntries" class="failed-entry">
             <div class="failed-entry-title">
                 <b>Id:</b> {{failedEntry.id}} <b>Url:</b> {{failedEntry.url}}
@@ -12,10 +12,11 @@
                 <button>Usuń</button>
             </div>
         </div>
-    </ng-container>
-    <ng-template #loading>
-        <div class="loading-container">
-            <app-loading [animation]="'rotate'"></app-loading>
-        </div>
-    </ng-template>
-</div>
+    </div>
+</ng-container>
+
+<ng-template #loading>
+    <div class="loading-container">
+        <app-loading [animation]="'rotate'"></app-loading>
+    </div>
+</ng-template>
