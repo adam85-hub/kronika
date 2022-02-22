@@ -21,9 +21,9 @@ export class FailedEntriesListComponent extends PanelOptionComponent implements 
 
   override ngOnInit(): void {
       super.ngOnInit();
-      this.entriesService.getFailedEntries().pipe(last()).subscribe((response) => {
+      this.entriesService.getFailedEntries().subscribe((response) => {
         this.failedEntries = response;
-        this.onResize();
+        setTimeout(() => this.onResize(), 10);        
       });     
   }
 

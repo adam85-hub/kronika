@@ -17,20 +17,21 @@
 
     #year-selector {
         display: inline-block;
-        font-size: 23px;
+        font-size: 20px;
         font-weight: bold;
         color: $main-accent;
         background-color: $second-accent;
         border-radius: 3px;
         cursor: pointer;    
-        border: 2px solid $font-color;                
+        border: 2px solid $font-color;     
+        width: 150px;           
     }    
 }
 
 .entry-container {
     padding: 10px;
     box-shadow: 0px 0px 10px darken($second-accent, 50%);
-    height: 100%;
+    height: 300px;
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.2s;
@@ -61,9 +62,7 @@
         font-weight: bold;
         font-size: 1.2em;
         height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flex-center;
         text-align: center;
     }
 }
@@ -76,4 +75,34 @@
 
 .entry-container {
     cursor: pointer;    
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: fit-content;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+//On phone
+@media screen and (max-width: $phone-width) {
+    #grid-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+//On tablet
+@media screen and (min-width: ($phone-width+1)) and (max-width: $tablet-width) {
+    #grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+//On tablet and phone
+@media screen and (max-width: $tablet-width) {
+    #grid-container {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }

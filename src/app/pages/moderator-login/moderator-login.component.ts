@@ -25,12 +25,11 @@ export class ModeratorLoginComponent extends PageComponent implements OnInit {
 
   logIn() {
     this.isWaiting = true;
-    this.authService.logIn(this.password).pipe(last()).subscribe(s => this.onSuccess(s.text));
+    this.authService.logIn(this.password).pipe(last()).subscribe(s => this.onSuccess(s.Token));
   }
 
-  onSuccess(success: String) {
-    if(success.startsWith("yes")) {
-      let token = success.substring(4);      
+  onSuccess(token: string) {
+    if(token.startsWith("no") == false) {      
       this.authService.setToken(token);
 
       this.router.navigateByUrl('/moderator/panel');

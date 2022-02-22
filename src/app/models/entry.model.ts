@@ -1,5 +1,6 @@
 import { ElementInterface } from "../interfaces/element.interface";
 import { EntryInterface } from "../interfaces/entry.interface";
+import { SimpleDate } from "./date";
 import { ElementModel } from "./element.model";
 import { ImageModel } from "./image.model";
 import { ParagraphModel } from "./paragraph.model";
@@ -9,7 +10,7 @@ export class EntryModel
 { 
     public id: number;
     public Title: string;
-    public Date: Date;
+    public Date: SimpleDate;
     public TitlePhoto: string;
     public Elements: ElementModel[];
     
@@ -19,7 +20,7 @@ export class EntryModel
         this.Title = entry.Title;
         this.TitlePhoto = entry.TitlePhoto;
         let dateArray = entry.Date.split(".");
-        this.Date = new Date(+dateArray[2], +dateArray[1]-1, +dateArray[0]);
+        this.Date = new SimpleDate(+dateArray[0], +dateArray[1], +dateArray[2]);
         this.Elements = new Array<ElementModel>();
 
         if(elements != null)
@@ -50,13 +51,11 @@ export class EntryModel
     }
 
     getStringDate(): string {
-        let day: string = this.Date.getDate().toString();
-        if(this.Date.getDate() < 10) day = "0" + day;
-        let month: string = this.Date.getMonth().toString();
-        if(this.Date.getMonth() < 10) month = "0" + month;
-        let year: string = this.Date.getFullYear().toString();
+        return this.Date.toDateString("d.m.y");
+    }
 
-        return `${day}.${month}.${year}`;
+    getWeirdStringDate(): string {
+        return this.Date.toDateString("y-m-d");
     }
 
     toInterface(): EntryInterface {

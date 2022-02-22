@@ -10,6 +10,7 @@ import { EntryInterface } from '../../interfaces/entry.interface';
 import { ParagraphModel } from 'src/app/models/paragraph.model';
 import { ImageModel } from 'src/app/models/image.model';
 import { VideoModel } from 'src/app/models/video.model';
+import { SimpleDate } from 'src/app/models/date';
 
 @Component({
   selector: 'app-edit-entry',
@@ -43,7 +44,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   loadEntry(id: number) {    
     this.entriesService.getEntry(id).pipe(last()).subscribe(response => {     
       if('Title' in response) {
-        this.entry = new EntryModel(response, response.Elements); 
+        this.entry = new EntryModel(response, response.Elements);         
         this.orginalEntry = response;
       }
       else {
@@ -99,7 +100,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
   setDate(date: string) {
     let dateT = date.split("-");
-    if(this.entry != undefined) this.entry.Date = new Date(Number(dateT[0]), Number(dateT[1]), Number(dateT[2]));
+    if(this.entry != undefined) this.entry.Date = new SimpleDate(Number(dateT[2]), Number(dateT[1]), Number(dateT[0]));
   }
 
   pastedToVideo(index: number) {

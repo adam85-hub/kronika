@@ -3,7 +3,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" id="back-arrow" (click)="return()">
         <div>
             {{entry.Title}} <br/>
-            {{entry.Date | date: 'dd.MM.yyyy'}}
+            {{entry.getWeirdStringDate()}}
         </div>
         <div></div>
     </div>

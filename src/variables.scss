@@ -1,13 +1,17 @@
+//* Colors:
 $main-accent: #5B8C5A;
 $second-accent: #EEE3AB;
 $font-color: #2C302E;
 $alternative-font-color: #87BCDE;
 $error-color: #EE6352;
 
-//* https://coolors.co/5b8c5a-eee3ab-87bcde-141514
-
+// https://coolors.co/5b8c5a-eee3ab-87bcde-141514
 // With error color
 // https://coolors.co/5b8c5a-eee3ab-ee6352-87bcde-141514
+
+//* Breakpoints
+$phone-width: 630px;
+$tablet-width: 1000px;
 
 //Global mixins
 @mixin absolute-center() {
@@ -15,6 +19,12 @@ $error-color: #EE6352;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@mixin flex-center() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @mixin unset-and-fill {

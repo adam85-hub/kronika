@@ -1,21 +1,19 @@
 <div id="container">
     <app-title style="margin-bottom: 5px;">Kronika parafii</app-title>
 
-    <div id="select-year" class="row">
-        <label for="year-selector" class="col-md">Wybierz rok z którego mają zostać wyświetlone wpisy:</label>
-        <select name="year-selector" id="year-selector" class="form-select col-md" (change)="indexChanged($event)">
+    <div id="select-year">
+        <label for="year-selector">Wybierz rok z którego mają zostać wyświetlone wpisy:</label>
+        <select name="year-selector" id="year-selector" (change)="indexChanged($event)">
             <option *ngFor="let year of years;" [value]="year">{{year}}</option>
         </select>
     </div>
 
     <ng-container *ngIf="!isLoading; else loading">
         <ng-container *ngIf="entries.length > 0; else noEntriesTemplate">
-            <div class="row">
-                <div class="col-lg-4 col-md-6" style="padding: 10px" *ngFor="let entry of entries;" [ngStyle]="{ 'height' : '300px' }" (click)="toEntry(entry.id)">
-                    <div class="entry-container">
-                        <div class="img-container"><img [src]="entry.TitlePhoto" loading="lazy"></div>
-                        <div class="entry-title">{{entry.Title}} <br/> Data: {{entry.Date | date:'dd.MM.yyyy'}}</div>
-                    </div>
+            <div id="grid-container">
+                <div *ngFor="let entry of entries;" class="entry-container" (click)="toEntry(entry.id)">
+                    <div class="img-container"><img [src]="entry.TitlePhoto" loading="lazy"></div>
+                    <div class="entry-title">{{entry.Title}} <br/> Data: {{entry.getStringDate()}}</div>
                 </div>
             </div>
         </ng-container>

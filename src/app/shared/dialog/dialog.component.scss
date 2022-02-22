@@ -16,12 +16,10 @@
     grid-template-rows: 1fr 2fr 1fr;
 
     #dialog-title {
-        display: flex;
+        @include flex-center;
         font-size: 30px;
         grid-column: 1;
         grid-row: 1;
-        align-items: center;
-        justify-content: center;
     }
 
     #dialog-content {
