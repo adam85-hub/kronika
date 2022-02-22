@@ -11,7 +11,8 @@ $main-width: 1300px;
     border-right: 1px solid $font-color;
     text-align: center;
     width: 180px;
-    height:  $navbar-height;    
+    height:  $navbar-height;  
+    font-size: 1.1em;  
     cursor: pointer;
     @include flex-center;
 }
