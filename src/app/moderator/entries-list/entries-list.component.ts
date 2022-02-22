@@ -41,7 +41,7 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
     this.entriesService.getEntriesByYear(year).pipe(last()).subscribe(response => {
       response.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
-        this.entries.sort((a, b) => b.Date.getTime() - a.Date.getTime());
+        this.entries.sort((a, b) => b.Date.valueOf() - a.Date.valueOf());
         this.updatePageTitle(`wpisy ${year}`);   
       })
     });

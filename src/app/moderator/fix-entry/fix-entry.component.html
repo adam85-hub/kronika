@@ -9,7 +9,7 @@
         </div>
         <div class="i-pair">
             <label for="entry-title">Data: </label>
-            <input id="entry-title" type="date" [ngModel]="Entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="setDate($event)">
+            <input id="entry-title" type="date" [ngModel]="Entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">
         </div>        
     </div>
     <div id="entry-preview">

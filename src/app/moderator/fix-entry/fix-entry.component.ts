@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
+import { SimpleDate } from 'src/app/models/date';
 import { EntryModel } from 'src/app/models/entry.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -52,6 +53,6 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   
   setDate(date: string) {
     let dateT = date.split("-");
-    if(this.Entry != undefined) this.Entry.Date = new Date(Number(dateT[0]), Number(dateT[1]), Number(dateT[2]));
+    if(this.Entry != undefined) this.Entry.Date = new SimpleDate(Number(dateT[2]), Number(dateT[1]), Number(dateT[0]));
   }
 }
