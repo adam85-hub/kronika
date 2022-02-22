@@ -1,19 +1,33 @@
+@import "../../../variables.scss";
+
 p {
     font-size: 21px;
     text-align: justify;
 }
 
-$p-width: 670px;
+$photo-width: 650px;
 
-#title-photo {  
-    width: $p-width;
-    aspect-ratio: 16/10;
-    margin: 0 auto; 
-    display: block;
+#history-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    #title-photo {  
+        width: $photo-width;
+        aspect-ratio: 16/10;
+        margin: 0 auto; 
+        display: block;
+    }    
 }
 
-@media screen and (max-width: $p-width) {
-    #title-photo {
-        width: 95%;
+
+
+@media screen and (max-width: $tablet-width) {
+    #history-container {
+        flex-direction: column;
+
+        #title-photo {
+            width: 95%;
+        }
     }
 }
