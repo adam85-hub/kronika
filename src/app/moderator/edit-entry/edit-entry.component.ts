@@ -43,7 +43,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   loadEntry(id: number) {    
     this.entriesService.getEntry(id).pipe(last()).subscribe(response => {     
       if('Title' in response) {
-        this.entry = new EntryModel(response, response.Elements); 
+        this.entry = new EntryModel(response, response.Elements);         
         this.orginalEntry = response;
       }
       else {

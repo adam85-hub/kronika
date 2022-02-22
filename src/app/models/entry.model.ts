@@ -19,7 +19,7 @@ export class EntryModel
         this.Title = entry.Title;
         this.TitlePhoto = entry.TitlePhoto;
         let dateArray = entry.Date.split(".");
-        this.Date = new Date(+dateArray[2], +dateArray[1]-1, +dateArray[0]);
+        this.Date = new Date(+dateArray[2], +dateArray[1], +dateArray[0]);
         this.Elements = new Array<ElementModel>();
 
         if(elements != null)
@@ -53,10 +53,24 @@ export class EntryModel
         let day: string = this.Date.getDate().toString();
         if(this.Date.getDate() < 10) day = "0" + day;
         let month: string = this.Date.getMonth().toString();
-        if(this.Date.getMonth() < 10) month = "0" + month;
+        if (this.Date.getMonth() < 10) month = "0" + month;
         let year: string = this.Date.getFullYear().toString();
 
+        if(month == "00" || month == "0") month = "12";
+
         return `${day}.${month}.${year}`;
+    }
+
+    getWeirdStringDate(): string {
+        let day: string = this.Date.getDate().toString();
+        if(this.Date.getDate() < 10) day = "0" + day;
+        let month: string = this.Date.getMonth().toString();
+        if (this.Date.getMonth() < 10) month = "0" + month;
+        let year: string = this.Date.getFullYear().toString();
+
+        if(month == "00" || month == "0") month = "12";
+
+        return `${year}-${month}-${day}`;
     }
 
     toInterface(): EntryInterface {

@@ -13,7 +13,7 @@
             <div id="grid-container">
                 <div *ngFor="let entry of entries;" class="entry-container" (click)="toEntry(entry.id)">
                     <div class="img-container"><img [src]="entry.TitlePhoto" loading="lazy"></div>
-                    <div class="entry-title">{{entry.Title}} <br/> Data: {{entry.Date | date:'dd.MM.yyyy'}}</div>
+                    <div class="entry-title">{{entry.Title}} <br/> Data: {{entry.getStringDate()}}</div>
                 </div>
             </div>
         </ng-container>

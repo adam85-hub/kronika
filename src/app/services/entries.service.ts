@@ -36,6 +36,6 @@ export class EntriesService {
 
   modifyEntry(entry: EntryInterface) {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
-    return this.http.put<EntryInterface>(this.baseUrl + `/kronika/api/entry/modify`, entry, {'headers': headers});
+    return this.http.put<EntryInterface>(this.baseUrl + `/kronika/api/entry`, entry, {'headers': headers});
   }
 }

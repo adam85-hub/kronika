@@ -9,7 +9,7 @@
         <!-- Display title of entry -->
         <div id="title-section">
             <textarea type="text" [(ngModel)]="entry.Title"></textarea>
-            <input type="date" [ngModel]="entry.Date | date: 'yyyy-MM-dd'" (ngModelChange)="setDate($event)">         
+            <input type="date" [ngModel]="entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">         
         </div>
 
         <!-- Display elements of entry -->
