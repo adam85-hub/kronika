@@ -74,9 +74,11 @@
     }
 }
 
-// Ale to jest rozkminione
-.image-el + .image-el {
-    grid-column: auto;
+@media screen and (min-width: $tablet-width) {    
+    // Ale to jest rozkminione
+    .image-el + .image-el {
+        grid-column: auto;
+    }
 }
 
 .video-el {
