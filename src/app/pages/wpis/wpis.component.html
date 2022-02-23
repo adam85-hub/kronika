@@ -7,8 +7,8 @@
         </div>
         <div></div>
     </div>
-    <div id="elements-section" *ngIf="entry.Elements != null" class="row">
-        <div class="element" *ngFor="let element of entry.Elements; let i = index" [ngClass]="classes[i]">
+    <div id="elements-section" *ngIf="entry.Elements != null">
+        <div class="element" *ngFor="let element of entry.Elements; let i = index">
             <ng-template [ngIf]="element.type == 'Paragraph'">
                 <div class="paragraph-el">
                     {{element.getAttr()}}
