@@ -21,6 +21,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   paramsLoaded = new EventEmitter();
   entry?: EntryModel;
   orginalEntry?: EntryInterface;
+  imageUploadIndex: number = 0;
 
   exitDialog = false;
   addElementDialog = false;
@@ -37,7 +38,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
       let id = params['id'];
       if(isNaN(id)) this.router.navigateByUrl("/error404"); 
       this.paramsLoaded.subscribe(id => this.loadEntry(id));
-      this.paramsLoaded.emit(id);
+      this.paramsLoaded.emit(id);      
     });
   }
 
@@ -113,5 +114,15 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
         this.entry.Elements[videoI].setAttr(newValue); 
       }
     }, 10);    
+  }
+
+  uploadPhoto(elementIndex: number) {
+    let fileDialog = (document.querySelector("#file-dialog") as HTMLInputElement);
+    this.imageUploadIndex = elementIndex;
+    fileDialog.click();
+  }
+
+  onFileSelected(event: any) {
+    console.log(event.target.files[0].constructor.name);
   }
 }
