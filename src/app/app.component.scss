@@ -69,6 +69,7 @@ $main-width: 1300px;
     font-family: 'Josefin Sans', sans-serif;
     padding: 20px 0;
     @include flex-center;
+    gap: 10px;
 
     img {
         display: inline-block;

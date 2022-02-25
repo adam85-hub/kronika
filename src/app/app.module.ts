@@ -17,6 +17,7 @@ import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WpisComponent } from './pages/wpis/wpis.component';
 import { SharedModule } from './shared/shared.module';
+import { KontaktComponent } from './pages/kontakt/kontakt.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SharedModule } from './shared/shared.module';
     Error404Component,
     PageComponent,
     ModeratorLoginComponent,
-    WpisComponent
+    WpisComponent,
+    KontaktComponent
   ],
   imports: [
     BrowserModule,
