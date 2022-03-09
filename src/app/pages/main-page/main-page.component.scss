@@ -5,23 +5,25 @@ p {
     text-align: justify;
 }
 
-$card-width: 650px;
 $anim-len: 0.8s;
 
 @function getZOffset() {
-    @return ($card-width/2) + 20px;
-} 
+    @return calc( (var(--card-width) / 2) + 20px);
+}
 
 #history-container {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
+    @include cantSelect();
+    border: 2px solid $font-color;
 
     #card {
-        width: $card-width;
-        aspect-ratio: 16/10;        
-    
+        --card-width: 700px;
+        width: var(--card-width);
+        aspect-ratio: 16/10; 
+        
         #card-content {
             transition: transform $anim-len;
             transition-timing-function: ease-in-out;
@@ -39,9 +41,9 @@ $anim-len: 0.8s;
             #card-front {
                 @include card-side();
                 transform: translateZ(getZOffset());
-                width: $card-width;
+                width: var(--card-width);
                 aspect-ratio: 16/10;
-                transform-style: preserve-3d;
+                transform-style: preserve-3d;                
                 gap: 10px;
                 
                 display: flex;
@@ -65,14 +67,22 @@ $anim-len: 0.8s;
             #card-back {
                 @include card-side();
                 transform: rotateY(0.25turn) translateZ(getZOffset());
+                padding-top: 5%;
             }
         }
 
     
-        &:hover {
-            #card-content {
-                transform: rotateY(-0.25turn);             
-            }
+    }
+
+    &:hover {
+        #card-content {
+            transform: rotateY(-0.25turn);             
         }
+    }
+}
+
+@media screen and (max-width: $tablet-width) {
+    #history-container > #card {
+        display: none;
     }
 }
