@@ -123,6 +123,6 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    console.log(event.target.files[0].constructor.name);
+    console.log(event.target.files[0].constructor.name); //todo: Upload file to server
   }
 }

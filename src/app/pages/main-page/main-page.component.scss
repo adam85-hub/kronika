@@ -5,29 +5,74 @@ p {
     text-align: justify;
 }
 
-$photo-width: 650px;
+$card-width: 650px;
+$anim-len: 0.8s;
+
+@function getZOffset() {
+    @return ($card-width/2) + 20px;
+} 
 
 #history-container {
+    margin-top: 20px;
     display: flex;
-    gap: 10px;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
 
-    #title-photo {  
-        width: $photo-width;
-        aspect-ratio: 16/10;
-        margin: 0 auto; 
-        display: block;
-    }    
-}
+    #card {
+        width: $card-width;
+        aspect-ratio: 16/10;        
+    
+        #card-content {
+            transition: transform $anim-len;
+            transition-timing-function: ease-in-out;
+            position: relative;
+            transform-style: preserve-3d;
 
+            @mixin card-side {
+                position: absolute;
+                top: 0; 
+                bottom: 0;
+                left: 0;
+                right: 0;                
+            }
+    
+            #card-front {
+                @include card-side();
+                transform: translateZ(getZOffset());
+                width: $card-width;
+                aspect-ratio: 16/10;
+                transform-style: preserve-3d;
+                gap: 10px;
+                
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
 
+                #title-photo {  
+                    width: 30%;
+                    aspect-ratio: 16/10;
+                }   
+                
+                #card-title {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 40px;
+                    transform: translateZ(10px);
+                }
+            }
+            
+            #card-back {
+                @include card-side();
+                transform: rotateY(0.25turn) translateZ(getZOffset());
+            }
+        }
 
-@media screen and (max-width: $tablet-width) {
-    #history-container {
-        flex-direction: column;
-
-        #title-photo {
-            width: 95%;
+    
+        &:hover {
+            #card-content {
+                transform: rotateY(-0.25turn);             
+            }
         }
     }
 }
