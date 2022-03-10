@@ -25,7 +25,28 @@
     </div>
 </div>
 
-<app-title>Najnowsze wydarzenia</app-title>
-<div style="width: 100%; padding: 10px 0px 20px 0px; text-align: center; font-size: 25px;">
-    No jakieśtam wydarzenia
-</div>
+<app-article title="Najnowsze wydarzenia">
+    <ng-container *ngIf="newestEntries.length != 0; else loader">
+        <div class="entry" *ngFor="let entry of newestEntries;">
+            <div class="entry-photo">
+                <img [src]="entry.TitlePhoto" [alt]="entry.Title">
+            </div>
+            <div class="entry-description">
+                <b>{{entry.Title}}</b> <br>
+                <span>{{entry.getStringDate()}}</span> <br>
+                <a [routerLink]="'/kronika/' + entry.id" >więcej...</a>
+            </div>
+        </div>
+        <div class="link-container">
+            <a routerLink="/kronika" class="kronika-link">
+                <span>Wszystkie wydarzenia</span>  
+                <div class="link-arrow">--></div>
+            </a>            
+        </div>
+    </ng-container>
+    <ng-template #loader>
+        <div class="loading-wrapper">
+            <app-loading animation="rotate"></app-loading>
+        </div>
+    </ng-template>
+</app-article>
