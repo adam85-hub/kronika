@@ -81,7 +81,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
       this.entry?.Elements.push(new VideoModel(this.entry.Elements.length+1, ""));
     }
 
-    this.addElementDialog = false;    
+    this.addElementDialog = false;  // Hides add element dialog
   }
 
   deleteElement(index: number): void {
@@ -92,16 +92,18 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   saveChanges() {
-    if(this.entry != undefined) {
+    if (this.entry != undefined) {
       this.entriesService.modifyEntry(this.entry.toInterface()).subscribe((response) => {
         this.router.navigateByUrl("/moderator/panel");
       });
     }
+    else throw Error("Entry is undefined");
   }
 
   setDate(date: string) {
     let dateT = date.split("-");
-    if(this.entry != undefined) this.entry.Date = new SimpleDate(Number(dateT[2]), Number(dateT[1]), Number(dateT[0]));
+    if (this.entry != undefined) this.entry.Date = new SimpleDate(Number(dateT[2]), Number(dateT[1]), Number(dateT[0]));
+    else throw Error("Entry is undefined");
   }
 
   pastedToVideo(index: number) {
@@ -118,11 +120,18 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
   uploadPhoto(elementIndex: number) {
     let fileDialog = (document.querySelector("#file-dialog") as HTMLInputElement);
-    this.imageUploadIndex = elementIndex;
+    this.imageUploadIndex = elementIndex-1;
     fileDialog.click();
   }
 
   onFileSelected(event: any) {
-    console.log(event.target.files[0].constructor.name); //todo: Upload file to server
+    let photo = event.target.files[0];
+    if (this.entry != undefined)
+      this.entriesService.uploadPhoto(photo, this.entry?.id).subscribe((response) => {
+        if (this.entry == undefined) throw Error("Entry is undefined");
+        this.entry.Elements[this.imageUploadIndex].setAttr(`${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`);
+      });
+    else
+      throw Error("Entry is undefined");
   }
 }

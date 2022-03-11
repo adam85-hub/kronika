@@ -40,8 +40,17 @@ export class EntriesService {
   }
 
   uploadPhoto(file: File, entryId: number): Observable<string> {
-    const formData = new FormData();
-    formData.append("image", file, file.name);
-    return this.http.post<string>(this.baseUrl + `/kronika/api/entries/${entryId}/photo`, formData);
+    const headers = new HttpHeaders().append('Token', this.auth.getToken());
+    let formData = new FormData();
+    formData.append("photo", file, file.name);
+    return this.http.post(this.baseUrl + `/kronika/api/entry/${entryId}/photo`, formData, {'headers': headers, 'responseType': 'text'});
+  }
+
+  get apiUrl() {
+    return this.baseUrl + "/kronika/api/";
+  }
+
+  get entriesFolderUrl() {
+    return this.baseUrl + "/kronika/entries/";
   }
 }
