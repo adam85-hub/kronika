@@ -6,6 +6,7 @@
     width: 150px;
     height: 150px;   
     @include absolute-center(); 
+    position: fixed;
 }
 
 #component-container {

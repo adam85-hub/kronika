@@ -112,6 +112,7 @@
 #loader {
     width: 200px;
     @include absolute-center();
+    position: fixed;
 }
 
 #controls {
