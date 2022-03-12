@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
 import { SimpleDate } from 'src/app/models/date';
@@ -17,8 +17,11 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   paramsLoaded = new EventEmitter();
   FailedEntry?: FailedEntryInterface;
   Entry?: EntryModel;
+  SafeUrl?: SafeResourceUrl;
+  Photos: {index: number, url: string}[] = [{index: 1, url: "https://www.w3schools.com/images/colorpicker2000.png"}];
 
-  constructor(private route: ActivatedRoute, titleService: Title, private entriesService: EntriesService, router: Router, auth: AuthenticationService) { 
+  constructor(private route: ActivatedRoute, titleService: Title, private entriesService: EntriesService, router: Router, auth: AuthenticationService,
+  private sanitizer: DomSanitizer) { 
     super(titleService, auth, router);
     this.FailedEntry = undefined;
     this.Entry = undefined;
@@ -38,10 +41,11 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     this.entriesService.getEntry(id).subscribe((response) => {
       if('url' in response) {
         this.FailedEntry = response;
+        this.SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.FailedEntry.url);
         this.Entry = new EntryModel({
           id: this.FailedEntry.id,
           Title: "",
-          Date: "",
+          Date: new Date().toLocaleDateString(),
           TitlePhoto: ""
         })
       }
@@ -54,5 +58,15 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   setDate(date: string) {
     let dateT = date.split("-");
     if(this.Entry != undefined) this.Entry.Date = new SimpleDate(Number(dateT[2]), Number(dateT[1]), Number(dateT[0]));
+  }
+
+  addPhoto() {
+    this.Photos.push({ index: this.Photos.length + 1, url: "" });
+  }
+
+  deletePhoto(index: number) {
+    this.Photos = this.Photos.filter((photo) => {
+      return photo.index != index;
+    });
   }
 }

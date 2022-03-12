@@ -32,14 +32,14 @@ export class EntryModel
         }        
     }
 
-    MoveElement(currentIndex: number, newIndex: number) {        
+    MoveElement(currentIndex: number, newIndex: number): void {        
         //Gets element with currentIndex out of array
         let before = this.Elements.slice(0, currentIndex+1);
         let after = this.Elements.slice(currentIndex+1);
         let element = before.pop();
         let elements = before.concat(after);
 
-        if(element == undefined) throw Error("Element o indeksie currentIndex nie istnieje.");
+        if(element == undefined) throw Error('Element with index "currentIndex" does not exist.');
         //Inserts it to new index          
         elements = elements.slice(0, newIndex).concat([element]).concat(elements.slice(newIndex));
 
