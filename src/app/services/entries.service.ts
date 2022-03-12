@@ -38,4 +38,19 @@ export class EntriesService {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     return this.http.put<EntryInterface>(this.baseUrl + `/kronika/api/entry`, entry, {'headers': headers});
   }
+
+  uploadPhoto(file: File, entryId: number): Observable<string> {
+    const headers = new HttpHeaders().append('Token', this.auth.getToken());
+    let formData = new FormData();
+    formData.append("photo", file, file.name);
+    return this.http.post(this.baseUrl + `/kronika/api/entry/${entryId}/photo`, formData, {'headers': headers, 'responseType': 'text'});
+  }
+
+  get apiUrl() {
+    return this.baseUrl + "/kronika/api/";
+  }
+
+  get entriesFolderUrl() {
+    return this.baseUrl + "/kronika/entries/";
+  }
 }

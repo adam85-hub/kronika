@@ -11,7 +11,8 @@ $main-width: 1300px;
     border-right: 1px solid $font-color;
     text-align: center;
     width: 180px;
-    height:  $navbar-height;    
+    height:  $navbar-height;  
+    font-size: 1.1em;  
     cursor: pointer;
     @include flex-center;
 }
@@ -68,6 +69,7 @@ $main-width: 1300px;
     font-family: 'Josefin Sans', sans-serif;
     padding: 20px 0;
     @include flex-center;
+    gap: 10px;
 
     img {
         display: inline-block;
@@ -133,7 +135,7 @@ main {
 
 @media screen and (max-width: $main-width) {
     #main-container {
-        width: 100%;
+        width: 98%;
     }
 }
 

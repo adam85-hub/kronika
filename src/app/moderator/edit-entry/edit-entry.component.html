@@ -29,7 +29,7 @@
 						    Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">                           
                         </div>
                         <img [src]="element.getAttr()" loading="lazy">
-                        <button class="btn-el">Prześlij</button>
+                        <button class="btn-el" (click)="uploadPhoto(element.index)">Prześlij</button>
                     </ng-template>
                     <ng-template [ngIf]="element.type === 'Video'">
                         <div>
@@ -47,6 +47,7 @@
             <button (click)="addElementDialog = true">Dodaj element</button>
             <button (click)="saveChanges()">Zapisz</button>
         </div>
+        <input id="file-dialog" type="file" style="display: none;" (change)="onFileSelected($event)">
         <!-- Scrolling fix -->
         <div style="height: 200px;"></div>
     </ng-container>

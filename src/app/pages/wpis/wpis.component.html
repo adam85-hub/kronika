@@ -3,13 +3,13 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" id="back-arrow" (click)="return()">
         <div>
             {{entry.Title}} <br/>
-            {{entry.getWeirdStringDate()}}
+            <b>{{entry.getStringDate()}}</b>
         </div>
         <div></div>
     </div>
-    <div id="elements-section" *ngIf="entry.Elements != null" class="row">
-        <div class="element" *ngFor="let element of entry.Elements; let i = index" [ngClass]="classes[i]">
-            <ng-template [ngIf]="element.type == 'Paragraph'">
+    <div id="elements-section" *ngIf="entry.Elements != null">
+        <ng-container *ngFor="let element of entry.Elements; let i = index">
+            <ng-template [ngIf]="element.type == 'Paragraph'"> 
                 <div class="paragraph-el">
                     {{element.getAttr()}}
                 </div>
@@ -23,8 +23,8 @@
                 <div class="video-el">
                     <youtube-player [videoId]="getVideoId(element.getAttr())" [width]="widthOfVideos" [height]="heightOfVideos"></youtube-player>   
                 </div>
-            </ng-template>
-        </div>
+            </ng-template>            
+        </ng-container>
     </div>
 </ng-template>
 
