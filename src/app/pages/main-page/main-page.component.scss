@@ -102,6 +102,8 @@ $anim-len: 0.8s;
         flex: 1;
         overflow: hidden;
         height: 100%;
+        display: flex;
+        align-items: center;
 
         img {
             width: 100%;

@@ -27,7 +27,7 @@
 
 <app-article title="Najnowsze wydarzenia">
     <ng-container *ngIf="newestEntries.length != 0; else loader">
-        <div class="entry" *ngFor="let entry of newestEntries;">
+        <div *ngFor="let entry of newestEntries;" class="entry"> <!--* Pojedyńczy wpis do kroniki -->
             <div class="entry-photo">
                 <img [src]="entry.TitlePhoto" [alt]="entry.Title">
             </div>
