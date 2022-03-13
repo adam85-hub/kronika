@@ -8,12 +8,34 @@
             <input id="entry-title" type="text" [(ngModel)]="Entry.Title">
         </div>
         <div class="i-pair">
-            <label for="entry-title">Data: </label>
-            <input id="entry-title" type="date" [ngModel]="Entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">
-        </div>        
+            <label for="entry-date">Data: </label>
+            <input id="entry-date" type="date" [ngModel]="Entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">
+        </div>  
+        <div class="i-pair">
+            <label for="entry-title-photo">Zdjęcie tytułowe: </label> <!--todo: Add option of uploading title photo-->
+            <input type="text" id="entry-title-photo" [(ngModel)]="Entry.TitlePhoto">
+            <img [src]="Entry.TitlePhoto" *ngIf="Entry.TitlePhoto != '' && Entry.TitlePhoto != undefined">
+        </div>
+
+        <!--todo: Add option of uploading this photo -->
+        <span class="section-title">Zdjęcia:</span> 
+
+        <div id="photos-container" *ngIf="Photos.length != 0">
+            <div class="i-pair" *ngFor="let photo of Photos">
+                <label [for]="'photo-' + photo.index">Url: </label>
+                <input type="text" [id]="'photo-' + photo.index" [(ngModel)]="photo.url">
+                <img [src]="photo.url" *ngIf="photo.url != '' && photo.url != undefined">
+                <button class="btn-photo-delete" (click)="deletePhoto(photo.index)">Usuń</button>
+            </div>
+        </div>
+
+        <div id="buttons">
+            <button id="btn-add-photo" (click)="addPhoto()">Dodaj zdjęcie</button>
+            <button id="btn-continue" (click)="saveAndContinue()">Dalej</button>  
+        </div>    
     </div>
     <div id="entry-preview">
-        preview
+        <iframe id="preview-frame" [src]="SafeUrl"></iframe>
     </div>
 </div>
 
