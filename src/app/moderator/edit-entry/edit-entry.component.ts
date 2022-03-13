@@ -65,7 +65,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   revertChanges() {
-    if(this.orginalEntry === undefined) throw Error("Coś jest nie tak (orginalEntry = undefined)");
+    if(this.orginalEntry === undefined) throw Error("Something is wrong (orginalEntry is undefined)");
     this.entry = new EntryModel(this.orginalEntry, this.orginalEntry?.Elements);
   }
 
@@ -120,7 +120,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
   uploadPhoto(elementIndex: number) {
     let fileDialog = (document.querySelector("#file-dialog") as HTMLInputElement);
-    this.imageUploadIndex = elementIndex-1;
+    this.imageUploadIndex = elementIndex;
     fileDialog.click();
   }
 
@@ -129,7 +129,10 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     if (this.entry != undefined)
       this.entriesService.uploadPhoto(photo, this.entry?.id).subscribe((response) => {
         if (this.entry == undefined) throw Error("Entry is undefined");
-        this.entry.Elements[this.imageUploadIndex].setAttr(`${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`);
+
+        // Jeżeli indeks jest równy -1 to ustawiamy zdjęcie tytułowe
+        if (this.imageUploadIndex == -1) this.entry.TitlePhoto = `${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`;
+        else this.entry.Elements[this.imageUploadIndex].setAttr(`${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`);
       });
     else
       throw Error("Entry is undefined");

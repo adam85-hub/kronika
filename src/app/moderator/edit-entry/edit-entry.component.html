@@ -1,6 +1,6 @@
 <div id="container">
     <!-- Displays if entry was saved succesfuly -->
-    <ng-container *ngIf="entry != undefined; else entryLoading"> <!--todo: Add option of editing and uploading title photo-->
+    <ng-container *ngIf="entry != undefined; else entryLoading">
         <!-- Nav of page -->
         <div id="nav">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" (click)="exitDialog = true">
@@ -9,7 +9,12 @@
         <!-- Display title of entry -->
         <div id="title-section">
             <textarea type="text" [(ngModel)]="entry.Title"></textarea>
-            <input type="date" [ngModel]="entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">         
+            <input id="date-input" type="date" [ngModel]="entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">  
+            <div id="title-photo">
+                <button (click)="uploadPhoto(-1)">Prześlij</button>
+                <input type="text" [(ngModel)]="entry.TitlePhoto">
+                <img [src]="entry.TitlePhoto" alt="">
+            </div>       
         </div>
 
         <!-- Display elements of entry -->
@@ -29,7 +34,7 @@
 						    Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">                           
                         </div>
                         <img [src]="element.getAttr()" loading="lazy">
-                        <button class="btn-el" (click)="uploadPhoto(element.index)">Prześlij</button>
+                        <button class="btn-el" (click)="uploadPhoto(element.index-1)">Prześlij</button>
                     </ng-template>
                     <ng-template [ngIf]="element.type === 'Video'">
                         <div>
