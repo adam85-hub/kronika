@@ -1,6 +1,6 @@
 <div *ngIf="FailedEntry != undefined && Entry != undefined; else loading" id="component-container">
     <div id="title-container">
-        <img src="" alt="">
+        <img src="../../../assets/Back_Arrow.png" alt="<-" (click)="ExitDialog = true">
         <div id="title">Naprawa wydarzenia</div>        
     </div>
     <div id="fix-entry">
@@ -45,3 +45,9 @@
         <app-loading [animation]="'rotate'"></app-loading>
     </div>
 </ng-template>
+
+<!-- Exit dialog -->
+<app-dialog [visible]="ExitDialog" noBtnText="Wyjdź" yesBtnText="Zostań"
+    (yesClicked)="ExitDialog = false" (noClicked)="exit()">
+    Czy na pewno chcesz wyjść? Kiedy to zrobisz zmiany nie zostaną zapisane.
+</app-dialog>

@@ -20,6 +20,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   Entry?: EntryModel;
   SafeUrl?: SafeResourceUrl;
   Photos: {index: number, url: string}[] = [{index: 1, url: "https://www.w3schools.com/images/colorpicker2000.png"}];
+  ExitDialog = false;
 
   constructor(private route: ActivatedRoute, titleService: Title, private entriesService: EntriesService, router: Router, auth: AuthenticationService,
   private sanitizer: DomSanitizer) { 
@@ -76,5 +77,9 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     this.Entry.Elements = [];
     for(let photo of this.Photos)
       this.Entry.Elements.push(new ImageModel(photo.index, photo.url));      
+  }
+
+  exit() {
+    this.router.navigateByUrl("/moderator/panel/failed-entries");
   }
 }
