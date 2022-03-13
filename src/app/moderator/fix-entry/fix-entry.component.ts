@@ -75,8 +75,6 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     if (this.Entry == undefined) throw Error("Entry cannot be null!");
     this.Entry.Elements = [];
     for(let photo of this.Photos)
-      this.Entry.Elements.push(new ImageModel(photo.index, photo.url));
-
-    console.log(this.Entry);
+      this.Entry.Elements.push(new ImageModel(photo.index, photo.url));      
   }
 }

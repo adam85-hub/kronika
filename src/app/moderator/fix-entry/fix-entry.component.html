@@ -12,12 +12,13 @@
             <input id="entry-date" type="date" [ngModel]="Entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">
         </div>  
         <div class="i-pair">
-            <label for="entry-title-photo">Zdjęcie tytułowe: </label>
+            <label for="entry-title-photo">Zdjęcie tytułowe: </label> <!--todo: Add option of uploading title photo-->
             <input type="text" id="entry-title-photo" [(ngModel)]="Entry.TitlePhoto">
             <img [src]="Entry.TitlePhoto" *ngIf="Entry.TitlePhoto != '' && Entry.TitlePhoto != undefined">
         </div>
 
-        <span class="section-title">Zdjęcia:</span>
+        <!--todo: Add option of uploading this photo -->
+        <span class="section-title">Zdjęcia:</span> 
 
         <div id="photos-container" *ngIf="Photos.length != 0">
             <div class="i-pair" *ngFor="let photo of Photos">
