@@ -34,7 +34,7 @@
 						    Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">                           
                         </div>
                         <img [src]="element.getAttr()" loading="lazy">
-                        <button class="btn-el" (click)="uploadPhoto(element.index-1)">Prześlij</button>
+                        <button class="btn-el" (click)="uploadPhoto(element.index-1)">Prześlij</button> <!--todo: Dodaj przesyłanie kilku zdjęć na raz-->
                     </ng-template>
                     <ng-template [ngIf]="element.type === 'Video'">
                         <div>
