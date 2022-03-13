@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
 import { SimpleDate } from 'src/app/models/date';
 import { EntryModel } from 'src/app/models/entry.model';
+import { ImageModel } from 'src/app/models/image.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EntriesService } from 'src/app/services/entries.service';
 import { ModeratorComponent } from '../moderator.component';
@@ -68,5 +69,14 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     this.Photos = this.Photos.filter((photo) => {
       return photo.index != index;
     });
+  }
+
+  saveAndContinue() {
+    if (this.Entry == undefined) throw Error("Entry cannot be null!");
+    this.Entry.Elements = [];
+    for(let photo of this.Photos)
+      this.Entry.Elements.push(new ImageModel(photo.index, photo.url));
+
+    console.log(this.Entry);
   }
 }
