@@ -21,12 +21,10 @@ export class MainPageComponent extends PageComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
 
-    let yearNow = new Date().getFullYear();
-    // Receives entries from api and adds first 3 to newestEntries
-    this.entriesService.getEntriesByYear(yearNow).subscribe((response) => {
+    // Receives 3 newest entries from api
+    this.entriesService.getNewestEntries().subscribe((response) => {
       response.forEach((entryInterface) => this.newestEntries.push(new EntryModel(entryInterface, undefined)));
       this.newestEntries.sort((a, b) => b.Date.valueOf() - a.Date.valueOf());
-      this.newestEntries = this.newestEntries.slice(0, 3);
     });
   }
 }

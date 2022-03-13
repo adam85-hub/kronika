@@ -34,6 +34,10 @@ export class EntriesService {
     return this.http.get<FailedEntryInterface[]>(this.baseUrl + `/kronika/api/entries/failed`);
   }
 
+  getNewestEntries(): Observable<EntryInterface[]> {
+    return this.http.get<EntryInterface[]>(this.baseUrl + "/kronika/api/entries/newest");
+  }
+
   modifyEntry(entry: EntryInterface) {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     return this.http.put<EntryInterface>(this.baseUrl + `/kronika/api/entry`, entry, {'headers': headers});
