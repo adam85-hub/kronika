@@ -21,10 +21,12 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   SafeUrl?: SafeResourceUrl;
   Photos: {index: number, url: string}[] = [{index: 1, url: "https://www.w3schools.com/images/colorpicker2000.png"}];
   ExitDialog = false;
+  UploadIndex = 0;
 
   constructor(private route: ActivatedRoute, titleService: Title, private entriesService: EntriesService, router: Router, auth: AuthenticationService,
   private sanitizer: DomSanitizer) { 
     super(titleService, auth, router);
+    this.pageTitle = "Naprawianie wydarzenia - Kronika Parafii";
     this.FailedEntry = undefined;
     this.Entry = undefined;
   }
@@ -72,11 +74,34 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     });
   }
 
+  uploadPhoto(index: number) {
+    this.UploadIndex = index;
+
+    const fileDialog = document.getElementById("file-dialog") as HTMLInputElement;
+    fileDialog.click();
+  }
+
+  onFileSelected(event: any) {
+    if (this.Entry == undefined) throw Error("Entry is undefined!");
+
+    let photo = event.target.files[0];
+    
+    this.entriesService.uploadPhoto(photo, this.Entry.id).subscribe((response) => {
+      if (this.Entry == undefined) throw Error("Entry is undefined!"); 
+
+      // Jeżeli index to -1 wtedy przypisujemy adres do zdjęcia tytułowego
+      if (this.UploadIndex == -1) this.Entry.TitlePhoto = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+      else this.Photos[this.UploadIndex].url = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+    });
+  }
+
   saveAndContinue() {
     if (this.Entry == undefined) throw Error("Entry cannot be null!");
     this.Entry.Elements = [];
     for(let photo of this.Photos)
       this.Entry.Elements.push(new ImageModel(photo.index, photo.url));      
+    
+    console.log(this.Entry);
   }
 
   exit() {

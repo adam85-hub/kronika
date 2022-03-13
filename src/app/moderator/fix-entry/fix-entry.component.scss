@@ -105,3 +105,13 @@
     @include button($btn-red);
     font-size: 18px;
 }
+
+.btn-photo-upload {
+    @include button($btn-green);
+    font-size: 18px;
+}
+
+.btn-title-upload {
+    @include button($btn-green);
+    font-size: 20px;
+}

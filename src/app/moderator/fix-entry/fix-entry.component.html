@@ -16,9 +16,10 @@
             <label for="entry-title-photo">Zdjęcie tytułowe: </label> <!--todo: Add option of uploading title photo-->
             <input type="text" id="entry-title-photo" [(ngModel)]="Entry.TitlePhoto">
             <img [src]="Entry.TitlePhoto" *ngIf="Entry.TitlePhoto != '' && Entry.TitlePhoto != undefined">
+            <button class="btn-title-upload" (click)="uploadPhoto(-1)">Prześlij</button>
         </div>
 
-        <!--todo: Add option of uploading this photo -->
+        <!--todo: Add option of uploading this photos -->
         <span class="section-title">Zdjęcia:</span> 
 
         <div id="photos-container" *ngIf="Photos.length != 0">
@@ -26,6 +27,7 @@
                 <label [for]="'photo-' + photo.index">Url: </label>
                 <input type="text" [id]="'photo-' + photo.index" [(ngModel)]="photo.url">
                 <img [src]="photo.url" *ngIf="photo.url != '' && photo.url != undefined">
+                <button class="btn-photo-upload" (click)="uploadPhoto(photo.index-1)">Prześlij</button>
                 <button class="btn-photo-delete" (click)="deletePhoto(photo.index)">Usuń</button>
             </div>
         </div>
@@ -51,3 +53,5 @@
     (yesClicked)="ExitDialog = false" (noClicked)="exit()">
     Czy na pewno chcesz wyjść? Kiedy to zrobisz zmiany nie zostaną zapisane.
 </app-dialog>
+
+<input id="file-dialog" type="file" style="display: none;" (change)="onFileSelected($event)">
