@@ -22,7 +22,7 @@
         <!--todo: Add option of uploading this photos -->
         <span class="section-title">Zdjęcia:</span> 
 
-        <div id="photos-container" *ngIf="Photos.length != 0">
+        <div id="photos-container" *ngIf="Photos.length != 0; else noPhotos">
             <div class="i-pair" *ngFor="let photo of Photos">
                 <label [for]="'photo-' + photo.index">Url: </label>
                 <input type="text" [id]="'photo-' + photo.index" [(ngModel)]="photo.url">
@@ -31,6 +31,10 @@
                 <button class="btn-photo-delete" (click)="deletePhoto(photo.index)">Usuń</button>
             </div>
         </div>
+
+        <ng-template #noPhotos>
+            <span class="gray-text">Brak zdjęć.</span>
+        </ng-template>
 
         <div id="buttons">
             <button id="btn-add-photo" (click)="addPhoto()">Dodaj zdjęcie</button>

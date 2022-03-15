@@ -19,7 +19,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   FailedEntry?: FailedEntryInterface;
   Entry?: EntryModel;
   SafeUrl?: SafeResourceUrl;
-  Photos: {index: number, url: string}[] = [{index: 1, url: "https://www.w3schools.com/images/colorpicker2000.png"}];
+  Photos: {index: number, url: string}[] = [];
   ExitDialog = false;
   UploadIndex = 0;
 

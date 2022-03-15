@@ -115,3 +115,9 @@
     @include button($btn-green);
     font-size: 20px;
 }
+
+.gray-text {
+    color: lighten($font-color, 20%);
+    font-style: italic;
+    font-size: 0.9em;
+}
