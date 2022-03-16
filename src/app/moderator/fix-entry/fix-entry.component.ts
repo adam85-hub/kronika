@@ -19,7 +19,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   FailedEntry?: FailedEntryInterface;
   Entry?: EntryModel;
   SafeUrl?: SafeResourceUrl;
-  Photos: {index: number, url: string}[] = [];
+  Photos: {index: number, url: string, loading: boolean}[] = [];
   ExitDialog = false;
   UploadIndex = 0;
 
@@ -65,7 +65,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   addPhoto() {
-    this.Photos.push({ index: this.Photos.length + 1, url: "" });
+    this.Photos.push({ index: this.Photos.length + 1, url: "", loading: false });
   }
 
   deletePhoto(index: number) {
@@ -85,13 +85,18 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     if (this.Entry == undefined) throw Error("Entry is undefined!");
 
     let photo = event.target.files[0];
+
+    if (this.UploadIndex != -1) this.Photos[this.UploadIndex].loading = true;
     
     this.entriesService.uploadPhoto(photo, this.Entry.id).subscribe((response) => {
       if (this.Entry == undefined) throw Error("Entry is undefined!"); 
 
       // Jeżeli index to -1 wtedy przypisujemy adres do zdjęcia tytułowego
       if (this.UploadIndex == -1) this.Entry.TitlePhoto = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
-      else this.Photos[this.UploadIndex].url = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+      else {
+        this.Photos[this.UploadIndex].url = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+        this.Photos[this.UploadIndex].loading = false;
+      }
     });
   }
 

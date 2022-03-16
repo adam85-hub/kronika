@@ -19,7 +19,6 @@
             <button class="btn-title-upload" (click)="uploadPhoto(-1)">Prześlij</button>
         </div>
 
-        <!--todo: Add option of uploading this photos -->
         <span class="section-title">Zdjęcia:</span> 
 
         <div id="photos-container" *ngIf="Photos.length != 0; else noPhotos">
@@ -27,6 +26,7 @@
                 <label [for]="'photo-' + photo.index">Url: </label>
                 <input type="text" [id]="'photo-' + photo.index" [(ngModel)]="photo.url">
                 <img [src]="photo.url" *ngIf="photo.url != '' && photo.url != undefined">
+                <div class="photo-loader" *ngIf="photo.loading"><app-loading animation="rotate"></app-loading></div>
                 <button class="btn-photo-upload" (click)="uploadPhoto(photo.index-1)">Prześlij</button>
                 <button class="btn-photo-delete" (click)="deletePhoto(photo.index)">Usuń</button>
             </div>
