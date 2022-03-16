@@ -33,8 +33,8 @@
                         <div>
 						    Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">                           
                         </div>
-                        <img [src]="element.getAttr()" loading="lazy">
-                        <button class="btn-el" (click)="uploadPhoto(element.index-1)">Prześlij</button> <!--todo: Dodaj przesyłanie kilku zdjęć na raz-->
+                        <img [src]="element.getAttr()" loading="lazy"> <!--todo: Dodać animację ładowania podczaas przesyłania zdjęcia-->
+                        <button class="btn-el" (click)="uploadPhoto(element.index-1)">Prześlij</button> <!--todo: Dodać przesyłanie kilku zdjęć na raz-->
                     </ng-template>
                     <ng-template [ngIf]="element.type === 'Video'">
                         <div>
