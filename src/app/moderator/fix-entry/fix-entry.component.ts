@@ -50,7 +50,8 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
           id: this.FailedEntry.id,
           Title: "",
           Date: new Date().toLocaleDateString(),
-          TitlePhoto: ""
+          TitlePhoto: "",
+          Elements: []
         })
       }
       else {
@@ -106,7 +107,9 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     for(let photo of this.Photos)
       this.Entry.Elements.push(new ImageModel(photo.index, photo.url));      
     
-    console.log(this.Entry);
+    this.entriesService.modifyEntry(this.Entry.toInterface()).subscribe((response) => {
+      this.router.navigateByUrl(`/moderator/edit/${response.id}`);
+    });
   }
 
   exit() {
