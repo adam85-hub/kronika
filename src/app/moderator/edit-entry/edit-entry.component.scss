@@ -117,6 +117,10 @@
         height: 50px;
     }
 
+    .image-loader {
+        width: 3em !important;
+    }
+
     button:nth-of-type(1) { @include button($btn-green);}
 
     button:nth-of-type(2) { @include button($btn-red); }
