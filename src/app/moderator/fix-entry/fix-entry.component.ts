@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
@@ -29,7 +29,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     this.pageTitle = "Naprawianie wydarzenia - Kronika Parafii";
     this.FailedEntry = undefined;
     this.Entry = undefined;
-  }
+  }  
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -39,6 +39,11 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
       this.paramsLoaded.subscribe(id => this.loadEntry(id));
       this.paramsLoaded.emit(id);
     });
+  }
+
+  @HostListener("window:resize", ["$event"])
+  onResize(event: any) {
+    this.resizePhotosContainer();
   }
 
   loadEntry(id: number) {
@@ -67,6 +72,11 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
 
   addPhoto() {
     this.Photos.push({ index: this.Photos.length + 1, url: "", loading: false });
+
+    if (this.Photos.length === 1) {
+      setTimeout(() => this.resizePhotosContainer(), 10);
+    }
+    else this.resizePhotosContainer();
   }
 
   deletePhoto(index: number) {
@@ -114,5 +124,11 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
 
   exit() {
     this.router.navigateByUrl("/moderator/panel/failed-entries");
+  }
+
+  resizePhotosContainer() {
+    const photosContainer = document.querySelector("#photos-container") as HTMLDivElement;
+    const container = document.querySelector("#component-container") as HTMLDivElement;
+    photosContainer.style.height = (container.clientHeight - photosContainer.offsetTop - 52) + "px";
   }
 }

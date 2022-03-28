@@ -45,7 +45,7 @@
         grid-column: 1/1;
         grid-row: 2/2;
         padding: 0 10px;
-        max-height: $m-h;
+        height: 100%;        
 
         .i-pair {
             display: flex;
@@ -67,12 +67,18 @@
             }
         }
 
+        #photos-container {
+            overflow-y: scroll;
+            scrollbar-width: thin;
+        }
+
         #buttons {
             display: flex;
             justify-content: flex-end;
             font-size: 20px;
-            margin-top: 20px;
+            margin-top: 10px;
             gap: 10px;
+            height: 32px;
 
             #btn-add-photo {
                 @include button($btn-green);
