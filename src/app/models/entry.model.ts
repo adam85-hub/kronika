@@ -77,18 +77,18 @@ function fromElementInterface(element: ElementInterface): ElementModel
 { 
     if(element.type == "Paragraph")
     { 
-        if(element.content == null) throw new Error("Wrong data received - content of paragraph element cannot be null");
+        if(element.content == null) throw Error("Wrong data received - content of paragraph element cannot be null");
         else return new ParagraphModel(element.index, element.content);
     }
     else if(element.type == "Image")
     { 
-        if(element.src == null) throw new Error("Wrong data received - src of image element cannot be null");
+        if(element.src == null) throw Error("Wrong data received - src of image element cannot be null");
         else return new ImageModel(element.index, element.src);
     }
     else if(element.type == "Video")
     { 
-        if(element.src == null) throw new Error("Wrong data received - src of video element cannot be null");
+        if(element.src == null) throw Error("Wrong data received - src of video element cannot be null");
         else return new VideoModel(element.index, element.src);
     }
-    else throw new Error(`Wrong data received - "${element.type}" element type does not exist`);
+    else throw Error(`Wrong data received - "${element.type}" element type does not exist`);
 }
