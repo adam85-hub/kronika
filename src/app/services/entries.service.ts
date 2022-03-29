@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { EntryInterface, FailedEntryInterface } from '../interfaces/entry.interface';
 import { AuthenticationService } from './authentication.service';
 import {SETUP} from './web.setup';
@@ -48,6 +48,15 @@ export class EntriesService {
     let formData = new FormData();
     formData.append("photo", file, file.name);
     return this.http.post(this.baseUrl + `/kronika/api/entry/${entryId}/photo`, formData, {'headers': headers, 'responseType': 'text'});
+  }
+
+  deleteEntry(entryId: number): Observable<boolean> {
+    const headers = new HttpHeaders().append('Token', this.auth.getToken());
+    const success = new Subject<boolean>();
+    
+    setTimeout(() => success.next(true), 1000);
+    
+    return success.asObservable();
   }
 
   get apiUrl() {

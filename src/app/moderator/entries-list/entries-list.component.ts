@@ -14,6 +14,9 @@ import { PanelOptionComponent } from '../panel-option/panel-option.component';
 export class EntriesListComponent extends PanelOptionComponent implements OnInit {
   years: number[] = [];
   entries: EntryModel[] = [];
+  deleteDialog: boolean = false;
+  deleteLoading: boolean = false;
+  entryToDeleteIndex?: number;
 
   constructor(private entriesService: EntriesService, private router: Router, titleService: Title) {
     super(titleService);
@@ -56,5 +59,28 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
 
   edit(entry: EntryModel): void {
     this.router.navigateByUrl(`/moderator/edit/${entry.id}`);
+  }
+
+  openDeleteDialog(index: number) {
+    if (this.entries[index] == undefined) throw Error(`Entry with index ${index} does not exist`);
+
+    this.entryToDeleteIndex = index;
+    this.deleteDialog = true;
+  }
+
+  deleteEntry() {
+    if (this.entryToDeleteIndex == undefined) throw Error("Entry to delete is undefined");
+    this.deleteLoading = true;
+
+    this.entriesService.deleteEntry(this.entryToDeleteIndex).subscribe((success) => {
+      if (success) {
+        this.deleteLoading = false;
+        //todo: Delete entry from local array
+        this.entryToDeleteIndex = undefined;
+      }  
+      else {
+        //todo: Show error occured while deleting this entry
+      }
+    });
   }
 }
