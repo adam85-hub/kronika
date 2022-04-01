@@ -11,7 +11,7 @@
         width: fit-content;
         margin-right: 10px;
         flex: 1;
-    }    
+    }
 
     #year {
         width: 100%;
@@ -39,21 +39,21 @@
         .title {
             margin-right: 10px;
         }
-    
+
         .date {
             color: $grey-accent;
         }
-    }    
+    }
 
     .entry-controls {
         display: flex;
         justify-content: space-evenly;
-        align-items: center; 
+        align-items: center;
         gap: 10px;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
 
-        .btn-edit {         
-            @include button($btn-green);           
+        .btn-edit {
+            @include button($btn-green);
         }
 
         .btn-delete {
@@ -68,4 +68,14 @@
     display: flex;
     gap: 10px;
     flex-direction: column;
+}
+
+#del-loading {
+    @include flex-center();
+    height: 100%;
+
+    &>* {
+        width: 80px;
+        height: 80px;
+    }
 }

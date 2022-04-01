@@ -15,52 +15,58 @@ export class EntriesService {
   }
 
   getEntries() : Observable<EntryInterface[]> {
-    return this.http.get<EntryInterface[]>(this.baseUrl + "/kronika/api/entries");
+    return this.http.get<EntryInterface[]>(`${this.apiUrl}/entries`);
   }
 
   getEntriesByYear(year: number) : Observable<EntryInterface[]> {
-    return this.http.get<EntryInterface[]>(this.baseUrl + `/kronika/api/entries/year/${year}`);
+    return this.http.get<EntryInterface[]>(`${this.apiUrl}/entries/year/${year}`);
   }
 
   getYears() : Observable<number[]> {
-    return this.http.get<number[]>(this.baseUrl + "/kronika/api/entries/years");
+    return this.http.get<number[]>(`${this.apiUrl}/entries/years`);
   }
 
   getEntry(id: number) : Observable<EntryInterface|FailedEntryInterface> {
-    return this.http.get<EntryInterface|FailedEntryInterface>(this.baseUrl + `/kronika/api/entry/${id}`);
+    return this.http.get<EntryInterface|FailedEntryInterface>(`${this.apiUrl}/entry/${id}`);
   }
 
   getFailedEntries(): Observable<FailedEntryInterface[]> {
-    return this.http.get<FailedEntryInterface[]>(this.baseUrl + `/kronika/api/entries/failed`);
+    return this.http.get<FailedEntryInterface[]>(`${this.apiUrl}/entries/failed`);
   }
 
   getNewestEntries(): Observable<EntryInterface[]> {
-    return this.http.get<EntryInterface[]>(this.baseUrl + "/kronika/api/entries/newest");
+    return this.http.get<EntryInterface[]>(`${this.apiUrl}/entries/newest`);
   }
 
   modifyEntry(entry: EntryInterface) {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
-    return this.http.put<EntryInterface>(this.baseUrl + `/kronika/api/entry`, entry, {'headers': headers});
+    return this.http.put<EntryInterface>(`${this.apiUrl}/entry`, entry, {'headers': headers});
   }
 
   uploadPhoto(file: File, entryId: number): Observable<string> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     let formData = new FormData();
     formData.append("photo", file, file.name);
-    return this.http.post(this.baseUrl + `/kronika/api/entry/${entryId}/photo`, formData, {'headers': headers, 'responseType': 'text'});
+    return this.http.post(`${this.apiUrl}/entry/${entryId}/photo`, formData, {'headers': headers, 'responseType': 'text'});
   }
 
   deleteEntry(entryId: number): Observable<boolean> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     const success = new Subject<boolean>();
     
-    setTimeout(() => success.next(true), 1000);
+    this.http.delete<string>(`${this.apiUrl}/entry/${entryId}`, {'headers': headers}).subscribe((response) => {
+      if (response == "OK") {
+        success.next(true);
+      } else {
+        success.next(false);
+      }
+    });
     
     return success.asObservable();
   }
 
   get apiUrl() {
-    return this.baseUrl + "/kronika/api/";
+    return this.baseUrl + "/kronika/api";
   }
 
   get entriesFolderUrl() {

@@ -21,23 +21,23 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
   constructor(private entriesService: EntriesService, private router: Router, titleService: Title) {
     super(titleService);
     this.title = "Wpisy";
-   }
+  }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.entriesService.getYears().pipe(last()).subscribe(response => {
       this.years = response.sort((a, b) => b - a);
-      this.getEntries(this.years[0]);      
-    });    
+      this.getEntries(this.years[0]);
+    });
   }
 
   selectedYearChanged(e: Event) {
     let select = e.target as HTMLSelectElement;
-    if(this.years.length != 0) {
+    if (this.years.length != 0) {
       const selectedYear = this.years[select.selectedIndex];
       this.entries = [];
-      this.getEntries(selectedYear);      
-    }    
+      this.getEntries(selectedYear);
+    }
   }
 
   getEntries(year: number) {
@@ -45,14 +45,14 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
       response.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
         this.entries.sort((a, b) => b.Date.valueOf() - a.Date.valueOf());
-        this.updatePageTitle(`wpisy ${year}`);   
+        this.updatePageTitle(`wpisy ${year}`);        
       })
     });
-    this.onResize(); 
+    this.onResize();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event?: any) { 
+  onResize(event?: any) {
     let entriesList = document.getElementById("entries-list") as HTMLDivElement;
     entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 10) + "px";
   }
@@ -72,12 +72,14 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
     if (this.entryToDeleteIndex == undefined) throw Error("Entry to delete is undefined");
     this.deleteLoading = true;
 
-    this.entriesService.deleteEntry(this.entryToDeleteIndex).subscribe((success) => {
+    this.entriesService.deleteEntry(this.entries[this.entryToDeleteIndex].id).subscribe((success) => {
       if (success) {
+        if (this.entryToDeleteIndex == undefined) throw Error("Entry to delete is undefined");
         this.deleteLoading = false;
-        //todo: Delete entry from local array
+        this.deleteDialog = false;
+        this.entries.splice(this.entryToDeleteIndex, 1);
         this.entryToDeleteIndex = undefined;
-      }  
+      }
       else {
         //todo: Show error occured while deleting this entry
       }

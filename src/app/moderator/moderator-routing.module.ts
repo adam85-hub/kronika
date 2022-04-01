@@ -7,18 +7,18 @@ import { FixEntryComponent } from './fix-entry/fix-entry.component';
 import { PanelComponent } from './panel/panel.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'panel', pathMatch: 'full'},
+  { path: '', redirectTo: 'panel', pathMatch: 'full' },
   {
-    path: 'panel', 
+    path: 'panel',
     component: PanelComponent,
     children: [
-      { path: '', redirectTo: 'entries'},
+      { path: '', redirectTo: 'entries' },
       { path: 'entries', component: EntriesListComponent },
-      { path: 'failed-entries', component: FailedEntriesListComponent}
+      { path: 'failed-entries', component: FailedEntriesListComponent }
     ]
-  },  
-  {path: 'edit/:id', component: EditEntryComponent},
-  {path: 'fix/:id', component: FixEntryComponent}
+  },
+  { path: 'edit/:id', component: EditEntryComponent },
+  { path: 'fix/:id', component: FixEntryComponent }
 ];
 
 @NgModule({

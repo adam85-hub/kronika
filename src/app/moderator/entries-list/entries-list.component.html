@@ -14,11 +14,11 @@
         <div class="entry" *ngFor="let entry of entries; let i = index">
             <div class="entry-title">
                 <div class="title">{{entry.Title}}</div>
-                <div class="date"> {{entry.getStringDate()}} </div>
+                <div class="date"> {{entry.getStringDate()}} </div>                                
             </div>
             <div class="entry-controls">
                 <button class="btn-edit" (click)="edit(entry)">Edytuj</button>
-                <button class="btn-delete" (click)="openDeleteDialog(i)">Usuń</button> <!--todo: Ten przycisk ma wyświetlać dialog "Czy na pewno chcesz usunąć?" -->
+                <button class="btn-delete" (click)="openDeleteDialog(i)">Usuń</button>
             </div>
         </div>
     </ng-container>
@@ -29,12 +29,14 @@
     </ng-template>
 </div>
 
-<app-dialog [visible]="deleteDialog" Title="Uwaga!" (noClicked)="deleteDialog = false" (yesClicked)="deleteEntry()">
+<app-dialog [visible]="deleteDialog" [Title]="deleteLoading ? 'Usuwanie...' : 'Uwaga!'" (noClicked)="deleteDialog = false" (yesClicked)="deleteEntry()">
     <ng-container *ngIf="deleteLoading == false; else delLoading">
         Czy na pewno chcesz usunąć ten wpis?
     </ng-container>
     <ng-template #delLoading>
-        <app-loading animation="rotate"></app-loading>
+        <div id="del-loading">
+            <app-loading animation="rotate"></app-loading>
+        </div>
     </ng-template>
 </app-dialog>
 
