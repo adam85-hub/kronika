@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
@@ -19,14 +19,17 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   FailedEntry?: FailedEntryInterface;
   Entry?: EntryModel;
   SafeUrl?: SafeResourceUrl;
-  Photos: {index: number, url: string}[] = [{index: 1, url: "https://www.w3schools.com/images/colorpicker2000.png"}];
+  Photos: {index: number, url: string, loading: boolean}[] = [];
+  ExitDialog = false;
+  UploadIndex = 0;
 
   constructor(private route: ActivatedRoute, titleService: Title, private entriesService: EntriesService, router: Router, auth: AuthenticationService,
   private sanitizer: DomSanitizer) { 
     super(titleService, auth, router);
+    this.pageTitle = "Naprawianie wydarzenia - Kronika Parafii";
     this.FailedEntry = undefined;
     this.Entry = undefined;
-  }
+  }  
 
   override ngOnInit(): void {
     super.ngOnInit();
@@ -38,6 +41,11 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     });
   }
 
+  @HostListener("window:resize", ["$event"])
+  onResize(event: any) {
+    this.resizePhotosContainer();
+  }
+
   loadEntry(id: number) {
     this.entriesService.getEntry(id).subscribe((response) => {
       if('url' in response) {
@@ -47,7 +55,8 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
           id: this.FailedEntry.id,
           Title: "",
           Date: new Date().toLocaleDateString(),
-          TitlePhoto: ""
+          TitlePhoto: "",
+          Elements: []
         })
       }
       else {
@@ -62,7 +71,12 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   addPhoto() {
-    this.Photos.push({ index: this.Photos.length + 1, url: "" });
+    this.Photos.push({ index: this.Photos.length + 1, url: "", loading: false });
+
+    if (this.Photos.length === 1) {
+      setTimeout(() => this.resizePhotosContainer(), 10);
+    }
+    else this.resizePhotosContainer();
   }
 
   deletePhoto(index: number) {
@@ -71,10 +85,50 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     });
   }
 
+  uploadPhoto(index: number) {
+    this.UploadIndex = index;
+
+    const fileDialog = document.getElementById("file-dialog") as HTMLInputElement;
+    fileDialog.click();
+  }
+
+  onFileSelected(event: any) {
+    if (this.Entry == undefined) throw Error("Entry is undefined!");
+
+    let photo = event.target.files[0];
+
+    if (this.UploadIndex != -1) this.Photos[this.UploadIndex].loading = true;
+    
+    this.entriesService.uploadPhoto(photo, this.Entry.id).subscribe((response) => {
+      if (this.Entry == undefined) throw Error("Entry is undefined!"); 
+
+      // Jeżeli index to -1 wtedy przypisujemy adres do zdjęcia tytułowego
+      if (this.UploadIndex == -1) this.Entry.TitlePhoto = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+      else {
+        this.Photos[this.UploadIndex].url = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+        this.Photos[this.UploadIndex].loading = false;
+      }
+    });
+  }
+
   saveAndContinue() {
     if (this.Entry == undefined) throw Error("Entry cannot be null!");
     this.Entry.Elements = [];
     for(let photo of this.Photos)
       this.Entry.Elements.push(new ImageModel(photo.index, photo.url));      
+    
+    this.entriesService.modifyEntry(this.Entry.toInterface()).subscribe((response) => {
+      this.router.navigateByUrl(`/moderator/edit/${response.id}`);
+    });
+  }
+
+  exit() {
+    this.router.navigateByUrl("/moderator/panel/failed-entries");
+  }
+
+  resizePhotosContainer() {
+    const photosContainer = document.querySelector("#photos-container") as HTMLDivElement;
+    const container = document.querySelector("#component-container") as HTMLDivElement;
+    photosContainer.style.height = (container.clientHeight - photosContainer.offsetTop - 52) + "px";
   }
 }

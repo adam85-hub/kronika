@@ -21,6 +21,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   paramsLoaded = new EventEmitter();
   entry?: EntryModel;
   orginalEntry?: EntryInterface;
+  pLoading: boolean[] = [];
   imageUploadIndex: number = 0;
 
   exitDialog = false;
@@ -47,6 +48,10 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
       if('Title' in response) {
         this.entry = new EntryModel(response, response.Elements);         
         this.orginalEntry = response;
+        if(response.Elements != undefined)
+          for (const element of response.Elements) {
+            this.pLoading.push(false);
+          }
       }
       else {
         this.router.navigateByUrl(`/moderator/fix/${id}`);
@@ -84,11 +89,17 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     this.addElementDialog = false;  // Hides add element dialog
   }
 
-  deleteElement(index: number): void {
+  deleteElement(index: number): void {    
     this.entry?.Elements.splice(index, 1);
+    this.pLoading.splice(index, 1);
     this.entry?.Elements.forEach((element, index) => {
       element.index = index +1;
     });    
+  }
+
+  private addElement(element: ImageModel | ParagraphModel | VideoModel) {
+    this.entry?.Elements.push(element);
+    this.pLoading.push(false);
   }
 
   saveChanges() {
@@ -119,22 +130,47 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   uploadPhoto(elementIndex: number) {
+    debugger;
     let fileDialog = (document.querySelector("#file-dialog") as HTMLInputElement);
     this.imageUploadIndex = elementIndex;
     fileDialog.click();
   }
 
-  onFileSelected(event: any) {
-    let photo = event.target.files[0];
-    if (this.entry != undefined)
-      this.entriesService.uploadPhoto(photo, this.entry?.id).subscribe((response) => {
-        if (this.entry == undefined) throw Error("Entry is undefined");
+  onFileSelected(event: any): void {
+    if (this.entry == undefined) throw Error("Entry is undefined");
+    this.pLoading[this.imageUploadIndex] = true;
 
-        // Jeżeli indeks jest równy -1 to ustawiamy zdjęcie tytułowe
-        if (this.imageUploadIndex == -1) this.entry.TitlePhoto = `${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`;
-        else this.entry.Elements[this.imageUploadIndex].setAttr(`${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`);
-      });
-    else
-      throw Error("Entry is undefined");
-  }
+    if (event.target.files.length > 1) {
+      let i = 0;
+      console.log("Multiple...");
+      for (const photo of event.target.files) {
+        this.entriesService.uploadPhoto(photo, this.entry.id).subscribe((response) => {
+          if (this.entry == undefined) throw Error("Entry is undefined");
+
+          i++;
+          const imageUrl = `${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`;
+          if (i == 1) this.entry.Elements[this.imageUploadIndex].setAttr(imageUrl);
+          else {
+            this.addElement(new ImageModel(this.entry.Elements.length + 1, imageUrl));
+            this.entry.MoveElement(this.entry.Elements.length, this.imageUploadIndex + i-1);
+          }
+
+          if (i == event.target.files.length) this.pLoading[this.imageUploadIndex] = false;
+        });
+      }
+      return;
+    }
+
+    let photo = event.target.files[0];    
+    this.entriesService.uploadPhoto(photo, this.entry.id).subscribe((response) => {
+      if (this.entry == undefined) throw Error("Entry is undefined");
+
+      const imageUrl = `${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`;
+
+      // Jeżeli indeks jest równy -1 to ustawiamy zdjęcie tytułowe
+      if (this.imageUploadIndex == -1) this.entry.TitlePhoto = imageUrl;
+      else this.entry.Elements[this.imageUploadIndex].setAttr(imageUrl);
+      this.pLoading[this.imageUploadIndex] = false;
+    });      
+  }  
 }

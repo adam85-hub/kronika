@@ -16,10 +16,10 @@ div {
   padding: 2px 10px;
   font-weight: bold;
   transition: color 0.2s, border-color 0.2s;
-  cursor: pointer;    
+  cursor: pointer;
 
   &:hover {
-      color: $color;
-      border-color: $color;
+    color: $color;
+    border-color: $color;
   }
 }

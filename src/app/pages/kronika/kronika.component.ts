@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { last } from 'rxjs';
+import { last, throwIfEmpty } from 'rxjs';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
 import { PageComponent } from '../page/page.component';
@@ -36,8 +36,14 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.entriesService.getYears().pipe(last()).subscribe(response => {
       this.years = response;
       this.years.sort((a,b) => b - a);
-      if(this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
-      this.getEntries();
+      if (this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
+      this.getEntries();  
+
+      setTimeout(() => {
+        if (this.selectedYear == undefined) throw Error("Something went wrong (selectedYear is undefined)");
+        const selectEl = (document.querySelector("#year-selector") as HTMLSelectElement);
+        selectEl.value = this.selectedYear.toString();
+      }, 100);
     }, error => {
       this.isLoading = false;
     });

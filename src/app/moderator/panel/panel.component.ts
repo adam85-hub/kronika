@@ -10,7 +10,7 @@ import { ModeratorComponent } from '../moderator.component';
   styleUrls: ['./panel.component.scss']
 })
 export class PanelComponent extends ModeratorComponent implements OnInit {
-  search: string = "Szukaj...";
+  search: string = "";
   basePath = '/moderator/panel';
   menuOptions: MenuOption[] = [
     {name: 'Wpisy', path: '/entries'},

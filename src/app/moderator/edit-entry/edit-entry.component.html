@@ -3,7 +3,7 @@
     <ng-container *ngIf="entry != undefined; else entryLoading">
         <!-- Nav of page -->
         <div id="nav">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/120px-Back_Arrow.svg.png" (click)="exitDialog = true">
+            <img src="../../../assets/Back_Arrow.png" (click)="exitDialog = true">
             <div id="title">Edycja wydarzenia:</div>
         </div>
         <!-- Display title of entry -->
@@ -34,6 +34,9 @@
 						    Url: <input [ngModel]="element.getAttr()" (ngModelChange)="element.setAttr($event)">                           
                         </div>
                         <img [src]="element.getAttr()" loading="lazy">
+                        <div class="image-loader" *ngIf="pLoading[i]">
+                            <app-loading animation="rotate"></app-loading>
+                        </div>
                         <button class="btn-el" (click)="uploadPhoto(element.index-1)">Prześlij</button>
                     </ng-template>
                     <ng-template [ngIf]="element.type === 'Video'">
@@ -52,7 +55,7 @@
             <button (click)="addElementDialog = true">Dodaj element</button>
             <button (click)="saveChanges()">Zapisz</button>
         </div>
-        <input id="file-dialog" type="file" style="display: none;" (change)="onFileSelected($event)">
+        <input id="file-dialog" type="file" style="display: none;" (change)="onFileSelected($event)" multiple>
         <!-- Scrolling fix -->
         <div style="height: 200px;"></div>
     </ng-container>

@@ -1,6 +1,7 @@
 <div *ngIf="FailedEntry != undefined && Entry != undefined; else loading" id="component-container">
-    <div id="title">
-        Naprawa wydarzenia
+    <div id="title-container">
+        <img src="../../../assets/Back_Arrow.png" alt="<-" (click)="ExitDialog = true">
+        <div id="title">Naprawa wydarzenia</div>        
     </div>
     <div id="fix-entry">
         <div class="i-pair">
@@ -12,22 +13,28 @@
             <input id="entry-date" type="date" [ngModel]="Entry.getWeirdStringDate()" (ngModelChange)="setDate($event)">
         </div>  
         <div class="i-pair">
-            <label for="entry-title-photo">Zdjęcie tytułowe: </label> <!--todo: Add option of uploading title photo-->
+            <label for="entry-title-photo">Zdjęcie tytułowe: </label>
             <input type="text" id="entry-title-photo" [(ngModel)]="Entry.TitlePhoto">
             <img [src]="Entry.TitlePhoto" *ngIf="Entry.TitlePhoto != '' && Entry.TitlePhoto != undefined">
+            <button class="btn-title-upload" (click)="uploadPhoto(-1)">Prześlij</button>
         </div>
 
-        <!--todo: Add option of uploading this photo -->
         <span class="section-title">Zdjęcia:</span> 
 
-        <div id="photos-container" *ngIf="Photos.length != 0">
+        <div id="photos-container" *ngIf="Photos.length != 0; else noPhotos">
             <div class="i-pair" *ngFor="let photo of Photos">
                 <label [for]="'photo-' + photo.index">Url: </label>
                 <input type="text" [id]="'photo-' + photo.index" [(ngModel)]="photo.url">
                 <img [src]="photo.url" *ngIf="photo.url != '' && photo.url != undefined">
+                <div class="photo-loader" *ngIf="photo.loading"><app-loading animation="rotate"></app-loading></div>
+                <button class="btn-photo-upload" (click)="uploadPhoto(photo.index-1)">Prześlij</button>
                 <button class="btn-photo-delete" (click)="deletePhoto(photo.index)">Usuń</button>
             </div>
         </div>
+
+        <ng-template #noPhotos>
+            <span class="gray-text">Brak zdjęć.</span>
+        </ng-template>
 
         <div id="buttons">
             <button id="btn-add-photo" (click)="addPhoto()">Dodaj zdjęcie</button>
@@ -44,3 +51,11 @@
         <app-loading [animation]="'rotate'"></app-loading>
     </div>
 </ng-template>
+
+<!-- Exit dialog -->
+<app-dialog [visible]="ExitDialog" noBtnText="Wyjdź" yesBtnText="Zostań"
+    (yesClicked)="ExitDialog = false" (noClicked)="exit()">
+    Czy na pewno chcesz wyjść? Kiedy to zrobisz zmiany nie zostaną zapisane.
+</app-dialog>
+
+<input id="file-dialog" type="file" style="display: none;" (change)="onFileSelected($event)">
