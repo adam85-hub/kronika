@@ -81,7 +81,7 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
         this.entryToDeleteIndex = undefined;
       }
       else {
-        //todo: Show error occured while deleting this entry
+        alert("An error occurred while deleting this entry.");
       }
     });
   }
