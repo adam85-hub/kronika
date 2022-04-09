@@ -54,7 +54,7 @@ export class EntriesService {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     const success = new Subject<boolean>();
     
-    this.http.delete<string>(`${this.apiUrl}/entry/${entryId}`, {'headers': headers}).subscribe((response) => {
+    this.http.delete(`${this.apiUrl}/entry/${entryId}`, {'headers': headers, 'responseType': 'text'}).subscribe((response) => {
       if (response == "OK") {
         success.next(true);
       } else {
