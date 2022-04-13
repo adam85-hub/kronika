@@ -43,6 +43,11 @@ export class EntriesService {
     return this.http.put<EntryInterface>(`${this.apiUrl}/entry`, entry, {'headers': headers});
   }
 
+  postEntry(entry: EntryInterface) { //entry id gets overrided by backend
+    const headers = new HttpHeaders().append('Token', this.auth.getToken());
+    return this.http.post<EntryInterface>(`${this.apiUrl}/entry`, entry, {'headers': headers});
+  }
+
   uploadPhoto(file: File, entryId: number): Observable<string> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     let formData = new FormData();

@@ -79,3 +79,15 @@
         height: 80px;
     }
 }
+
+#btn-add-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    #btn-add-entry {
+        @include button($btn-green);
+        font-size: 25px;
+        margin-top: 5px;
+    }
+}

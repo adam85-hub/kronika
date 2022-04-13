@@ -53,8 +53,9 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
 
   @HostListener('window:resize', ['$event'])
   onResize(event?: any) {
-    let entriesList = document.getElementById("entries-list") as HTMLDivElement;
-    entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 10) + "px";
+    const entriesList = document.getElementById("entries-list") as HTMLDivElement;
+    const addEntryBtn = document.getElementById("btn-add-entry") as HTMLButtonElement;
+    entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 15 - addEntryBtn.offsetHeight) + "px";
   }
 
   edit(entry: EntryModel): void {
@@ -84,5 +85,9 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
         alert("An error occurred while deleting this entry.");
       }
     });
+  }
+
+  addEntry() {
+    this.router.navigateByUrl("/moderator/edit/new");
   }
 }

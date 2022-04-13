@@ -9,6 +9,7 @@
         </ng-template>
     </select>
 </div>
+
 <div id="entries-list">
     <ng-container *ngIf="entries.length != 0; else entriesLoading">
         <div class="entry" *ngFor="let entry of entries; let i = index">
@@ -29,6 +30,10 @@
     </ng-template>
 </div>
 
+<div id="btn-add-container">
+    <button id="btn-add-entry" (click)="addEntry()">Dodaj wpis do kroniki</button>
+</div>
+
 <app-dialog [visible]="deleteDialog" [Title]="deleteLoading ? 'Usuwanie...' : 'Uwaga!'" (noClicked)="deleteDialog = false" (yesClicked)="deleteEntry()">
     <ng-container *ngIf="deleteLoading == false; else delLoading">
         Czy na pewno chcesz usunąć ten wpis?
@@ -39,5 +44,3 @@
         </div>
     </ng-template>
 </app-dialog>
-
-<!--todo: Dodać dodawanie nowych wpisów -->

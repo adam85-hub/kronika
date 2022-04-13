@@ -37,6 +37,20 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       let id = params['id'];
+      if (id == "new") {
+        const now = new Date();
+        this.entriesService.postEntry({
+          id: 0,
+          Title: "Nowe Wydarzenie!",
+          TitlePhoto: "",
+          Date: new SimpleDate(now.getDate(), now.getMonth(), now.getFullYear()).toDateString("d.m.y"),
+          Elements: [new ParagraphModel(1, "")]
+        }).subscribe((response) => {
+          this.router.navigateByUrl(`/moderator/edit/${response.id}`);
+        });
+        return;
+      }
+      
       if(isNaN(id)) this.router.navigateByUrl("/error404"); 
       this.paramsLoaded.subscribe(id => this.loadEntry(id));
       this.paramsLoaded.emit(id);      
@@ -55,6 +69,10 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
       }
       else {
         this.router.navigateByUrl(`/moderator/fix/${id}`);
+      }
+    }, (error) => {
+      if (error.status === 404) {
+        this.router.navigateByUrl("/error404");
       }
     });
   }
@@ -130,7 +148,6 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   uploadPhoto(elementIndex: number) {
-    debugger;
     let fileDialog = (document.querySelector("#file-dialog") as HTMLInputElement);
     this.imageUploadIndex = elementIndex;
     fileDialog.click();
