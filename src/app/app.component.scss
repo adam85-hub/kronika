@@ -95,10 +95,6 @@ footer {
     position: absolute;
 }
 
-#main-container {
-    padding-top: $navbar-height;
-}
-
 #inne-link {
     display: flex;  
 
@@ -128,9 +124,11 @@ main {
 }
 
 #main-container {
+    padding-top: $navbar-height;
     width: $main-width;
     margin-left: auto;
     margin-right: auto;
+    overflow-x: hidden;
 }
 
 @media screen and (max-width: $main-width) {

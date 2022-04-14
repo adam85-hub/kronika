@@ -21,3 +21,9 @@ body {
 ::-webkit-scrollbar-track {
     background-color: $second-accent;
 }
+
+@media screen and (max-width: $phone-width) {
+    .desktop-tablet-only {
+        display: none;
+    }
+}

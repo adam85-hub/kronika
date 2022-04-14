@@ -89,7 +89,7 @@ $anim-len: 0.8s;
 
 .entry {
     display: flex;
-    width: 98%;
+    width: 100%;
     height: 150px;
     gap: 20px;
     margin: 10px 0;
@@ -174,5 +174,12 @@ $anim-len: 0.8s;
 @media screen and (max-width: $tablet-width) {
     #history-container {
         display: none;
+    }    
+}
+
+//Entry width fix (prevents vertical overflow)
+@media screen and (max-width: 1350px) {
+    .entry {
+        width: 97%;
     }
 }
