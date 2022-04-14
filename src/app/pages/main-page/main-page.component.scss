@@ -89,7 +89,7 @@ $anim-len: 0.8s;
 
 .entry {
     display: flex;
-    width: 100%;
+    width: 98%;
     height: 150px;
     gap: 20px;
     margin: 10px 0;
@@ -172,7 +172,7 @@ $anim-len: 0.8s;
 }
 
 @media screen and (max-width: $tablet-width) {
-    #history-container > #card {
+    #history-container {
         display: none;
     }
 }
