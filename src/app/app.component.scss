@@ -127,8 +127,7 @@ main {
     padding-top: $navbar-height;
     width: $main-width;
     margin-left: auto;
-    margin-right: auto;
-    overflow-x: hidden;
+    margin-right: auto;    
 }
 
 @media screen and (max-width: $main-width) {

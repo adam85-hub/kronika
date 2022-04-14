@@ -18,6 +18,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { WpisComponent } from './pages/wpis/wpis.component';
 import { SharedModule } from './shared/shared.module';
 import { KontaktComponent } from './pages/kontakt/kontakt.component';
+import { ResponsiveSidebarComponent } from './responsive-sidebar/responsive-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { KontaktComponent } from './pages/kontakt/kontakt.component';
     PageComponent,
     ModeratorLoginComponent,
     WpisComponent,
-    KontaktComponent
+    KontaktComponent,
+    ResponsiveSidebarComponent
   ],
   imports: [
     BrowserModule,

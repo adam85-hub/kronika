@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
 
   // Responsywny navbar
   isNavbarExpanded: boolean = true;
+  isSidebarExpanded: boolean = false;
   mainWhenNavbarNotCollapsed: string = "";
   
   //Zmienne przechowujące klasy odpowiadają za to że navbar przykleja się do góry strony przy przewijaniu
@@ -71,8 +72,12 @@ export class AppComponent implements OnInit {
   }
 
   //Otwiera boczną nawigację kiedy navbar jest collapsed
-  openSideNav() : void {
-    console.log("ujhehe");
+  openSidebar() : void {
+    this.isSidebarExpanded = true;
+  }
+
+  sidebarCollapse() {
+    this.isSidebarExpanded = false;
   }
 
   //#endregion

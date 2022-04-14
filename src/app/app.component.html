@@ -27,11 +27,13 @@
     </div>
 
     <ng-template #navbarCollapsed>
-      <button id="collapsed" (click)="openSideNav()">
+      <button id="collapsed" (click)="openSidebar()">
         przycisk
       </button>
     </ng-template>
   </nav>
+
+  <app-responsive-sidebar *ngIf="isSidebarExpanded" (close)="sidebarCollapse()"></app-responsive-sidebar>
 
   <!-- Główna zawartość strony zmieniana przez routing -->
   <main>
