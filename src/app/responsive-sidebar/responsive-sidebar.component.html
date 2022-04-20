@@ -2,5 +2,9 @@
     <div id="close-container">
         <button id="close-btn" (click)="closeBtnClicked()"></button>
     </div>
-    <!--todo: Add nav elements (links itd.) -->
+    <ul id="link-container">
+        <li class="link" *ngFor="let link of Links">
+            <a [href]="link.path">{{link.name}}</a>
+        </li>        
+    </ul>
 </nav>

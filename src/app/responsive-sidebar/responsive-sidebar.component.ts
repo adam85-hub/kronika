@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Links, InneLinks } from '../links';
 
 @Component({
   selector: 'app-responsive-sidebar',
@@ -8,6 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ResponsiveSidebarComponent implements OnInit {
 
   @Output() close = new EventEmitter();
+  Links = [...Links, ...InneLinks];
 
   constructor() { }
 

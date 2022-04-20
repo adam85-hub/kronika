@@ -28,13 +28,15 @@
 
 
 #sidebar {
-    position: absolute;
+    position: fixed;
     width: var(--sidebar-width);
     height: 100vh;
     top: 0;
     left: 0;
     z-index: 2137;
-    background-color: rgba(0, 0, 0, .5);    
+    background-color: $second-accent;    
+    border-right: 2px solid $font-color;
+    overflow: hidden;
 
     animation-name: slide-in;
     animation-duration: 0.7s;    
@@ -55,7 +57,6 @@
             height: $btn-height;
             width: $btn-height;
             margin: 10px 10px 0 0;
-            filter: invert(100%);
             background-image: url("../../assets/close-btn.svg");
             background-repeat: no-repeat;
 
@@ -77,5 +78,26 @@
 @media screen and (min-width: $tablet-width) {
     #sidebar {
         --sidebar-width: 400px;
+    }
+}
+
+#link-container {
+    all: unset;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
+
+    .link {
+        display: block;   
+        border: 1px solid $font-color;
+        padding: 5px 10px;     
+        font-size: 20px;
+        cursor: pointer;
+        @include cantSelect();
+
+        a {
+            all: unset;
+        }
     }
 }
