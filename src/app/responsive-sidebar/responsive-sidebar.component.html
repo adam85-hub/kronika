@@ -1,0 +1,11 @@
+<nav id="sidebar">
+    <div id="close-container">
+        <button id="close-btn" (click)="CloseSidebar()"></button>
+    </div>
+    <ul id="link-container">
+        <li class="link" *ngFor="let link of Links">
+            <a [href]="link.path" *ngIf="link.blank" (click)="CloseSidebar()" target="_blank">{{link.name}}</a>
+            <a [routerLink]="link.path" *ngIf="!link.blank" (click)="CloseSidebar()">{{link.name}}</a>
+        </li>        
+    </ul>
+</nav>

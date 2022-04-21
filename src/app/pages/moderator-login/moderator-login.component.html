@@ -4,7 +4,8 @@
             <input [(ngModel)]="password" type="password" id="password" (keydown.enter)="logIn()">
             <button id="btn-login" (click)="logIn()">Zaloguj</button>
     </div>
-    <div *ngIf="isGoodPassword == false" class="alert alert-danger">
+    <!--todo: Fix this bootstrap shit -->
+    <div *ngIf="isGoodPassword == false" class="alert alert-danger"> 
         Złe hasło!
     </div>
 </ng-container>

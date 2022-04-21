@@ -172,7 +172,14 @@ $anim-len: 0.8s;
 }
 
 @media screen and (max-width: $tablet-width) {
-    #history-container > #card {
+    #history-container {
         display: none;
+    }    
+}
+
+//Entry width fix (prevents vertical overflow)
+@media screen and (max-width: 1350px) {
+    .entry {
+        width: 97%;
     }
 }

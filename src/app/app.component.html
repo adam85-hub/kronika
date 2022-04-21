@@ -2,7 +2,7 @@
   <div id="title-image" [style]="titleStyle">
     <img src="http://fzskatowicepodlesie.pl/parafia/AAAA/logo_MBCZ.gif">
     <span>
-      Parafia Matki Boskiej Częstochowskiej Katowice Podlesie
+      Parafia <span class="desktop-tablet-only">Matki Boskiej Częstochowskiej</span> Katowice Podlesie
     </span>
   </div>
 
@@ -27,11 +27,13 @@
     </div>
 
     <ng-template #navbarCollapsed>
-      <button id="collapsed" (click)="openSideNav()">
-        przycisk
+      <button id="collapsed" (click)="openSidebar()">
+        <img src="/assets/menu-icon.svg" alt="menu">
       </button>
     </ng-template>
   </nav>
+
+  <app-responsive-sidebar *ngIf="isSidebarExpanded" (close)="sidebarCollapse()"></app-responsive-sidebar>
 
   <!-- Główna zawartość strony zmieniana przez routing -->
   <main>
