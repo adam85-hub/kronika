@@ -139,10 +139,16 @@ main {
 #collapsed {
     all: unset;  
     font-size: 20px;
-    padding: calculateNavbarPadding($navbar-height, 20px);
-    display: block;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     cursor: pointer;
+
+    img {
+        height: 70%;
+        margin-left: 10px;
+    }
 }
 
 #moderator-container {
