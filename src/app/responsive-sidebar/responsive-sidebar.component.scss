@@ -57,7 +57,7 @@
             height: $btn-height;
             width: $btn-height;
             margin: 10px 10px 0 0;
-            background-image: url("../../assets/close-btn.svg");
+            background-image: url("/assets/close-btn.svg");
             background-repeat: no-repeat;
 
             transition: transform 0.5s;
@@ -71,7 +71,7 @@
 
 #sidebar.slide-out {
     animation-name: slide-out;
-    animation-duration: 0.7s;
+    animation-duration: 0.5s;
     animation-timing-function: ease;
 }
 
@@ -90,14 +90,18 @@
 
     .link {
         display: block;   
-        border: 1px solid $font-color;
         padding: 5px 10px;     
         font-size: 20px;
         cursor: pointer;
         @include cantSelect();
+        transition: color 0.2s;
 
         a {
             all: unset;
+        }
+
+        &:hover {
+            color: $main-accent;
         }
     }
 }

@@ -16,7 +16,7 @@ export class ResponsiveSidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  closeBtnClicked() {
+  CloseSidebar() {
     const sidebar = document.getElementById("sidebar");
     if (sidebar == undefined) throw Error("Sidebar is undefined!");
     sidebar.classList.add("slide-out");
@@ -24,6 +24,6 @@ export class ResponsiveSidebarComponent implements OnInit {
     setTimeout(() => {
       this.close.emit();
       sidebar.classList.remove("slide-out");
-    }, 650);
+    }, 470);
   }
 }
