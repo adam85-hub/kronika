@@ -2,7 +2,7 @@
 
 
 #sidebar {
-    --sidebar-width: 100vw;
+    --sidebar-width: calc(100vw - 2px);
 }
 
 @keyframes slide-in {
