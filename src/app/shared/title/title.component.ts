@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-title',
@@ -6,11 +6,17 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./title.component.scss']
 })
 export class TitleComponent implements OnInit {
-  @Input() fontSize: string = "70px";
+  fontSize: string = "70px";
 
   constructor() { }
 
   ngOnInit(): void {
+    this.onResize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    this.fontSize = window.innerWidth > 630 ? "70px" : "50px";
   }
 
 }
