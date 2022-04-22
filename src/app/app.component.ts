@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { PageComponent } from './pages/page/page.component';
-
+import { Links, InneLinks } from './links';
 
 @Component({
   selector: 'app-root',
@@ -44,6 +44,8 @@ export class AppComponent implements OnInit {
   isNavbarExpanded: boolean = true;
   isSidebarExpanded: boolean = false;
   mainWhenNavbarNotCollapsed: string = "";
+  Links = Links;
+  InneLinks = InneLinks;
   
   //Zmienne przechowujące klasy odpowiadają za to że navbar przykleja się do góry strony przy przewijaniu
   fixedClass: string = "navbar-absolute";
