@@ -6,7 +6,9 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
   styleUrls: ['./title.component.scss']
 })
 export class TitleComponent implements OnInit {
-  fontSize: string = "70px";
+  @Input() fontSize: number = 70;
+
+  FontSize: string =  this.fontSize + "px";
 
   constructor() { }
 
@@ -16,7 +18,7 @@ export class TitleComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event?: any) {
-    this.fontSize = window.innerWidth > 630 ? "70px" : "50px";
+    this.FontSize = window.innerWidth > 630 ? this.fontSize + "px" : this.fontSize - 20 + "px";
   }
 
 }
