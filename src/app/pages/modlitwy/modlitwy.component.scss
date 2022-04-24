@@ -18,3 +18,9 @@
     margin-bottom: 10px;
     grid-template-columns: repeat(2, 1fr);
 }
+
+@media screen and (max-width: 1200px) {
+    #modlitwy {
+        grid-template-columns: 1fr;
+    }
+}

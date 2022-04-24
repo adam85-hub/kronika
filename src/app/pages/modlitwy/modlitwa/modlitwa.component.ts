@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { apiLoaded, changeApiLoaded } from 'src/app/app.module';
 import { PrayInterface } from 'src/app/interfaces/pray.interface';
 import { Required } from 'src/app/shared/required.decorator';
@@ -35,8 +35,12 @@ export class ModlitwaComponent implements OnInit {
     d.setMonth(this.pray.month-1);
     this.month = d.toLocaleDateString("default", { month: "long" });
     this.month = this.month.charAt(0).toUpperCase() + this.month.substring(1);
+    this.resizeVideo();
+  }
+
+  @HostListener("window:resize")
+  resizeVideo() {
     this.playerWidth = (document.getElementById("yt-player") as HTMLDivElement).clientWidth * 0.8;
     this.playerHeight = this.playerWidth * 0.6;
   }
-
 }
