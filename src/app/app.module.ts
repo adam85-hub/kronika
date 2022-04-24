@@ -20,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
 import { KontaktComponent } from './pages/kontakt/kontakt.component';
 import { ResponsiveSidebarComponent } from './responsive-sidebar/responsive-sidebar.component';
 import { ModlitwyComponent } from './pages/modlitwy/modlitwy.component';
+import { ModlitwaComponent } from './pages/modlitwy/modlitwa/modlitwa.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ModlitwyComponent } from './pages/modlitwy/modlitwy.component';
     WpisComponent,
     KontaktComponent,
     ResponsiveSidebarComponent,
-    ModlitwyComponent
+    ModlitwyComponent,
+    ModlitwaComponent
   ],
   imports: [
     BrowserModule,

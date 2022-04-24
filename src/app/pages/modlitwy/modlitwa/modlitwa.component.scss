@@ -1,0 +1,16 @@
+@import '../../../../variables.scss';
+
+#pray-container {
+    font-size: 1.4em;
+    text-align: center;
+
+    span {
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    #yt-player {
+        display: flex;
+        justify-content: center;
+    }
+}

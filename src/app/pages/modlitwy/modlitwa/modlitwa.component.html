@@ -1,0 +1,6 @@
+<div id="pray-container">
+    <span><b>{{month + " " + pray.year}}</b> - medytacja na pierwszą sobotę. <i>{{pray.description}}</i>.</span>
+    <div id="yt-player">
+        <youtube-player [videoId]="pray.videoId" [width]="playerWidth" [height]="playerHeight"></youtube-player>
+    </div>
+</div>
