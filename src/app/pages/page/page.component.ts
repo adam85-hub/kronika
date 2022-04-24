@@ -24,7 +24,7 @@ export class PageComponent implements OnInit {
   
   updateTitle() {
     if (this.isMainPage) this.titleService.setTitle("Kronika Parafii w Katowicach Podlesiu");
-    else this.titleService.setTitle(this.pageTitle);
+    else this.titleService.setTitle(this.pageTitle + " - Kronika Parafii w Katowicach Podlesiu");
   }
 
 }

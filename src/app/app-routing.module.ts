@@ -6,6 +6,7 @@ import { KronikaComponent } from './pages/kronika/kronika.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ModeratorLoginComponent } from './pages/moderator-login/moderator-login.component';
 import { WpisComponent } from './pages/wpis/wpis.component';
+import { ModlitwyComponent } from './pages/modlitwy/modlitwy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "strona-główna", pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'kronika', component: KronikaComponent },
   { path: 'kontakt', component: KontaktComponent },
   { path: 'kronika/:id', component: WpisComponent },
+  { path: 'modlitwy', component: ModlitwyComponent },
   { path: 'login', component: ModeratorLoginComponent },
   {
     path: 'moderator',

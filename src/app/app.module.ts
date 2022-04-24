@@ -19,6 +19,7 @@ import { WpisComponent } from './pages/wpis/wpis.component';
 import { SharedModule } from './shared/shared.module';
 import { KontaktComponent } from './pages/kontakt/kontakt.component';
 import { ResponsiveSidebarComponent } from './responsive-sidebar/responsive-sidebar.component';
+import { ModlitwyComponent } from './pages/modlitwy/modlitwy.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ResponsiveSidebarComponent } from './responsive-sidebar/responsive-side
     ModeratorLoginComponent,
     WpisComponent,
     KontaktComponent,
-    ResponsiveSidebarComponent
+    ResponsiveSidebarComponent,
+    ModlitwyComponent
   ],
   imports: [
     BrowserModule,
