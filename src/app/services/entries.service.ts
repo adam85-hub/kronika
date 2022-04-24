@@ -71,10 +71,10 @@ export class EntriesService {
   }
 
   get apiUrl() {
-    return this.baseUrl + "/kronika/api";
+    return SETUP.apiUrl;
   }
 
   get entriesFolderUrl() {
-    return this.baseUrl + "/kronika/entries/";
+    return SETUP.entriesFolderUrl;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { PrayInterface } from 'src/app/interfaces/pray.interface';
+import { PraysService } from 'src/app/services/prays.service';
 import { PageComponent } from '../page/page.component';
 
 @Component({
@@ -9,39 +10,16 @@ import { PageComponent } from '../page/page.component';
   styleUrls: ['./modlitwy.component.scss']
 })
 export class ModlitwyComponent extends PageComponent implements OnInit {
-  Modlitwy = Modlitwy;
+  Modlitwy?: PrayInterface[] = undefined;
 
-  constructor(title: Title) {
+  constructor(title: Title, private praysService: PraysService) {
     super(title);
     this.pageTitle = "Modlitwy i medytacje";
-    this.Modlitwy.sort((a, b) => ((a.year * 15 + a.month) - (b.year * 15 + b.month)) * -1);
+
+    this.praysService.getPrays().subscribe((response) => {
+      this.Modlitwy = response;
+      this.Modlitwy.sort((a, b) => ((a.year * 15 + a.month) - (b.year * 15 + b.month)) * -1);
+    })
   }
 
 }
-
-const Modlitwy: PrayInterface[] = [
-  {
-    month: 3,
-    year: 2022,
-    description: "Niesienie Krzyża",
-    videoId: "ht8yNfYmZg4"
-  },
-  {
-    month: 2,
-    year: 2022,
-    description: "Głoszenie Ewangelii",
-    videoId: "yupmTtuxVmU"
-  },
-  {
-    month: 3,
-    year: 2022,
-    description: "Niesienie Krzyża",
-    videoId: "ht8yNfYmZg4"
-  },
-  {
-    month: 2,
-    year: 2022,
-    description: "Głoszenie Ewangelii",
-    videoId: "yupmTtuxVmU"
-  },
-];

@@ -1,3 +1,7 @@
+const baseUrl = 'http://localhost:80';
+
 export const SETUP = {
-    baseUrl: 'http://localhost:80'
+    baseUrl: baseUrl,
+    apiUrl: baseUrl + "/kronika/api",
+    entriesFolderUrl: baseUrl + "/kronika/entries/"
 }

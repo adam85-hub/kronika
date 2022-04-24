@@ -2,6 +2,11 @@
 <div id="description">
     Medytacje pochodzą ze strony <a href="http://www.sekretariatfatimski.pl" target="_blank" rel="noopener noreferrer">www.sekretariatfatimski.pl</a>.
 </div>
-<section id="modlitwy">
+<section id="modlitwy" *ngIf="Modlitwy != undefined; else loading">
     <app-modlitwa *ngFor="let pray of Modlitwy" [pray]="pray"></app-modlitwa>
 </section>
+<ng-template #loading>
+    <div id="loader">
+        <app-loading animation="rotate"></app-loading>
+    </div>
+</ng-template>
