@@ -15,14 +15,14 @@ export class PageComponent implements OnInit {
   constructor(private titleService: Title) { }
   
   ngOnInit(): void {
-    this.setTitle();
+    this.updateTitle();
   }
   
   public isMain(): boolean {
     return this.isMainPage;
   }
   
-  setTitle() {
+  updateTitle() {
     if (this.isMainPage) this.titleService.setTitle("Kronika Parafii w Katowicach Podlesiu");
     else this.titleService.setTitle(this.pageTitle);
   }

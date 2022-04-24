@@ -22,7 +22,7 @@ export class WpisComponent extends PageComponent implements OnInit {
   widthOfVideos: number = 500;
   heightOfVideos: number = 300;
 
-  constructor(private route: ActivatedRoute, private title: Title, private router: Router, private entriesService: EntriesService) {     
+  constructor(private route: ActivatedRoute, title: Title, private router: Router, private entriesService: EntriesService) {     
     super(title);    
     this.pageTitle = `Wpis do kroniki`;          
   }
@@ -60,6 +60,8 @@ export class WpisComponent extends PageComponent implements OnInit {
         let elements = entry.Elements;
         if(elements != undefined) elements.sort((a,b) => a.index - b.index);
         this.entry = new EntryModel(entry, elements);  
+        this.pageTitle = this.entry.Title; 
+        super.updateTitle();
         this.failedEntry = undefined;
         setTimeout(() => this.onResize(), 100);
       }    

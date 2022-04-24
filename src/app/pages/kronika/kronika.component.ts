@@ -64,6 +64,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     });
   }
 
+  //On selected year changed
   public indexChanged(e: Event)
   {
     let select = (e.target as HTMLSelectElement);
