@@ -5,6 +5,7 @@ import { EntriesListComponent } from './entries-list/entries-list.component';
 import { FailedEntriesListComponent } from './failed-entries-list/failed-entries-list.component';
 import { FixEntryComponent } from './fix-entry/fix-entry.component';
 import { PanelComponent } from './panel/panel.component';
+import { PraysListComponent } from './prays-list/prays-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'entries' },
       { path: 'entries', component: EntriesListComponent },
-      { path: 'failed-entries', component: FailedEntriesListComponent }
+      { path: 'failed-entries', component: FailedEntriesListComponent },
+      { path: 'prays', component: PraysListComponent }
     ]
   },
   { path: 'edit/:id', component: EditEntryComponent },

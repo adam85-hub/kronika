@@ -13,10 +13,11 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   search: string = "";
   basePath = '/moderator/panel';
   menuOptions: MenuOption[] = [
-    {name: 'Wpisy', path: '/entries'},
-    {name: 'Zepsute wpisy', path: '/failed-entries'},
-    {name: 'Strona główna', path: ''},
-    {name: 'Pomoc', path: ''}
+    { name: 'Wpisy', path: '/entries' },
+    { name: 'Zepsute wpisy', path: '/failed-entries' },
+    { name: 'Modlitwy', path: '/prays'},
+    { name: 'Strona główna', path: '' },
+    { name: 'Pomoc', path: '' }
   ];
 
   constructor(titleService: Title, auth: AuthenticationService, router: Router) {
@@ -33,7 +34,7 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logOut().subscribe(s => this.returnToMain());   
+    this.auth.logOut().subscribe(s => this.returnToMain());
   }
 }
 
