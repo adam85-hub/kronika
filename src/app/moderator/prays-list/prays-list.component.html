@@ -1,4 +1,18 @@
-<h1>Modlitwy</h1>
+<h1>Medytacje</h1>
 <section id="prays-list" fillHeight>
-    
+    <ng-container *ngIf="prays !== null; else loading">
+        <ng-container *ngIf="prays.length != 0; else noPrays">
+            <div class="pray" *ngFor="let pray of prays" >
+                {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
+            </div>
+        </ng-container>
+        <ng-template #noPrays>
+            Nie znaleziono żadnych zapisanych medytacji...
+        </ng-template>
+    </ng-container>
+    <ng-template #loading>
+        <div id="loader">
+            <app-loading></app-loading>
+        </div>
+    </ng-template>
 </section>

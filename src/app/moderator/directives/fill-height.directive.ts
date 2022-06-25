@@ -16,7 +16,6 @@ export class FillHeightDirective implements OnInit {
   onResize() {
     const el = this.elRef.nativeElement as HTMLElement;
     el.style.height = (window.innerHeight - el.offsetTop - 10) + "px";
-    console.log(el.offsetTop);
   }
 
 }
