@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'kronika', component: KronikaComponent },
   { path: 'kontakt', component: KontaktComponent },
   { path: 'kronika/:id', component: WpisComponent },
-  { path: 'modlitwy', component: ModlitwyComponent },
+  { path: 'medytacje', component: ModlitwyComponent },
   { path: 'login', component: ModeratorLoginComponent },
   {
     path: 'moderator',

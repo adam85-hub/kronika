@@ -12,6 +12,6 @@ export const Links: LinkInterface[] = [
 export const InneLinks: LinkInterface[] = [
     { name: "Linki", path: "/" },
     { name: "Adoracja", path: "https://www.youtube.com/watch?v=P9U27wo7FlY", blank: true },
-    { name: "Modlitwy", path: "/modlitwy" },
+    { name: "Medytacje", path: "/medytacje" },
     { name: "Panel moderatora", path: "/login" },
 ];
