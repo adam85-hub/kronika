@@ -14,6 +14,7 @@ import { PanelOptionComponent } from './panel-option/panel-option.component';
 import { FixEntryComponent } from './fix-entry/fix-entry.component';
 import { PraysListComponent } from './prays-list/prays-list.component';
 import { FillHeightDirective } from './directives/fill-height.directive';
+import { EditPrayComponent } from './edit-pray/edit-pray.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FillHeightDirective } from './directives/fill-height.directive';
     PanelOptionComponent,
     FixEntryComponent,
     PraysListComponent,
-    FillHeightDirective
+    FillHeightDirective,
+    EditPrayComponent
   ],
   imports: [
     CommonModule,

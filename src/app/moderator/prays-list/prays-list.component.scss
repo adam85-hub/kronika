@@ -15,21 +15,23 @@ h1 {
         padding: 7px 15px;
         border: 2px solid $font-color;
 
-        display: flex;
-        justify-content: space-between;
-
-        .pray-buttons {
+        .content {
             display: flex;
-            gap: 5px;
-        }
+            justify-content: space-between;
 
-        .btn-edit {
-            @include button($btn-green);
-        }
+            .pray-buttons {
+                display: flex;
+                gap: 5px;
 
-        .btn-delete {
-            @include button($btn-red);
-        }
+                .btn-edit {
+                    @include button($btn-green);
+                }
+        
+                .btn-delete {
+                    @include button($btn-red);
+                }
+            }            
+        }        
     }
 }
 

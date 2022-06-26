@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { PrayInterface } from 'src/app/interfaces/pray.interface';
+import { Router } from '@angular/router';
+import { numberToMonth, PrayInterface } from 'src/app/interfaces/pray.interface';
 import { PraysService } from 'src/app/services/prays.service';
 import { PanelOptionComponent } from '../panel-option/panel-option.component';
 
@@ -11,8 +12,9 @@ import { PanelOptionComponent } from '../panel-option/panel-option.component';
 })
 export class PraysListComponent extends PanelOptionComponent implements OnInit {
   prays: PrayInterface[] | null = null;
+  editShown: boolean[] = [];
 
-  constructor(title: Title, private praysService: PraysService) { 
+  constructor(title: Title, private praysService: PraysService, private router: Router) { 
     super(title);
     this.title = "Modlitwy";
   }
@@ -21,18 +23,19 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     super.ngOnInit();
     this.praysService.getPrays().subscribe((prays) => {
       this.prays = prays;
+      prays.map(pray => {
+        this.editShown.push(false);
+        return pray;
+      })
     });
-  }
+  }  
 
   numberToMonth(number: number): string {
-    const d = new Date();
-    d.setMonth(number-1);
-    let month = d.toLocaleDateString("default", { month: "long" });
-    month = month.charAt(0).toUpperCase() + month.substring(1);
-    return month;
+    return numberToMonth(number);
   }
 
   edit(index: number): void {
     if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
+    this.editShown[index] = true;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { apiLoaded, changeApiLoaded } from 'src/app/app.module';
-import { PrayInterface } from 'src/app/interfaces/pray.interface';
+import { numberToMonth, PrayInterface } from 'src/app/interfaces/pray.interface';
 import { Required } from 'src/app/shared/required.decorator';
 
 @Component({
@@ -10,6 +10,7 @@ import { Required } from 'src/app/shared/required.decorator';
 })
 export class ModlitwaComponent implements OnInit {
   @Input() @Required pray: PrayInterface = {
+    id: 0,
     month: 0,
     year: 0,
     description: "Undefined",
@@ -31,10 +32,7 @@ export class ModlitwaComponent implements OnInit {
       changeApiLoaded(true); // dokładniej to
     }
 
-    const d = new Date();
-    d.setMonth(this.pray.month-1);
-    this.month = d.toLocaleDateString("default", { month: "long" });
-    this.month = this.month.charAt(0).toUpperCase() + this.month.substring(1);
+    this.month = numberToMonth(this.pray.month);
     this.resizeVideo();
   }
 

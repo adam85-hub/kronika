@@ -3,10 +3,15 @@
     <ng-container *ngIf="prays !== null; else loading">
         <ng-container *ngIf="prays.length != 0; else noPrays">
             <div class="pray" *ngFor="let pray of prays; let i = index" >
-                {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
-                <div class="pray-buttons">
-                    <button class="btn-edit" (click)="edit(i)">Edytuj</button>
-                    <button class="btn-delete">Usuń</button>
+                <div class="content">
+                    {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
+                    <div class="pray-buttons">
+                        <button class="btn-edit" (click)="edit(i)">Edytuj</button>
+                        <button class="btn-delete">Usuń</button>
+                    </div>
+                </div>
+                <div class="edit" *ngIf="editShown[i]">
+                    <app-edit-pray [id]="pray.id"></app-edit-pray>
                 </div>
             </div>
         </ng-container>

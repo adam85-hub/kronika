@@ -16,11 +16,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'entries' },
       { path: 'entries', component: EntriesListComponent },
       { path: 'failed-entries', component: FailedEntriesListComponent },
-      { path: 'prays', component: PraysListComponent }
+      { path: 'prays', component: PraysListComponent },
     ]
   },
   { path: 'edit/:id', component: EditEntryComponent },
-  { path: 'fix/:id', component: FixEntryComponent }
+  { path: 'fix/:id', component: FixEntryComponent },
 ];
 
 @NgModule({
