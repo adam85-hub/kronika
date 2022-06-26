@@ -1,4 +1,5 @@
 @import "../../../variables.scss";
+@import "../moderator.variables.scss";
 
 h1 {
     margin: 0;
@@ -13,6 +14,22 @@ h1 {
     .pray {
         padding: 7px 15px;
         border: 2px solid $font-color;
+
+        display: flex;
+        justify-content: space-between;
+
+        .pray-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-edit {
+            @include button($btn-green);
+        }
+
+        .btn-delete {
+            @include button($btn-red);
+        }
     }
 }
 

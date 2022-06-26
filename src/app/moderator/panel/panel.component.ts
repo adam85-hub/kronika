@@ -15,7 +15,7 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   menuOptions: MenuOption[] = [
     { name: 'Wpisy', path: '/entries' },
     { name: 'Zepsute wpisy', path: '/failed-entries' },
-    { name: 'Modlitwy', path: '/prays'},
+    { name: 'Medytacje', path: '/prays'},
     { name: 'Strona główna', path: '' },
     { name: 'Pomoc', path: '' }
   ];

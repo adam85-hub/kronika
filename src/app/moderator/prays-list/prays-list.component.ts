@@ -31,4 +31,8 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     month = month.charAt(0).toUpperCase() + month.substring(1);
     return month;
   }
+
+  edit(index: number): void {
+    if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
+  }
 }
