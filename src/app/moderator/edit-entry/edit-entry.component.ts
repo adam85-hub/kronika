@@ -140,8 +140,8 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
       if(this.entry != undefined) {
         let videoI = this.entry.Elements.findIndex((element) => element.index === index);
         let link = this.entry.Elements[videoI].getAttr();
-        let indexs = link.indexOf("?v=");
-        let newValue = "/" + link.substring(indexs+3);
+        let index = link.indexOf("?v=");
+        let newValue = "/" + link.substring(index+3);
         this.entry.Elements[videoI].setAttr(newValue); 
       }
     }, 10);    

@@ -11,6 +11,7 @@ import { PanelOptionComponent } from '../panel-option/panel-option.component';
   styleUrls: ['./prays-list.component.scss']
 })
 export class PraysListComponent extends PanelOptionComponent implements OnInit {
+  orginalPrays: PrayInterface[] = [];
   prays: PrayInterface[] | null = null;
   editShown: boolean[] = [];
 
@@ -25,6 +26,7 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
       this.prays = prays;
       prays.map(pray => {
         this.editShown.push(false);
+        this.orginalPrays.push(deepCopy(pray));
         return pray;
       })
     });
@@ -36,6 +38,15 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
 
   edit(index: number): void {
     if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
-    this.editShown[index] = true;
+
+    if (this.editShown[index] === false) this.editShown[index] = true;
+    else {
+      this.editShown[index] = false;
+      this.prays[index] = deepCopy(this.orginalPrays[index]);
+    }
   }
+}
+
+function deepCopy(object: object) {
+  return JSON.parse(JSON.stringify(object));
 }

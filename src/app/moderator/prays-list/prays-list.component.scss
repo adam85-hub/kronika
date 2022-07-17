@@ -23,11 +23,11 @@ h1 {
                 display: flex;
                 gap: 5px;
 
-                .btn-edit {
+                .btn-green {
                     @include button($btn-green);
                 }
         
-                .btn-delete {
+                .btn-red {
                     @include button($btn-red);
                 }
             }            

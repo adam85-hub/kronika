@@ -1,0 +1,38 @@
+@import "../../../variables.scss";
+@import "../moderator.variables.scss";
+
+#title-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+
+    #year-input {
+        width: 70px;
+    }
+    
+    #desc-input {
+        flex: 1;
+    }
+}
+
+#video-form {
+    display: flex;
+    margin-top: 5px;
+    gap: 10px;
+
+    input {
+        flex: 1;
+    }
+}
+
+#save-btn {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+    button {
+        @include button($btn-green);
+        font-size: 15px;
+    }
+}

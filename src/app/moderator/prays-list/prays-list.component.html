@@ -6,12 +6,12 @@
                 <div class="content">
                     {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
                     <div class="pray-buttons">
-                        <button class="btn-edit" (click)="edit(i)">Edytuj</button>
-                        <button class="btn-delete">Usuń</button>
+                        <button [ngClass]="editShown[i] == false ? 'btn-green' : 'btn-red'" (click)="edit(i)">{{editShown[i] == false ? "Edytuj" : "Anuluj"}}</button>
+                        <button class="btn-red">Usuń</button>
                     </div>
                 </div>
                 <div class="edit" *ngIf="editShown[i]">
-                    <app-edit-pray [id]="pray.id"></app-edit-pray>
+                    <app-edit-pray [pray]="pray"></app-edit-pray>
                 </div>
             </div>
         </ng-container>

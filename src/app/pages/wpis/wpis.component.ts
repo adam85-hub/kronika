@@ -30,7 +30,7 @@ export class WpisComponent extends PageComponent implements OnInit {
   override ngOnInit(): void {
       super.ngOnInit();    
       
-      // Tego nie pisałem jakby co (w sensie nie całe (w sensie trochę z tego kodu napisałem))
+      // Tego nie pisałem jakby co (w sensie nie całe (w sensie trochę kodu napisałem))
       if (!apiLoaded) {
         // This code loads the IFrame Player API code asynchronously, according to the instructions at
         // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
@@ -78,7 +78,6 @@ export class WpisComponent extends PageComponent implements OnInit {
 
   getVideoId(url: string): string {
     if(url.startsWith("/")) {
-      console.log(url.substring(1));
       return url.substring(1);
     }
     let re = /embed\//;
