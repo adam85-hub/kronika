@@ -19,6 +19,11 @@ export class EditPrayComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.pray == undefined) throw Error("pray can not be undefined.");
+    setTimeout(() => {
+      if (this.pray == undefined) throw Error("pray can not be undefined.");
+      const select = document.getElementById("month-select") as HTMLSelectElement;
+      select.selectedIndex = this.pray?.month - 1;
+    }, 10);
   }
 
   monthChanged(e: Event) {
@@ -35,3 +40,5 @@ export class EditPrayComponent implements OnInit {
     this.pray.videoId = link;
   }
 }
+
+//todo: Make saving pray work

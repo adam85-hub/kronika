@@ -7,7 +7,7 @@
             <ng-content></ng-content>
         </div>
         <div id="dialog-controls">
-            <button (click)="noClicked.emit()" [ngStyle]="{ 'order': btn1 }"> {{noBtnText}} </button>
+            <button (click)="noClicked.emit()" [ngStyle]="{ 'order': btn1 }" *ngIf="singleButton === false"> {{noBtnText}} </button>
             <button (click)="yesClicked.emit()" [ngStyle]="{ 'order': btn2 }"> {{yesBtnText}} </button>
         </div>
     </div>    

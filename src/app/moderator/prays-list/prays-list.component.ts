@@ -15,9 +15,13 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
   prays: PrayInterface[] | null = null;
   editShown: boolean[] = [];
 
-  constructor(title: Title, private praysService: PraysService, private router: Router) { 
+  deleteDialog = false;
+  prayToDelete: PrayInterface | null = null;
+  deleteErrorDialog = false;
+
+  constructor(title: Title, private praysService: PraysService, private router: Router) {
     super(title);
-    this.title = "Modlitwy";
+    this.title = "Medytacje";
   }
 
   override ngOnInit(): void {
@@ -30,7 +34,7 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
         return pray;
       })
     });
-  }  
+  }
 
   numberToMonth(number: number): string {
     return numberToMonth(number);
@@ -45,8 +49,38 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
       this.prays[index] = deepCopy(this.orginalPrays[index]);
     }
   }
+
+  deleteButtonClicked(index: number) {
+    if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
+
+    this.prayToDelete = this.prays[index];
+    this.deleteDialog = true;
+  }
+
+  deletePray() {    
+    if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
+
+    this.praysService.deletePray(this.prayToDelete.id).subscribe((success) => {
+      if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
+      
+      const filterCondition = (value: PrayInterface) => {
+        if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
+        return value.id != this.prayToDelete.id;
+      }
+
+      if (success == true) {
+        this.prays.filter(filterCondition);
+        this.prayToDelete = null;
+      }
+      else {
+        this.deleteErrorDialog = true;
+      }
+    })
+  }
 }
 
 function deepCopy(object: object) {
   return JSON.parse(JSON.stringify(object));
 }
+
+//todo: Add sorting prays by date

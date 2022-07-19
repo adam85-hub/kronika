@@ -1,4 +1,4 @@
-<h1>Medytacje</h1>
+<h1>Medytacje na pierwszą sobotę</h1>
 <section id="prays-list" fillHeight>
     <ng-container *ngIf="prays !== null; else loading">
         <ng-container *ngIf="prays.length != 0; else noPrays">
@@ -7,7 +7,7 @@
                     {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
                     <div class="pray-buttons">
                         <button [ngClass]="editShown[i] == false ? 'btn-green' : 'btn-red'" (click)="edit(i)">{{editShown[i] == false ? "Edytuj" : "Anuluj"}}</button>
-                        <button class="btn-red">Usuń</button>
+                        <button class="btn-red" (click)="deleteButtonClicked(i)">Usuń</button>
                     </div>
                 </div>
                 <div class="edit" *ngIf="editShown[i]">
@@ -24,4 +24,16 @@
             <app-loading></app-loading>
         </div>
     </ng-template>
+
+    <app-dialog [visible]="deleteDialog" (noClicked)="deleteDialog = false" (yesClicked)="deletePray()" *ngIf="prayToDelete != null">
+        Czy na pewno chcesz usunąć medytację "{{prayToDelete.description}}"?
+    </app-dialog>
+
+    <!-- Error with deleting pray dialog -->
+    <app-dialog [visible]="deleteErrorDialog" [singleButton]="true" yesBtnText="Ok" (yesClicked)="deleteErrorDialog = false" title="Błąd!">
+        Wystąpił błąd przy usuwaniu medytacji!
+    </app-dialog>
 </section>
+
+
+<!-- todo: Add "Add new pray" button -->

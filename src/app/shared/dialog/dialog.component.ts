@@ -18,6 +18,7 @@ export class DialogComponent implements OnInit {
   @Input() Title = "Uwaga!";
   @Input() yesBtnText = "Tak";
   @Input() noBtnText = "Nie";
+  @Input() singleButton = false;
   @Input() set order(value: "Normal" | "Reverted") {
     if(value === "Normal") {
       this.btn1 = 2;
