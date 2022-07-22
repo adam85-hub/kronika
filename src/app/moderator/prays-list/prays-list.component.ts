@@ -28,7 +28,13 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     super.ngOnInit();
     this.praysService.getPrays().subscribe((prays) => {
       this.prays = prays;
-      prays.map(pray => {
+      // Sort by date descending
+      this.prays = this.prays.sort((a: PrayInterface, b: PrayInterface) => {
+        return (a.month + a.year * 13) - (b.month + b.year * 13);
+      });
+      this.prays.reverse();
+
+      this.prays.map(pray => {
         this.editShown.push(false);
         this.orginalPrays.push(deepCopy(pray));
         return pray;
