@@ -96,6 +96,10 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     });
     this.prays.reverse();
   }
+
+  addPray() {
+    //todo: Make this work
+  }
 }
 
 function deepCopy(object: object) {

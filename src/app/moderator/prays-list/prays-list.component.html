@@ -1,39 +1,46 @@
 <h1>Medytacje na pierwszą sobotę</h1>
-<section id="prays-list" fillHeight>
-    <ng-container *ngIf="prays !== null; else loading">
-        <ng-container *ngIf="prays.length != 0; else noPrays">
-            <div class="pray" *ngFor="let pray of prays; let i = index" >
-                <div class="content">
-                    {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
-                    <div class="pray-buttons">
-                        <button [ngClass]="editShown[i] == false ? 'btn-green' : 'btn-red'" (click)="edit(i)">{{editShown[i] == false ? "Edytuj" : "Anuluj"}}</button>
-                        <button class="btn-red" (click)="deleteButtonClicked(i)">Usuń</button>
+<div id="button-aligner" fillHeight>
+    <section id="prays-list">
+        <ng-container *ngIf="prays !== null; else loading">
+            <ng-container *ngIf="prays.length != 0; else noPrays">
+                <div class="pray" *ngFor="let pray of prays; let i = index">
+                    <div class="content">
+                        {{numberToMonth(pray.month) + " " + pray.year}} - {{pray.description}}
+                        <div class="pray-buttons">
+                            <button [ngClass]="editShown[i] == false ? 'btn-green' : 'btn-red'"
+                                (click)="edit(i)">{{editShown[i] == false ? "Edytuj" : "Anuluj"}}</button>
+                            <button class="btn-red" (click)="deleteButtonClicked(i)">Usuń</button>
+                        </div>
+                    </div>
+                    <div class="edit" *ngIf="editShown[i]">
+                        <app-edit-pray [pray]="pray" (saved)="praySaved(i)"></app-edit-pray>
                     </div>
                 </div>
-                <div class="edit" *ngIf="editShown[i]">
-                    <app-edit-pray [pray]="pray" (saved)="praySaved(i)"></app-edit-pray>
-                </div>
-            </div>
+            </ng-container>
+            <ng-template #noPrays>
+                Nie znaleziono żadnych zapisanych medytacji...
+            </ng-template>
         </ng-container>
-        <ng-template #noPrays>
-            Nie znaleziono żadnych zapisanych medytacji...
-        </ng-template>
-    </ng-container>
-    <ng-template #loading>
-        <div id="loader">
-            <app-loading></app-loading>
-        </div>
-    </ng-template>
+        <ng-template #loading>
+            <div id="loader">
+                <app-loading></app-loading>
+            </div>
+        </ng-template>        
 
-    <app-dialog [visible]="deleteDialog" (noClicked)="deleteDialog = false" (yesClicked)="deletePray()" *ngIf="prayToDelete != null">
-        Czy na pewno chcesz usunąć medytację "{{prayToDelete.description}}"?
-    </app-dialog>
+        <app-dialog [visible]="deleteDialog" (noClicked)="deleteDialog = false" (yesClicked)="deletePray()"
+            *ngIf="prayToDelete != null">
+            Czy na pewno chcesz usunąć medytację "{{prayToDelete.description}}"?
+        </app-dialog>
 
-    <!-- Error with deleting pray dialog -->
-    <app-dialog [visible]="deleteErrorDialog" [singleButton]="true" yesBtnText="Ok" (yesClicked)="deleteErrorDialog = false" title="Błąd!">
-        Wystąpił błąd przy usuwaniu medytacji!
-    </app-dialog>
-</section>
+        <!-- Error with deleting pray dialog -->
+        <app-dialog [visible]="deleteErrorDialog" [singleButton]="true" yesBtnText="Ok"
+            (yesClicked)="deleteErrorDialog = false" title="Błąd!">
+            Wystąpił błąd przy usuwaniu medytacji!
+        </app-dialog>
+    </section>
+
+    <button id="add-pray" (click)="addPray()">Dodaj medytację</button>
+</div>
 
 
 <!-- todo: Add "Add new pray" button -->

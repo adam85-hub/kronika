@@ -10,6 +10,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    overflow: scroll;
 
     .pray {
         padding: 7px 15px;
@@ -32,8 +33,23 @@ h1 {
                 }
             }            
         }        
+    }    
+}
+
+#button-aligner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+    gap: 10px;
+    
+    #add-pray { //Button
+        @include button($btn-green);
+        font-size: 25px;
+    
+        align-self: flex-end;    
     }
 }
+
 
 #loader {
     width: 120px;
