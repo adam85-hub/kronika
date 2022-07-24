@@ -34,4 +34,10 @@ export class PraysService {
 
         return success.asObservable();
     }
+
+    modifyPray(pray: PrayInterface): Observable<PrayInterface> {
+        const headers = new HttpHeaders().append('Token', this.auth.getToken());
+
+        return this.http.put<PrayInterface>(`${SETUP.apiUrl}/pray`, pray, { "headers": headers });
+    }
 }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { numberToMonth, PrayInterface } from 'src/app/interfaces/pray.interface';
+import { PraysService } from 'src/app/services/prays.service';
 
 @Component({
   selector: 'app-edit-pray',
@@ -11,7 +12,12 @@ export class EditPrayComponent implements OnInit {
   pray?: PrayInterface;
   months: string[] = [];
 
-  constructor() { 
+  @Output()
+  saved = new EventEmitter();
+  saving: boolean = false;
+  modifyErrorDialog: boolean = false;
+
+  constructor(private praysService: PraysService) { 
     for (let i = 1; i <= 12; i++) {
       this.months.push(numberToMonth(i));
     }    
@@ -39,6 +45,44 @@ export class EditPrayComponent implements OnInit {
     if (index !== -1) link = link.substring(index + 3);
     this.pray.videoId = link;
   }
+
+  save() {
+    if (this.pray == undefined) throw Error("pray can not be undefined.");
+    this.saving = true;
+
+    this.praysService.modifyPray(this.pray).subscribe({
+      next: (result) => {
+        if (this.pray == undefined) throw Error("pray can not be undefined.");
+        
+        if (areObjectsEqual(this.pray, result)) {
+          this.saved.emit(result);
+          this.saving = false;
+        }
+        else {
+          console.log("Result:");
+          console.log(result);
+          console.log("Pray:");
+          console.log(this.pray);
+          this.modifyErrorDialog = true;
+        }
+      },
+      error: (e) => {
+        console.log(e);
+        this.modifyErrorDialog = true;
+      }
+    });
+  }
 }
 
-//todo: Make saving pray work
+function areObjectsEqual(a: object, b: object): boolean {
+  if (Object.keys(a).length !== Object.keys(b).length)
+    return false;
+  
+  for (let i = 0; i < Object.keys(a).length; i++) {
+    if (Object.values(a)[i] != Object.values(b)[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}

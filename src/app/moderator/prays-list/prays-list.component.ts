@@ -28,12 +28,7 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     super.ngOnInit();
     this.praysService.getPrays().subscribe((prays) => {
       this.prays = prays;
-      // Sort by date descending
-      this.prays = this.prays.sort((a: PrayInterface, b: PrayInterface) => {
-        return (a.month + a.year * 13) - (b.month + b.year * 13);
-      });
-      this.prays.reverse();
-
+      this.sortPrays();
       this.prays.map(pray => {
         this.editShown.push(false);
         this.orginalPrays.push(deepCopy(pray));
@@ -63,6 +58,12 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     this.deleteDialog = true;
   }
 
+  praySaved(index: number) {
+    if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
+    this.editShown[index] = false;
+    this.sortPrays();
+  }
+
   deletePray() {    
     if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
 
@@ -71,11 +72,14 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
       
       const filterCondition = (value: PrayInterface) => {
         if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
-        return value.id != this.prayToDelete.id;
+        return value.id === this.prayToDelete.id;
       }
 
       if (success == true) {
-        this.prays.filter(filterCondition);
+        const indexToDelete = this.prays.findIndex(filterCondition);
+        this.prays.splice(indexToDelete, 1);
+        this.orginalPrays.splice(indexToDelete, 1);
+        this.prays = this.prays;
         this.prayToDelete = null;
       }
       else {
@@ -83,10 +87,17 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
       }
     })
   }
+
+  sortPrays() {
+    if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
+    // Sort by date descending
+    this.prays = this.prays.sort((a: PrayInterface, b: PrayInterface) => {
+      return (a.month + a.year * 13) - (b.month + b.year * 13);
+    });
+    this.prays.reverse();
+  }
 }
 
 function deepCopy(object: object) {
   return JSON.parse(JSON.stringify(object));
 }
-
-//todo: Add sorting prays by date

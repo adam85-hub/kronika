@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="edit" *ngIf="editShown[i]">
-                    <app-edit-pray [pray]="pray"></app-edit-pray>
+                    <app-edit-pray [pray]="pray" (saved)="praySaved(i)"></app-edit-pray>
                 </div>
             </div>
         </ng-container>

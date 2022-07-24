@@ -22,4 +22,9 @@ div {
     color: $color;
     border-color: $color;
   }
+
+  &:disabled {
+    color: gray;
+    border-color: gray;
+  }
 }

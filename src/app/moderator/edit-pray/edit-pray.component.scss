@@ -36,3 +36,12 @@
         font-size: 15px;
     }
 }
+
+#loader {
+    display: flex;
+    justify-content: center;
+
+    div {
+        width: 60px;
+    }
+}
