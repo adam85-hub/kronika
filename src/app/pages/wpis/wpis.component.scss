@@ -82,6 +82,15 @@
     }
 }
 
+@media screen and (max-width: $tablet-width) {
+    #elements-section {
+        grid-template-columns: 1fr;
+    }
+
+    .image-el, .paragraph-el, .video-el {
+        grid-column: 1;
+    }
+}
 .video-el {
     @include element();
 
