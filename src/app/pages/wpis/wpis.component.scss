@@ -75,13 +75,6 @@
     }
 }
 
-@media screen and (min-width: $tablet-width) {    
-    // Ale to jest rozkminione
-    .full {
-        grid-column: 1/4;
-    }
-}
-
 @media screen and (max-width: $tablet-width) {
     #elements-section {
         grid-template-columns: 1fr;

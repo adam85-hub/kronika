@@ -15,7 +15,7 @@
                 </div>
             </ng-template>
             <ng-template [ngIf]="element.type == 'Image'">
-                <div class="image-el" [ngClass]="[entry.Elements[i+1] !== undefined && entry.Elements[i+1].type !== 'Image'? 'full' : '']">
+                <div class="image-el">
                     <img [src]="element.getAttr()" loading="lazy">
                 </div>
             </ng-template>
