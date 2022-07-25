@@ -15,6 +15,7 @@ import { FixEntryComponent } from './fix-entry/fix-entry.component';
 import { PraysListComponent } from './prays-list/prays-list.component';
 import { FillHeightDirective } from './directives/fill-height.directive';
 import { EditPrayComponent } from './edit-pray/edit-pray.component';
+import { LogsTileComponent } from './panel/logs-tile/logs-tile.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { EditPrayComponent } from './edit-pray/edit-pray.component';
     PraysListComponent,
     FillHeightDirective,
     EditPrayComponent,
+    LogsTileComponent,
   ],
   imports: [
     CommonModule,

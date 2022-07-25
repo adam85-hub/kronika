@@ -1,5 +1,5 @@
 <h1>Medytacje na pierwszą sobotę</h1>
-<div id="button-aligner" fillHeight>
+<div id="button-aligner" [fillHeight]="0">
     <section id="prays-list">
         <ng-container *ngIf="prays !== null; else loading">
             <ng-container *ngIf="prays.length != 0; else noPrays">

@@ -1,0 +1,7 @@
+<div>
+    <div id="log-types">
+        <button class="btn-type" *ngFor="let logType of LogTypes; let i = index" [ngClass]="logType.selected ? 'selected' : ''"
+            (click)="selected(i)">{{logType.name}}</button>
+    </div>
+    <button id="btn-download">Pobierz</button>
+</div>

@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { PrayInterface } from "../interfaces/pray.interface";
 import { AuthenticationService } from "./authentication.service";
-import { EntriesService } from "./entries.service";
 import { SETUP } from "./web.setup";
 
 @Injectable({
