@@ -16,7 +16,6 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
     { name: 'Wpisy', path: '/entries' },
     { name: 'Zepsute wpisy', path: '/failed-entries' },
     { name: 'Medytacje', path: '/prays'},
-    { name: 'Strona główna', path: '/main-page' },
     { name: 'Pomoc', path: '' }
   ];
 
