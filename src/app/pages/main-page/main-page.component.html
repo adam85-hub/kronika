@@ -25,6 +25,25 @@
     </div>
 </div>
 
+<div id="history-mobile">
+    <div>Historia strony</div>
+    <article [ngStyle]="articleStyle">
+        <p #articleText>
+            Od 2005 roku prowadzę amatorsko Kronikę Parafii Matki Boskiej Częstochowskiej w Katowicach Podlesiu.  
+            Inicjatorem był <b>śp.Ks.Proboszcz Benedykt Hałota (1993-2012)</b>.
+            W 2016 roku powstała nowa  <a href="http://www.parafia-podlesie.pl/ " target="_blank" rel="noopener noreferrer">strona parafialna</a> 
+            utworzona przez Ks.Proboszcza dr Jacka Plecha. 
+            Na mojej stronie równolegle kontynułuje galerie zdjęć z <a href="http://fzskatowicepodlesie.pl/parafia/" target="_blank" rel="noopener noreferrer">mojej parafii</a>. <br/>
+            Prowadzę <a href="http://fzskatowicepodlesie.pl/fzs/" target="_blank" rel="noopener noreferrer">stronę Franciszkańskiego Zakonu Świeckich</a>, 
+            <a href="http://fzskatowicepodlesie.pl/rf/" target="_blank" rel="noopener noreferrer">Rycerzy Świętego Franciszka</a>.
+            oraz <a href="http://www.fzskatowice.pl/" target="_blank" rel="noopener noreferrer">FZŚ Region Katowice</a>.
+            W 2022 roku nową wersję strony zaproponował Adam. <br><br>
+            <b>Agnieszka</b>  
+        </p>          
+    </article>
+    <img id="down-arrow" src="../../../assets/down-arrow.svg" alt="down arrow" (click)="toggleHistoryMobile()" [ngStyle]="arrowStyle">
+</div>
+
 <app-article title="Najnowsze wydarzenia">
     <ng-container *ngIf="newestEntries.length != 0; else loader">
         <div *ngFor="let entry of newestEntries;" class="entry"> <!--* Pojedyńczy wpis do kroniki -->

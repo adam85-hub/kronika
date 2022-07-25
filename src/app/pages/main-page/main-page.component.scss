@@ -171,10 +171,46 @@ $anim-len: 0.8s;
     }
 }
 
+#history-mobile {
+    $history-anim-time: 0.6s;   
+    display: none;
+
+    width: 99%;
+    font-size: 70px;
+    font-weight: bold;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid $font-color;
+    margin-top: 20px;
+    text-align: center;
+
+    article {
+        font-size: 22px;
+        text-align: justify;
+        padding: 10px;
+        overflow: hidden;
+        transition: height $history-anim-time, padding $history-anim-time;
+        p {
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    #down-arrow {
+        height: 70px;
+        transition: transform $history-anim-time;
+        width: 100%;
+    }
+}
+
 @media screen and (max-width: $tablet-width) {
     #history-container {
         display: none;
     }    
+
+    #history-mobile {
+        display: flex;
+    }
 }
 
 //Entry width fix (prevents vertical overflow)
