@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-logs-tile',
@@ -15,6 +16,7 @@ export class LogsTileComponent implements OnInit {
   ]
 
   logContent: string = "";
+  loading = false;
 
   constructor(private logService: LogService) { }
 
@@ -22,20 +24,36 @@ export class LogsTileComponent implements OnInit {
   }
 
   selected(index: number) {
-    for (let log of this.LogTypes) {
-      log.selected = false;
-    }
+    this.resetSelected();
     this.LogTypes[index].selected = true;
+    this.loading = true;
 
     this.logService.getLog(this.LogTypes[index].queryName).subscribe({
       next: (result) => {
         this.logContent = result;
+        this.loading = false;
       },
       error: (e) => {
         console.log(e);
-        alert("Wystąpił problem z pobraniem ")
+        alert("Wystąpił problem z pobraniem ");
       }
     });
+  }
+
+  resetSelected() {
+    for (let log of this.LogTypes) {
+      log.selected = false;
+    }
+  }
+
+  download() {
+    const selectedIndex = this.LogTypes.findIndex((x) => x.selected);
+    if (selectedIndex === -1) return;
+
+    let file = new Blob([this.logContent], { type: "text/plain;charset=utf-8" });
+    saveAs(file, this.LogTypes[selectedIndex].name + ".log");
+
+    this.resetSelected();
   }
 }
 

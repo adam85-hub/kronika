@@ -3,5 +3,15 @@
         <button class="btn-type" *ngFor="let logType of LogTypes; let i = index" [ngClass]="logType.selected ? 'selected' : ''"
             (click)="selected(i)">{{logType.name}}</button>
     </div>
-    <button id="btn-download">Pobierz</button>
+    <button id="btn-download" (click)="download()" [disabled]="loading" [ngClass]="loading == true ? 'btn-loading' : ''">
+        <ng-container *ngIf="loading == false; else loader">
+            Pobierz
+            <img src="../../../../assets/download-arrow.svg" id="download-arrow">
+        </ng-container>
+        <ng-template #loader>
+            <div id="loader">
+                <app-loading></app-loading>
+            </div>
+        </ng-template>
+    </button>
 </div>

@@ -43,7 +43,37 @@
     border: 2px solid $font-color;
     margin-top: 5px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    transition: color 0.4s, border-color 0.4s;
+
     &:hover {
         cursor: pointer;
+        border-color: black;
+        color: black;  
+        
+        #download-arrow {
+            width: 25px;
+        }
     }
+
+    &:disabled {
+        color: grey;
+        border-color: grey;
+        cursor: not-allowed;
+    }
+
+    #download-arrow {
+        width: 0px;
+        height: 25px;
+        transition: width 0.4s;
+    }
+}
+
+#loader {
+    width: 35px;    
+    height: 35px;
 }
