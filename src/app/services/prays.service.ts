@@ -40,4 +40,10 @@ export class PraysService {
 
         return this.http.put<PrayInterface>(`${SETUP.apiUrl}/pray`, pray, { "headers": headers });
     }
+
+    postPray(pray: PrayInterface): Observable<PrayInterface> {
+        const headers = new HttpHeaders().append('Token', this.auth.getToken());
+
+        return this.http.post<PrayInterface>(`${SETUP.apiUrl}/pray`, pray, { "headers": headers });
+    }
 }

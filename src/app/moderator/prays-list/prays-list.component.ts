@@ -28,12 +28,7 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
     super.ngOnInit();
     this.praysService.getPrays().subscribe((prays) => {
       this.prays = prays;
-      this.sortPrays();
-      this.prays.map(pray => {
-        this.editShown.push(false);
-        this.orginalPrays.push(deepCopy(pray));
-        return pray;
-      })
+      this.sortPrays();      
     });
   }
 
@@ -95,10 +90,38 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
       return (a.month + a.year * 13) - (b.month + b.year * 13);
     });
     this.prays.reverse();
+
+    // Synchronize other tables with sorted prays
+    this.orginalPrays = [];
+    this.editShown = [];
+    for (const pray of this.prays) {
+      this.orginalPrays.push(deepCopy(pray));
+      this.editShown.push(false);
+    }
   }
 
   addPray() {
-    //todo: Make this work
+    const emptyPray: PrayInterface = {
+      id: 0,
+      description: "",
+      videoId: "",
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()+1,
+    };
+
+    this.praysService.postPray(emptyPray).subscribe({
+      next: (result) => {
+        this.prays?.push(result);
+        this.sortPrays();
+        const newIndex = this.prays?.findIndex((x: PrayInterface) => result.id === x.id);
+        if (newIndex === undefined || newIndex === -1) throw Error("Unexpected behavior: pray with id " + result.id + " does not exist in prays array");
+        this.editShown[newIndex] = true;
+      },
+      error: (e) => {
+        console.log(e);
+        alert("Wystąpił błąd przy dodawaniu nowej medytacji!");
+      }
+    })
   }
 }
 
