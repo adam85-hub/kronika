@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -17,10 +17,13 @@ export class MainPageComponent extends PageComponent implements OnInit {
   @ViewChild('articleText') articleTextEl?: ElementRef;
 
   public get articleStyle() {
-    if (this.articleOpened) return {
-      "height": (this.articleTextEl?.nativeElement as HTMLParagraphElement).clientHeight + "px",
-      "padding": "10px"
-    };
+    if (this.articleOpened) {
+      if(window.innerWidth < 550) setTimeout(() => this.detectorRef.detectChanges(), 600);
+      return {
+        "height": (this.articleTextEl?.nativeElement as HTMLParagraphElement).clientHeight + "px",
+        "padding": "10px"
+      };
+    } 
     else return {
       "height": "0px",
       "padding": "0px"
@@ -33,7 +36,7 @@ export class MainPageComponent extends PageComponent implements OnInit {
     };
   }
 
-  constructor(titleService: Title, private entriesService: EntriesService) { 
+  constructor(titleService: Title, private entriesService: EntriesService, private detectorRef: ChangeDetectorRef) { 
     super(titleService);
     this.pageTitle = "Strona główna";
     this.isMainPage = true;
