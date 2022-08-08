@@ -74,6 +74,7 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
         const indexToDelete = this.prays.findIndex(filterCondition);
         this.prays.splice(indexToDelete, 1);
         this.orginalPrays.splice(indexToDelete, 1);
+        this.editShown.splice(indexToDelete, 1);
         this.prays = this.prays;
         this.prayToDelete = null;
       }
