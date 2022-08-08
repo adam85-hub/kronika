@@ -44,8 +44,10 @@
   </main>
 
   <footer>
-    Adam Bialik 2021 &copy; Wszystkie prawa zastrzeżone
+    Adam Bialik 2021 &copy; <i (click)="copyEmail()" style="cursor: pointer;"> adam.bialik85@gmail.com </i>
   </footer>
+
+  <app-notification [show]="showNotification.asObservable()" text="Skopiowanio do schowka!"></app-notification>
 </ng-container>
 
 <ng-template #moderator>

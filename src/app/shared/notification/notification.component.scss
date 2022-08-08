@@ -1,0 +1,27 @@
+@import "../../../variables.scss";
+@import "../../moderator/moderator.variables.scss";
+
+#container {
+    position: fixed;
+    top: 85%;    
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+    font-size: 20px;
+}
+
+.blue {
+    background-color: $btn-blue;
+}
+
+.red {
+    background-color: $btn-red;
+}
+
+.green {
+    background-color: $btn-green;
+}

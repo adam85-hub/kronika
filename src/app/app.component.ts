@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { PageComponent } from './pages/page/page.component';
 import { Links, InneLinks } from './links';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -84,6 +85,12 @@ export class AppComponent implements OnInit {
 
   //#endregion
   
+  showNotification: Subject<void> = new Subject();
+
+  copyEmail(): void {
+    navigator.clipboard.writeText("adam.bialik85@gmail.com");
+    this.showNotification.next();
+  }
 }
 
 //Set-ExecutionPolicy -Scope Process Unrestricted
