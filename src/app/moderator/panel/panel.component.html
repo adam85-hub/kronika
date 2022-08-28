@@ -6,10 +6,6 @@
             <button (click)="returnToMain()">Powrót</button>
         </div>
         <div class="tile">
-            <div id="search">
-                <input [(ngModel)]="search" placeholder="Szukaj...">
-                <button>Szukaj</button>
-            </div>
             <div id="menu">
                 <button *ngFor="let option of menuOptions" (click)="changeDisplayedOption(option)">{{option.name}}</button>             
             </div>

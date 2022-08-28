@@ -10,13 +10,11 @@ import { ModeratorComponent } from '../moderator.component';
   styleUrls: ['./panel.component.scss']
 })
 export class PanelComponent extends ModeratorComponent implements OnInit {
-  search: string = "";
   basePath = '/moderator/panel';
   menuOptions: MenuOption[] = [
     { name: 'Wpisy', path: '/entries' },
     { name: 'Zepsute wpisy', path: '/failed-entries' },
-    { name: 'Medytacje', path: '/prays'},
-    { name: 'Pomoc', path: '' }
+    { name: 'Medytacje', path: '/prays'}
   ];
 
   constructor(titleService: Title, auth: AuthenticationService, router: Router) {
