@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { last, throwIfEmpty } from 'rxjs';
 import { EntryModel } from 'src/app/models/entry.model';
+import { CachingService } from 'src/app/services/caching.service';
 import { EntriesService } from 'src/app/services/entries.service';
 import { PageComponent } from '../page/page.component';
 
@@ -18,7 +19,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
   years: number[] = [];
   selectedYear?: number;
 
-  constructor(titleService: Title, private entriesService: EntriesService, private router: Router, private route: ActivatedRoute) {
+  constructor(titleService: Title, private entriesService: EntriesService, private router: Router, private route: ActivatedRoute, private cachingService: CachingService) {
     super(titleService);     
   }
 
@@ -33,11 +34,27 @@ export class KronikaComponent extends PageComponent implements OnInit {
   }
 
   public setYearsToSelect(): void {
+    const cachedYears = this.cachingService.get("years");
+    if (cachedYears !== false) {
+      this.years = cachedYears;
+      if (this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
+      this.getEntries();  
+
+      setTimeout(() => {
+        if (this.selectedYear == undefined) throw Error("Something went wrong (selectedYear is undefined)");
+        const selectEl = (document.querySelector("#year-selector") as HTMLSelectElement);
+        selectEl.value = this.selectedYear.toString();
+      }, 100);
+      return;
+    }
+
     this.entriesService.getYears().pipe(last()).subscribe(response => {
       this.years = response;
       this.years.sort((a,b) => b - a);
       if (this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
       this.getEntries();  
+
+      this.cachingService.set("years", this.years, 3);
 
       setTimeout(() => {
         if (this.selectedYear == undefined) throw Error("Something went wrong (selectedYear is undefined)");
@@ -52,12 +69,22 @@ export class KronikaComponent extends PageComponent implements OnInit {
   public getEntries() {
     this.isLoading = true;
     this.entries = [];
-    if(this.selectedYear === undefined) throw new Error("Selected year is undefined");
+    if (this.selectedYear === undefined) throw new Error("Selected year is undefined");
+
+    const cachedEntries = this.cachingService.get(`entries${this.selectedYear}`);
+    if (cachedEntries !== false) {
+      this.isLoading = false;
+      this.entries = cachedEntries;
+      return;
+    }
+
     this.entriesService.getEntriesByYear(this.selectedYear).pipe(last()).subscribe(response => {  
       response.forEach(entry => {
         this.entries.push(new EntryModel(entry, entry.Elements));
       })
-      this.entries.sort((b,a) => a.Date.valueOf() - b.Date.valueOf());
+      this.entries.sort((b, a) => a.Date.valueOf() - b.Date.valueOf());
+      
+      this.cachingService.set(`entries${this.selectedYear}`, this.entries, 3);
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
