@@ -10,8 +10,7 @@
     <div id="elements-section" *ngIf="entry.Elements != null">
         <ng-container *ngFor="let element of entry.Elements; let i = index">
             <ng-template [ngIf]="element.type == 'Paragraph'"> 
-                <div class="paragraph-el">
-                    {{element.getAttr()}}
+                <div class="paragraph-el" [innerHtml]="paragraphToHtml(element.getAttr())">
                 </div>
             </ng-template>
             <ng-template [ngIf]="element.type == 'Image'">

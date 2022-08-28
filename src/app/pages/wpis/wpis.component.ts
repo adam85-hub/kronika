@@ -85,6 +85,36 @@ export class WpisComponent extends PageComponent implements OnInit {
     return id;
   }
 
+  paragraphToHtml(p: string): string {
+    const links = [...p.matchAll(/\([^\{\}\(\)]+\)\{[^\{\}\(\)]+\}/g)];
+    for (const match of links) {
+      const text = match[0];
+      console.log(text);
+      const title = text.match(/\(.+\)/)![0].replace(/[\(\)]/g, "");
+      const href = text.match(/\{.+\}/)![0].replace(/[\{\}]/g, "");
+
+      p = p.replace(/\([^\{\}\(\)]+\)\{[^\{\}\(\)]+\}/, `<a href="${href}" target="_blank">${title}</a>`);
+    }
+    
+    const bolds = [...p.matchAll(/\*[^\*]+\*/g)];
+    for (const match of bolds) {
+      const text = match[0].replace(/\*/g, "");
+
+      p = p.replace(/\*[^\*]+\*/, `<b>${text}</b>`)
+    }
+
+    const cursives = [...p.matchAll(/%[^%]+%/g)];
+    for (const match of cursives) {
+      const text = match[0].replace(/%/g, "");
+
+      p = p.replace(/%[^%]+%/, `<i>${text}</i>`)
+    }
+
+    p = p.replace(/\\n/g, "<br/>");
+
+    return p;
+  }
+
   @HostListener('window:resize')
   onResizeEvent() {
     this.onResize();
