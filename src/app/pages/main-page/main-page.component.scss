@@ -155,6 +155,7 @@ $anim-len: 0.8s;
         .link-arrow {
             font-weight: bold;
             width: 0px;
+            height: 20px;
             opacity: 0;            
             transition: opacity $anim-time, width $anim-time, margin-left $anim-time;
         }
@@ -164,7 +165,7 @@ $anim-len: 0.8s;
 
             .link-arrow {
                 opacity: 1;
-                width: 20px;
+                width: 30px;
                 margin-left: 10px;
             }
         }
