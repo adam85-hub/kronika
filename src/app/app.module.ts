@@ -21,6 +21,8 @@ import { KontaktComponent } from './pages/kontakt/kontakt.component';
 import { ResponsiveSidebarComponent } from './responsive-sidebar/responsive-sidebar.component';
 import { ModlitwyComponent } from './pages/modlitwy/modlitwy.component';
 import { ModlitwaComponent } from './pages/modlitwy/modlitwa/modlitwa.component';
+import { PiosenkiComponent } from './pages/piosenki/piosenki.component';
+import { PiosenkaComponent } from './pages/piosenki/piosenka/piosenka.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ModlitwaComponent } from './pages/modlitwy/modlitwa/modlitwa.component'
     KontaktComponent,
     ResponsiveSidebarComponent,
     ModlitwyComponent,
-    ModlitwaComponent
+    ModlitwaComponent,
+    PiosenkiComponent,
+    PiosenkaComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { PrayInterface } from "../interfaces/pray.interface";
+import { PrayVideoInterface } from "../interfaces/prayVideo.interface";
 import { AuthenticationService } from "./authentication.service";
 import { SETUP } from "./web.setup";
 
@@ -44,5 +45,9 @@ export class PraysService {
         const headers = new HttpHeaders().append('Token', this.auth.getToken());
 
         return this.http.post<PrayInterface>(`${SETUP.apiUrl}/pray`, pray, { "headers": headers });
+    }
+
+    getPrayVideos(): Observable<PrayVideoInterface[]> {
+        return this.http.get<PrayVideoInterface[]>(`${SETUP.apiUrl}/prayvideos`);
     }
 }

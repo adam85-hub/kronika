@@ -14,7 +14,7 @@ export class ModlitwyComponent extends PageComponent implements OnInit {
 
   constructor(title: Title, private praysService: PraysService) {
     super(title);
-    this.pageTitle = "Modlitwy i medytacje";
+    this.pageTitle = "Medytacje";
 
     this.praysService.getPrays().subscribe((response) => {
       this.Modlitwy = response;

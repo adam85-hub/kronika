@@ -1,0 +1,9 @@
+@import "../../../variables.scss";
+
+#loader {
+    $loader-size: 100px;
+    width: $loader-size;
+    height: $loader-size;
+    @include flex-center();
+    margin: 10px auto;
+}

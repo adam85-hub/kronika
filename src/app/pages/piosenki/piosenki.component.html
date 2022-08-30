@@ -1,0 +1,9 @@
+<app-title [fontSize]=60>Modlitwy i uwielbienie</app-title>
+<section id="modlitwy" *ngIf="prayVideos.length != 0; else loader">
+    <app-piosenka *ngFor="let piosenka of prayVideos" [prayVideo]="piosenka"></app-piosenka>
+</section>
+<ng-template #loader>
+    <div id="loader">
+        <app-loading></app-loading>
+    </div>
+</ng-template>
