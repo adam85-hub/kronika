@@ -1,0 +1,121 @@
+@import "../../../../variables.scss";
+
+#container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(40%) blur(2px);
+    z-index: 2137;
+}
+
+@mixin btn() {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+@mixin arrow($isLeft: true) {
+    @include btn();
+
+    height: 100%;
+    width: 10%;
+    float: left;
+
+    img {
+        width: 60%;        
+
+        @if $isLeft{
+            transform: rotate(90deg);
+        }
+        @else {
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+#left-arrow {
+    @include arrow();
+}
+
+#right-arrow {
+    @include arrow(false);
+}
+
+#photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    width: 80%;
+    float: left;
+    overflow: hidden;
+
+    img {
+        height: 90%;
+        width: auto;
+    }
+}
+
+#close {
+    @include btn();
+    
+    position: absolute;
+    top: 2%;
+    right: 5%;
+
+    img {
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: $tablet-width) {
+    #close {
+        img {
+            width: 70px !important;
+        }
+    }
+}
+
+@media screen and (max-width: $phone-width) {   
+    #photo-container {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        #photo {
+            float: unset;
+            width: 100%;
+            height: 80%;
+        }
+        
+        #arrow-container {
+            height: 20%;
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            #left-arrow, #right-arrow {
+                height: 100%;
+                width: 50%;
+                float: unset;
+        
+                img {
+                    width: auto;
+                    height: 80%;
+                }
+            }
+        }
+    
+    }
+}

@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, last, throwError } from 'rxjs';
 import { apiLoaded, changeApiLoaded } from 'src/app/app.module';
+import { ElementInterface } from 'src/app/interfaces/element.interface';
 import { FailedEntryInterface } from 'src/app/interfaces/entry.interface';
 import { EntryModel } from 'src/app/models/entry.model';
 import { EntriesService } from 'src/app/services/entries.service';
@@ -21,6 +22,10 @@ export class WpisComponent extends PageComponent implements OnInit {
   failedEntry?: FailedEntryInterface;
   widthOfVideos: number = 500;
   heightOfVideos: number = 300;
+
+  photoCarouselHidden: boolean = false;
+  photos: ElementInterface[] = [];
+  selectedPhoto: number = 0;
 
   constructor(private route: ActivatedRoute, title: Title, private router: Router, private entriesService: EntriesService) {     
     super(title);    
@@ -63,6 +68,7 @@ export class WpisComponent extends PageComponent implements OnInit {
         this.pageTitle = this.entry.Title; 
         super.updateTitle();
         this.failedEntry = undefined;
+        for (let photo of this.entry.Elements) if (photo.type === "Image") this.photos.push(photo);
         setTimeout(() => this.onResize(), 100);
       }    
     },
@@ -70,6 +76,16 @@ export class WpisComponent extends PageComponent implements OnInit {
         this.router.navigateByUrl('/error404');
       }
     });
+  }
+
+  photoSelected(index: number) {
+    if (this.entry == undefined) throw Error("Unexpected behavior: photo was clicked but entry is undefined.");
+
+    const pIndex = this.entry.Elements[index].index;
+    const selectedPhotoIndex = this.photos.findIndex((v) => v.index === pIndex);
+
+    this.selectedPhoto = selectedPhotoIndex;
+    this.photoCarouselHidden = false;    
   }
 
   handleError(error: HttpErrorResponse) {

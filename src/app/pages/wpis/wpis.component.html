@@ -14,7 +14,7 @@
                 </div>
             </ng-template>
             <ng-template [ngIf]="element.type == 'Image'">
-                <div class="image-el">
+                <div class="image-el" (click)="photoSelected(i)">
                     <img [src]="element.getAttr()" loading="lazy">
                 </div>
             </ng-template>
@@ -43,3 +43,6 @@
         <app-loading [animation]="'rotate'"></app-loading>
     </div>
 </ng-template>
+
+<!-- Element wyświetlający samo przybliżenie zdjęć -->
+<app-photo-carousel [hidden]="photoCarouselHidden" [photos]="photos" [selectedIndex]="selectedPhoto"></app-photo-carousel>

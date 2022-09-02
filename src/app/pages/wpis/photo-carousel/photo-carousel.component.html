@@ -1,0 +1,35 @@
+<div id="container" *ngIf="hidden === false && photos.length != 0">
+    <ng-container *ngIf="onPhone === false; else phone;">
+        <button id="close">
+            <img src="../../../../assets/close-btn.svg" alt="">
+        </button>
+        <button id="left-arrow">
+            <img src="../../../../assets/down-arrow.svg" alt="">
+        </button>
+        <div id="photo">
+            <img [src]="photos[selectedIndex].src" alt="Przybliżone zdjęcie">
+        </div>
+        <button id="right-arrow">
+            <img src="../../../../assets/down-arrow.svg" alt="">
+        </button>    
+        <div style="clear: both;"></div>
+    </ng-container>
+    <ng-template #phone>
+        <button id="close">
+            <img src="../../../../assets/close-btn.svg" alt="">
+        </button>
+        <div id="photo-container">
+            <div id="photo">
+                <img [src]="photos[selectedIndex].src" alt="Przybliżone zdjęcie">            
+            </div>
+            <div id="arrow-container">
+                <button id="left-arrow">
+                    <img src="../../../../assets/down-arrow.svg" alt="">
+                </button>
+                <button id="right-arrow">
+                    <img src="../../../../assets/down-arrow.svg" alt="">
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</div>

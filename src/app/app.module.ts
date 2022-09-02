@@ -23,6 +23,7 @@ import { ModlitwyComponent } from './pages/modlitwy/modlitwy.component';
 import { ModlitwaComponent } from './pages/modlitwy/modlitwa/modlitwa.component';
 import { PiosenkiComponent } from './pages/piosenki/piosenki.component';
 import { PiosenkaComponent } from './pages/piosenki/piosenka/piosenka.component';
+import { PhotoCarouselComponent } from './pages/wpis/photo-carousel/photo-carousel.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PiosenkaComponent } from './pages/piosenki/piosenka/piosenka.component'
     ModlitwyComponent,
     ModlitwaComponent,
     PiosenkiComponent,
-    PiosenkaComponent
+    PiosenkaComponent,
+    PhotoCarouselComponent
   ],
   imports: [
     BrowserModule,
