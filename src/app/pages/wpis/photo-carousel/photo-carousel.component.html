@@ -1,21 +1,21 @@
 <div id="container" *ngIf="hidden === false && photos.length != 0">
     <ng-container *ngIf="onPhone === false; else phone;">
-        <button id="close">
+        <button id="close" (click)="close()">
             <img src="../../../../assets/close-btn.svg" alt="">
         </button>
-        <button id="left-arrow">
+        <button id="left-arrow" (click)="left()">
             <img src="../../../../assets/down-arrow.svg" alt="">
         </button>
         <div id="photo">
             <img [src]="photos[selectedIndex].src" alt="Przybliżone zdjęcie">
         </div>
-        <button id="right-arrow">
+        <button id="right-arrow" (click)="right()">
             <img src="../../../../assets/down-arrow.svg" alt="">
         </button>    
         <div style="clear: both;"></div>
     </ng-container>
     <ng-template #phone>
-        <button id="close">
+        <button id="close" (click)="close()">
             <img src="../../../../assets/close-btn.svg" alt="">
         </button>
         <div id="photo-container">
@@ -23,10 +23,10 @@
                 <img [src]="photos[selectedIndex].src" alt="Przybliżone zdjęcie">            
             </div>
             <div id="arrow-container">
-                <button id="left-arrow">
+                <button id="left-arrow" (click)="left()">
                     <img src="../../../../assets/down-arrow.svg" alt="">
                 </button>
-                <button id="right-arrow">
+                <button id="right-arrow" (click)="right()">
                     <img src="../../../../assets/down-arrow.svg" alt="">
                 </button>
             </div>

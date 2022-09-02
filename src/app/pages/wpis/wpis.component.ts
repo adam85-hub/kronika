@@ -23,7 +23,7 @@ export class WpisComponent extends PageComponent implements OnInit {
   widthOfVideos: number = 500;
   heightOfVideos: number = 300;
 
-  photoCarouselHidden: boolean = false;
+  photoCarouselHidden: boolean = true;
   photos: ElementInterface[] = [];
   selectedPhoto: number = 0;
 

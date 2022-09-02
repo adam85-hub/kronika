@@ -45,4 +45,4 @@
 </ng-template>
 
 <!-- Element wyświetlający samo przybliżenie zdjęć -->
-<app-photo-carousel [hidden]="photoCarouselHidden" [photos]="photos" [selectedIndex]="selectedPhoto"></app-photo-carousel>
+<app-photo-carousel [hidden]="photoCarouselHidden" [photos]="photos" [selectedIndex]="selectedPhoto" (closeClicked)="photoCarouselHidden = true"></app-photo-carousel>

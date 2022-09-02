@@ -26,7 +26,8 @@
     float: left;
 
     img {
-        width: 60%;        
+        width: 60%;  
+        transition: transform 0.2s;      
 
         @if $isLeft{
             transform: rotate(90deg);
@@ -34,6 +35,17 @@
         @else {
             transform: rotate(-90deg);
         }
+    }
+
+    &:hover {
+        img {
+            @if $isLeft{
+                transform: translateX(-20px) rotate(90deg);
+            }
+            @else {
+                transform: translateX(20px) rotate(-90deg);
+            }
+        }        
     }
 }
 
@@ -69,7 +81,14 @@
     right: 5%;
 
     img {
+        transition: transform 0.3s;
         width: 100px;
+    }
+
+    &:hover {
+        img {
+            transform: rotate(90deg);
+        }
     }
 }
 
