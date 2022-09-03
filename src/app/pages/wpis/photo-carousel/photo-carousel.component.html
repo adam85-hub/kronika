@@ -1,15 +1,15 @@
 <div id="container" *ngIf="hidden === false && photos.length != 0">
     <ng-container *ngIf="onPhone === false; else phone;">
         <button id="close" (click)="close()">
-            <img src="../../../../assets/close-btn.svg" alt="">
+            <img src="../../../../assets/close-btn.svg" alt="X">
         </button>
-        <button id="left-arrow" (click)="left()">
-            <img src="../../../../assets/down-arrow.svg" alt="">
+        <button id="left-arrow" (click)="left()" [disabled]="selectedIndex === 0">
+            <img src="../../../../assets/down-arrow.svg" alt="" >
         </button>
-        <div id="photo">
+        <div id="photo" appPhotoDragZoom>
             <img [src]="photos[selectedIndex].src" alt="Przybliżone zdjęcie">
         </div>
-        <button id="right-arrow" (click)="right()">
+        <button id="right-arrow" (click)="right()" [disabled]="selectedIndex === photos.length-1">
             <img src="../../../../assets/down-arrow.svg" alt="">
         </button>    
         <div style="clear: both;"></div>
@@ -23,10 +23,10 @@
                 <img [src]="photos[selectedIndex].src" alt="Przybliżone zdjęcie">            
             </div>
             <div id="arrow-container">
-                <button id="left-arrow" (click)="left()">
+                <button id="left-arrow" (click)="left()" [disabled]="selectedIndex === 0">
                     <img src="../../../../assets/down-arrow.svg" alt="">
                 </button>
-                <button id="right-arrow" (click)="right()">
+                <button id="right-arrow" (click)="right()" [disabled]="selectedIndex === photos.length-1">
                     <img src="../../../../assets/down-arrow.svg" alt="">
                 </button>
             </div>

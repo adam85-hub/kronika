@@ -14,6 +14,7 @@ export class PhotoCarouselComponent implements OnInit {
   @Output() closeClicked = new EventEmitter();
   
   onPhone: boolean = false;
+  mouseOverPhoto: boolean = false;
 
   constructor() { }
 

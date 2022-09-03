@@ -24,6 +24,7 @@ import { ModlitwaComponent } from './pages/modlitwy/modlitwa/modlitwa.component'
 import { PiosenkiComponent } from './pages/piosenki/piosenki.component';
 import { PiosenkaComponent } from './pages/piosenki/piosenka/piosenka.component';
 import { PhotoCarouselComponent } from './pages/wpis/photo-carousel/photo-carousel.component';
+import { PhotoDragZoomDirective } from './pages/wpis/photo-carousel/photo-drag-zoom.directive';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PhotoCarouselComponent } from './pages/wpis/photo-carousel/photo-carous
     ModlitwaComponent,
     PiosenkiComponent,
     PiosenkaComponent,
-    PhotoCarouselComponent
+    PhotoCarouselComponent,
+    PhotoDragZoomDirective
   ],
   imports: [
     BrowserModule,
