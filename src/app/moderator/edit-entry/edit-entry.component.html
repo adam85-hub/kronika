@@ -3,7 +3,7 @@
     <ng-container *ngIf="entry != undefined; else entryLoading">
         <!-- Nav of page -->
         <div id="nav">
-            <img src="../../../assets/Back_Arrow.png" (click)="exitDialog = true">
+            <img src="assets/Back_Arrow.png" (click)="exitDialog = true">
             <div id="title">Edycja wydarzenia:</div>
         </div>
         <!-- Display title of entry -->
@@ -22,7 +22,7 @@
             <div class="element-container" *ngFor="let element of entry.Elements; let i = index" cdkDrag cdkDragLockAxis="y">
                 <!-- Element drag & drop handle -->
                 <div class="element-handle" cdkDragHandle>
-                    <img src="../../../assets/updown.svg">
+                    <img src="assets/updown.svg">
                 </div>
                 <!-- Actual element contents -->
                 <div class="element" [ngClass]="element.type">

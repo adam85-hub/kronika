@@ -6,7 +6,7 @@
     <button id="btn-download" (click)="download()" [disabled]="loading" [ngClass]="loading == true ? 'btn-loading' : ''">
         <ng-container *ngIf="loading == false; else loader">
             Pobierz
-            <img src="../../../../assets/download-arrow.svg" id="download-arrow">
+            <img src="assets/download-arrow.svg" id="download-arrow">
         </ng-container>
         <ng-template #loader>
             <div id="loader">

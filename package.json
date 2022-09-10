@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "bundle": "ng build --single-bundle"
+    "bundle": "ng build --single-bundle --base-href=/kronika/page/ --deploy-url=/kronika/page/" 
   },
   "private": true,
   "dependencies": {
