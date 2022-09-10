@@ -1,6 +1,8 @@
 <nav id="sidebar">
     <div id="close-container">
-        <button id="close-btn" (click)="CloseSidebar()"></button>
+        <button id="close-btn" (click)="CloseSidebar()">
+            <img src="assets/close-btn.svg" alt="X">
+        </button>
     </div>
     <ul id="link-container">
         <li class="link" *ngFor="let link of Links">
