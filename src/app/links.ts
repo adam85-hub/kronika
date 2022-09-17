@@ -10,7 +10,7 @@ export const Links: LinkInterface[] = [
 
 export const InneLinks: LinkInterface[] = [    
     { name: "Youtube", path: "https://www.youtube.com/channel/UCBEM_qBwUvQvkGgh-YARZGg/videos", blank: true },
-    { name: "Adoracja", path: "https://www.youtube.com/watch?v=P9U27wo7FlY", blank: true },
+    { name: "Adoracja", path: "https://youtu.be/6S2Ched07w0", blank: true },
     { name: "Strona parafii", path: "http://www.parafia-podlesie.pl/", blank: true },    
     { name: "Panel moderatora", path: "/login" },
 ];
