@@ -1,7 +1,7 @@
-const baseUrl = 'http://localhost:80';
+const baseUrl = 'http://fzskatowicepodlesie.pl';
 
 export const SETUP = {
     baseUrl: baseUrl,
-    apiUrl: baseUrl + "/kronika/api",
-    entriesFolderUrl: baseUrl + "/kronika/entries/"
+    apiUrl: baseUrl + "/parafia/api",
+    entriesFolderUrl: baseUrl + "/parafia/entries/"
 }
