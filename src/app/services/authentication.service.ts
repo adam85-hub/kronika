@@ -46,7 +46,7 @@ export class AuthenticationService {
       params: new HttpParams().set('password', password)
     }
 
-    return this.http.get<LoginInterface>(SETUP.apiUrl + "/login", options).pipe(
+    return this.http.get<LoginInterface>(SETUP.apiUrl + "/login.php", options).pipe(
       catchError(this.handleError)
     );
   }
@@ -61,7 +61,7 @@ export class AuthenticationService {
     if(token != undefined || token != null) {
       const headers = new HttpHeaders().set('Token', token);
 
-      return this.http.get(SETUP.apiUrl + "/logout", {'headers' : headers, responseType: 'text'}).pipe(
+      return this.http.get(SETUP.apiUrl + "/logout.php", {'headers' : headers, responseType: 'text'}).pipe(
         catchError(this.handleError)
       );
     }
@@ -94,7 +94,7 @@ export class AuthenticationService {
     if(token != undefined && token != null && token != '') {
       const headers = new HttpHeaders().append('Token', token);
 
-      return this.http.get<boolean>(SETUP.apiUrl + "/verifytoken", { 'headers': headers }).pipe(
+      return this.http.get<boolean>(SETUP.apiUrl + "/verifytoken.php", { 'headers': headers }).pipe(
         catchError(this.handleError)
       );
     }

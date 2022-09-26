@@ -13,7 +13,7 @@ export class PraysService {
     constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
     getPrays(): Observable<PrayInterface[]> {
-        return this.http.get<PrayInterface[]>(`${SETUP.apiUrl}/prays`);
+        return this.http.get<PrayInterface[]>(`${SETUP.apiUrl}/prays.php`);
     }
 
     deletePray(id: number): Observable<boolean> {
@@ -30,7 +30,7 @@ export class PraysService {
             }
         }
 
-        this.http.delete(`${SETUP.apiUrl}/pray/${id}`, { "headers": headers, "responseType": "text" }).subscribe(deleteObserver);
+        this.http.delete(`${SETUP.apiUrl}/pray/${id}.php`, { "headers": headers, "responseType": "text" }).subscribe(deleteObserver);
 
         return success.asObservable();
     }
@@ -38,16 +38,16 @@ export class PraysService {
     modifyPray(pray: PrayInterface): Observable<PrayInterface> {
         const headers = new HttpHeaders().append('Token', this.auth.getToken());
 
-        return this.http.put<PrayInterface>(`${SETUP.apiUrl}/pray`, pray, { "headers": headers });
+        return this.http.put<PrayInterface>(`${SETUP.apiUrl}/pray.php`, pray, { "headers": headers });
     }
 
     postPray(pray: PrayInterface): Observable<PrayInterface> {
         const headers = new HttpHeaders().append('Token', this.auth.getToken());
 
-        return this.http.post<PrayInterface>(`${SETUP.apiUrl}/pray`, pray, { "headers": headers });
+        return this.http.post<PrayInterface>(`${SETUP.apiUrl}/pray.php`, pray, { "headers": headers });
     }
 
     getPrayVideos(): Observable<PrayVideoInterface[]> {
-        return this.http.get<PrayVideoInterface[]>(`${SETUP.apiUrl}/prayvideos`);
+        return this.http.get<PrayVideoInterface[]>(`${SETUP.apiUrl}/prayvideos.php`);
     }
 }
