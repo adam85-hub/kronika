@@ -13,8 +13,8 @@ const routes: Routes = [
     path: 'panel',
     component: PanelComponent,
     children: [
-      { path: '', redirectTo: 'entries' },
-      { path: 'entries', component: EntriesListComponent },
+      { path: '', redirectTo: 'entries', pathMatch: "full" },
+      { path: 'entries', component: EntriesListComponent, pathMatch: "full" },
       { path: 'failed-entries', component: FailedEntriesListComponent },
       { path: 'prays', component: PraysListComponent },
     ]

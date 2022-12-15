@@ -25,7 +25,7 @@ export class AuthenticationService {
       console.error("An error ocurred: ", error.error);
       return throwError(() => new Error("Sprawdź swoje połączenie internetowe."));
     }
-    else if (error.status === 403){
+    else if (error.status === 401){
       console.error("An error ocurred: ", error.error);
       return throwError(() => new Error("Nie jesteś zalogowany."));
     }
@@ -90,7 +90,7 @@ export class AuthenticationService {
     if(token != undefined && token != null && token != '') {
       const headers = new HttpHeaders().append('Token', token);
 
-      return this.http.get<boolean>(this.apiUrl + "/logout.php", { 'headers': headers }).pipe(
+      return this.http.get<boolean>(this.apiUrl + "/verifytoken.php", { 'headers': headers }).pipe(
         catchError(this.handleError)
       );
     }
