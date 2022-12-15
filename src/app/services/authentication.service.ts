@@ -11,7 +11,7 @@ import { SETUP } from './web.setup';
 })
 export class AuthenticationService {
   private token?: string = undefined;
-  private baseUrl: string = SETUP.baseUrl;
+  private apiUrl = SETUP.apiUrl;
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -42,11 +42,7 @@ export class AuthenticationService {
    * @returns "yes+token" jeżeli prawda "no" jeżeli nie
    */
   public logIn(password: string): Observable<LoginInterface> {
-    const options = {
-      params: new HttpParams().set('password', password)
-    }
-
-    return this.http.get<LoginInterface>(this.baseUrl + "/kronika/api/login", options).pipe(
+    return this.http.get<LoginInterface>(this.apiUrl + "/login.php?password=" + password).pipe(
       catchError(this.handleError)
     );
   }
@@ -61,7 +57,7 @@ export class AuthenticationService {
     if(token != undefined || token != null) {
       const headers = new HttpHeaders().set('Token', token);
 
-      return this.http.get(this.baseUrl + "/kronika/api/logout", {'headers' : headers, responseType: 'text'}).pipe(
+      return this.http.get(this.apiUrl + "/logout.php", {'headers' : headers, responseType: 'text'}).pipe(
         catchError(this.handleError)
       );
     }
@@ -94,7 +90,7 @@ export class AuthenticationService {
     if(token != undefined && token != null && token != '') {
       const headers = new HttpHeaders().append('Token', token);
 
-      return this.http.get<boolean>(this.baseUrl + "/kronika/api/verifytoken", { 'headers': headers }).pipe(
+      return this.http.get<boolean>(this.apiUrl + "/logout.php", { 'headers': headers }).pipe(
         catchError(this.handleError)
       );
     }
