@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.4.
 
 ## Ogólne informacje
-Jest to front-end aplikacji webowej mającej zastąpić stronę http://fzskatowicepodlesie.pl/parafia/. Back-end jest pisany w php i jego dokumentacja będzie dostępna na githubie.
+Jest to front-end aplikacji webowej który zastąpił stronę kiedyś dostępną po adresem http://fzskatowicepodlesie.pl/parafia/. Back-end jest pisany w php i jego dokumentacja będzie dostępna na githubie.
 
 ## Development server
 
