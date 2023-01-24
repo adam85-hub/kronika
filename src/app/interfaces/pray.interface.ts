@@ -1,5 +1,5 @@
 export interface PrayInterface {
-    id: number,
+    key?: string,
     month: number,
     year: number,
     description: string,

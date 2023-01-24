@@ -51,7 +51,7 @@ import { PhotoDragZoomDirective } from './pages/wpis/photo-carousel/photo-drag-z
     FormsModule,
     HttpClientModule,
     YouTubePlayerModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     CookieService,

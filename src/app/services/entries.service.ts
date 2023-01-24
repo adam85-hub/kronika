@@ -13,51 +13,51 @@ export class EntriesService {
   }
 
   getEntries() : Observable<EntryInterface[]> {
-    return this.http.get<EntryInterface[]>(`${this.apiUrl}/get-entries.php`);
+    return this.http.get<EntryInterface[]>(`${this.apiUrl}/entries`);
   }
 
   getEntriesByYear(year: number) : Observable<EntryInterface[]> {
-    return this.http.get<EntryInterface[]>(`${this.apiUrl}/entries-by-year.php?year=${year}`);
+    return this.http.get<EntryInterface[]>(`${this.apiUrl}/year/${year}`);
   }
 
   getYears() : Observable<number[]> {
-    return this.http.get<number[]>(`${this.apiUrl}/get-years.php`);
+    return this.http.get<number[]>(`${this.apiUrl}/years`);
   }
 
-  getEntry(id: number) : Observable<EntryInterface|FailedEntryInterface> {
-    return this.http.get<EntryInterface|FailedEntryInterface>(`${this.apiUrl}/get-entry.php?id=${id}`);
+  getEntry(key: number) : Observable<EntryInterface|FailedEntryInterface> {
+    return this.http.get<EntryInterface|FailedEntryInterface>(`${this.apiUrl}/entry/${key}`); 
   }
 
   getFailedEntries(): Observable<FailedEntryInterface[]> {
-    return this.http.get<FailedEntryInterface[]>(`${this.apiUrl}/get-failed-entries.php`);
+    return this.http.get<FailedEntryInterface[]>(`${this.apiUrl}/entries/failed`);
   }
 
   getNewestEntries(): Observable<EntryInterface[]> {
-    return this.http.get<EntryInterface[]>(`${this.apiUrl}/get-newest-entries.php`);
+    return this.http.get<EntryInterface[]>(`${this.apiUrl}/entries/newest`);
   }
 
   modifyEntry(entry: EntryInterface) {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
-    return this.http.put<EntryInterface>(`${this.apiUrl}/put-entry.php`, entry, {'headers': headers});
+    return this.http.put<EntryInterface>(`${this.apiUrl}/entry`, entry, {'headers': headers});
   }
 
   postEntry(entry: EntryInterface) { //entry id gets overrided by backend
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
-    return this.http.post<EntryInterface>(`${this.apiUrl}/post-entry.php`, entry, {'headers': headers});
+    return this.http.post<EntryInterface>(`${this.apiUrl}/entry`, entry, {'headers': headers});
   }
 
-  uploadPhoto(file: File, entryId: number): Observable<string> {
+  uploadPhoto(file: File, entryKey: number): Observable<string> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     let formData = new FormData();
     formData.append("photo", file, file.name);
-    return this.http.post(`${this.apiUrl}/post-photo.php?id=${entryId}`, formData, {'headers': headers, 'responseType': 'text'});
+    return this.http.post(`${this.apiUrl}/entry/${entryKey}/photo`, formData, {'headers': headers, 'responseType': 'text'});
   }
 
-  deleteEntry(entryId: number): Observable<boolean> {
+  deleteEntry(entryKey: number): Observable<boolean> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     const success = new Subject<boolean>();
     
-    this.http.delete(`${this.apiUrl}/delete-entry.php?id=${entryId}`, {'headers': headers, 'responseType': 'text'}).subscribe((response) => {
+    this.http.delete(`${this.apiUrl}/entry/${entryKey}`, {'headers': headers, 'responseType': 'text'}).subscribe((response) => {
       if (response == "OK") {
         success.next(true);
       } else {
@@ -70,9 +70,5 @@ export class EntriesService {
 
   get apiUrl() {
     return SETUP.apiUrl;
-  }
-
-  get entriesFolderUrl() {
-    return SETUP.entriesFolderUrl;
   }
 }

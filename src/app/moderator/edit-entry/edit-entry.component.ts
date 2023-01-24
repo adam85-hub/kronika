@@ -36,29 +36,28 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     super.ngOnInit();
 
     this.route.params.subscribe(params => {
-      let id = params['id'];
-      if (id == "new") {
+      let key = params['key'];
+      if (key == "new") {
         const now = new Date();
         this.entriesService.postEntry({
-          id: 0,
           Title: "Nowe Wydarzenie!",
           TitlePhoto: "",
           Date: new SimpleDate(now.getDate(), now.getMonth(), now.getFullYear()).toDateString("d.m.y"),
           Elements: [new ParagraphModel(1, "")]
         }).subscribe((response) => {
-          this.router.navigateByUrl(`/moderator/edit/${response.id}`);
+          this.router.navigateByUrl(`/moderator/edit/${response.key}`);
         });
         return;
       }
       
-      if(isNaN(id)) this.router.navigateByUrl("/error404"); 
-      this.paramsLoaded.subscribe(id => this.loadEntry(id));
-      this.paramsLoaded.emit(id);      
+      if(isNaN(key)) this.router.navigateByUrl("/error404"); 
+      this.paramsLoaded.subscribe(key => this.loadEntry(key));
+      this.paramsLoaded.emit(key);      
     });
   }
 
-  loadEntry(id: number) {    
-    this.entriesService.getEntry(id).pipe(last()).subscribe(response => {     
+  loadEntry(key: number) {    
+    this.entriesService.getEntry(key).pipe(last()).subscribe(response => {     
       if('Title' in response) {
         this.entry = new EntryModel(response, response.Elements);         
         this.orginalEntry = response;
@@ -68,7 +67,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
           }
       }
       else {
-        this.router.navigateByUrl(`/moderator/fix/${id}`);
+        this.router.navigateByUrl(`/moderator/fix/${key}`);
       }
     }, (error) => {
       if (error.status === 404) {
@@ -157,15 +156,15 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     if (this.entry == undefined) throw Error("Entry is undefined");
     this.pLoading[this.imageUploadIndex] = true;
 
+    // multiple file upload
     if (event.target.files.length > 1) {
       let i = 0;
-      console.log("Multiple...");
       for (const photo of event.target.files) {
         this.entriesService.uploadPhoto(photo, this.entry.id).subscribe((response) => {
           if (this.entry == undefined) throw Error("Entry is undefined");
 
           i++;
-          const imageUrl = `${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`;
+          const imageUrl = response;
           if (i == 1) this.entry.Elements[this.imageUploadIndex].setAttr(imageUrl);
           else {
             this.addElement(new ImageModel(this.entry.Elements.length + 1, imageUrl));
@@ -182,7 +181,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     this.entriesService.uploadPhoto(photo, this.entry.id).subscribe((response) => {
       if (this.entry == undefined) throw Error("Entry is undefined");
 
-      const imageUrl = `${this.entriesService.entriesFolderUrl}${this.entry.id}/${response}`;
+      const imageUrl = response;
 
       // Jeżeli indeks jest równy -1 to ustawiamy zdjęcie tytułowe
       if (this.imageUploadIndex == -1) this.entry.TitlePhoto = imageUrl;

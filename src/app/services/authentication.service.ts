@@ -10,7 +10,6 @@ import { SETUP } from './web.setup';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private token?: string = undefined;
   private apiUrl = SETUP.apiUrl;
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
@@ -42,7 +41,9 @@ export class AuthenticationService {
    * @returns "yes+token" jeżeli prawda "no" jeżeli nie
    */
   public logIn(password: string): Observable<LoginInterface> {
-    return this.http.get<LoginInterface>(this.apiUrl + "/login.php?password=" + password).pipe(
+    const headers = new HttpHeaders().set("password", password);
+
+    return this.http.get<LoginInterface>(this.apiUrl + "/login", {'headers': headers}).pipe(
       catchError(this.handleError)
     );
   }
@@ -51,13 +52,13 @@ export class AuthenticationService {
    * Wylogowuje (unieważnia token)
    */
   public logOut(): Observable<any> {
-    let token = this.cookieService.get("token");
+    let token = this.getToken();
     let obs$ = new BehaviorSubject<any>('false');    
 
     if(token != undefined || token != null) {
       const headers = new HttpHeaders().set('Token', token);
 
-      return this.http.get(this.apiUrl + "/logout.php", {'headers' : headers, responseType: 'text'}).pipe(
+      return this.http.get(this.apiUrl + "/logout", {'headers' : headers, responseType: 'text'}).pipe(
         catchError(this.handleError)
       );
     }
@@ -70,8 +71,6 @@ export class AuthenticationService {
    * @param token token do ustawienia
    */
   public setToken(token: string): void{
-    this.token = token;
-
     let expireDate = new Date();
     expireDate.setDate(expireDate.getDate() + 1);
 
@@ -84,13 +83,13 @@ export class AuthenticationService {
    * @returns true if token is valid false if not
    */
   public verifyToken() : Observable<boolean> {
-    let token = this.cookieService.get("token");
+    let token = this.getToken();
     let obs$ = new BehaviorSubject<boolean>(false);  
 
     if(token != undefined && token != null && token != '') {
       const headers = new HttpHeaders().append('Token', token);
 
-      return this.http.get<boolean>(this.apiUrl + "/verifytoken.php", { 'headers': headers }).pipe(
+      return this.http.get<boolean>(this.apiUrl + "/verifytoken", { 'headers': headers }).pipe(
         catchError(this.handleError)
       );
     }

@@ -4,7 +4,7 @@ import {ElementInterface } from "./element.interface";
  * Interfejs ilustrujący wpis do kroniki
  */
 export interface EntryInterface {
-    id: number
+    key?: string
     Title: string
     Date: string
     TitlePhoto: string
@@ -12,6 +12,6 @@ export interface EntryInterface {
 }
 
 export interface FailedEntryInterface {
-    id: number,
+    key: string,
     url: string
 }

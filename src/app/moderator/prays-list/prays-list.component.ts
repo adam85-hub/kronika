@@ -62,7 +62,7 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
   deletePray() {    
     if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
 
-    this.praysService.deletePray(this.prayToDelete.id).subscribe((success) => {
+    this.praysService.deletePray(this.prayToDelete.key).subscribe((success) => {
       if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
       
       const filterCondition = (value: PrayInterface) => {
@@ -103,7 +103,6 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
 
   addPray() {
     const emptyPray: PrayInterface = {
-      id: 0,
       description: "",
       videoId: "",
       year: new Date().getFullYear(),
