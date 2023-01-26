@@ -1,6 +1,6 @@
 <div id="container">
     <!-- Displays if entry was saved succesfuly -->
-    <ng-container *ngIf="entry != undefined; else entryLoading">
+    <ng-container *ngIf="entry != undefined && saving != true; else entryLoading">
         <!-- Nav of page -->
         <div id="nav">
             <img src="assets/Back_Arrow.png" (click)="exitDialog = true">
@@ -62,7 +62,8 @@
 
     <ng-template #entryLoading>
         <div id="loader">
-            <app-loading [animation]="'rotate'"></app-loading>
+            <div *ngIf="saving" id="saving">Zapisywanie...</div>
+            <div id="rotating-shit"><app-loading [animation]="'rotate'"></app-loading></div>
         </div>
     </ng-template>
 

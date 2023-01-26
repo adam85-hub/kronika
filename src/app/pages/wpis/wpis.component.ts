@@ -102,7 +102,6 @@ export class WpisComponent extends PageComponent implements OnInit {
     const links = [...p.matchAll(/\([^\{\}\(\)]+\)\{[^\{\}\(\)]+\}/g)];
     for (const match of links) {
       const text = match[0];
-      console.log(text);
       const title = text.match(/\(.+\)/)![0].replace(/[\(\)]/g, "");
       const href = text.match(/\{.+\}/)![0].replace(/[\{\}]/g, "");
 

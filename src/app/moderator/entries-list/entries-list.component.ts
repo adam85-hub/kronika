@@ -82,6 +82,12 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
         this.deleteDialog = false;
         this.entries.splice(this.entryToDeleteIndex, 1);
         this.entryToDeleteIndex = undefined;
+        if (this.entries.length === 0) { // delete and change to previous year if last entry in year was deleted
+          const select = document.getElementById("year") as HTMLSelectElement;
+          this.years.splice(select.selectedIndex, 1);
+          select.selectedIndex = 0;
+          this.getEntries(this.years[0]);
+        }
       }
       else {
         alert("An error occurred while deleting this entry.");

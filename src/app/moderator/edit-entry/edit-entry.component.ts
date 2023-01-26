@@ -23,6 +23,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   orginalEntry?: EntryInterface;
   pLoading: boolean[] = [];
   imageUploadIndex: number = 0;
+  saving: boolean = false;
 
   exitDialog = false;
   addElementDialog = false;
@@ -42,7 +43,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
         this.entriesService.postEntry({
           Title: "Nowe Wydarzenie!",
           TitlePhoto: "",
-          Date: new SimpleDate(now.getDate(), now.getMonth(), now.getFullYear()).toDateString("d.m.y"),
+          Date: new SimpleDate(now.getDate(), now.getMonth()+1, now.getFullYear()).toDateString("d.m.y"),
           Elements: [new ParagraphModel(1, "")]
         }).subscribe((response) => {
           this.router.navigateByUrl(`/moderator/edit/${response.key}`);
@@ -61,7 +62,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
         this.entry = new EntryModel(response, response.Elements);         
         this.orginalEntry = response;
         if(response.Elements != undefined)
-          for (const element of response.Elements) {
+          for (const _ of response.Elements) {
             this.pLoading.push(false);
           }
       }
@@ -120,7 +121,9 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
   saveChanges() {
     if (this.entry != undefined) {
+      this.saving = true;
       this.entriesService.modifyEntry(this.entry.toInterface()).subscribe((response) => {
+        this.saving = false;
         this.router.navigateByUrl("/moderator/panel");
       });
     }

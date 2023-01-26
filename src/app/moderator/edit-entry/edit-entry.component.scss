@@ -143,9 +143,22 @@
 }
 
 #loader {
-    width: 150px;
     @include absolute-center();
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
     position: fixed;
+
+    #saving {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    #rotating-shit {
+        width: 150px;
+    }
 }
 
 #controls {

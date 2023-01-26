@@ -83,7 +83,6 @@ export class KronikaComponent extends PageComponent implements OnInit {
         this.entries.push(new EntryModel(entry, entry.Elements));
       })
       this.entries.sort((b, a) => a.Date.valueOf() - b.Date.valueOf());
-      this.entries.forEach((entry) => console.log(entry.key));
       
       this.cachingService.set(`entries${this.selectedYear}`, this.entries, 3);
       this.isLoading = false;
