@@ -34,10 +34,10 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
     this.route.params.subscribe((params) => {
-      let id = params['id'];
-      if(isNaN(id)) this.router.navigateByUrl("/error404"); 
-      this.paramsLoaded.subscribe(id => this.loadEntry(id));
-      this.paramsLoaded.emit(id);
+      let key = params['key'];
+      if(isNaN(key)) this.router.navigateByUrl("/error404"); 
+      this.paramsLoaded.subscribe(key => this.loadEntry(key));
+      this.paramsLoaded.emit(key);
     });
   }
 
@@ -46,13 +46,13 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     this.resizePhotosContainer();
   }
 
-  loadEntry(id: number) {
-    this.entriesService.getEntry(id).subscribe((response) => {
+  loadEntry(key: string) {
+    this.entriesService.getEntry(key).subscribe((response) => {
       if('url' in response) {
         this.FailedEntry = response;
         this.SafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.FailedEntry.url);
         this.Entry = new EntryModel({
-          id: this.FailedEntry.id,
+          key: this.FailedEntry.key,
           Title: "",
           Date: new Date().toLocaleDateString(),
           TitlePhoto: "",
@@ -60,7 +60,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
         })
       }
       else {
-        this.router.navigateByUrl(`/moderator/edit/${id}`);
+        this.router.navigateByUrl(`/moderator/edit/${key}`);
       }
     });
   }
@@ -94,18 +94,19 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
 
   onFileSelected(event: any) {
     if (this.Entry == undefined) throw Error("Entry is undefined!");
+    if (this.Entry.key == undefined) throw Error("Entry key is undefined!");
 
     let photo = event.target.files[0];
 
     if (this.UploadIndex != -1) this.Photos[this.UploadIndex].loading = true;
     
-    this.entriesService.uploadPhoto(photo, this.Entry.id).subscribe((response) => {
+    this.entriesService.uploadPhoto(photo, this.Entry.key).subscribe((response) => {
       if (this.Entry == undefined) throw Error("Entry is undefined!"); 
 
       // Jeżeli index to -1 wtedy przypisujemy adres do zdjęcia tytułowego
-      if (this.UploadIndex == -1) this.Entry.TitlePhoto = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+      if (this.UploadIndex == -1) this.Entry.TitlePhoto = this.entriesService.photosUrl + response.filename;
       else {
-        this.Photos[this.UploadIndex].url = this.entriesService.entriesFolderUrl + this.Entry.id + "/" + response;
+        this.Photos[this.UploadIndex].url = this.entriesService.photosUrl + response.filename;
         this.Photos[this.UploadIndex].loading = false;
       }
     });
@@ -118,7 +119,7 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
       this.Entry.Elements.push(new ImageModel(photo.index, photo.url));      
     
     this.entriesService.modifyEntry(this.Entry.toInterface()).subscribe((response) => {
-      this.router.navigateByUrl(`/moderator/edit/${response.id}`);
+      this.router.navigateByUrl(`/moderator/edit/${response.key}`);
     });
   }
 

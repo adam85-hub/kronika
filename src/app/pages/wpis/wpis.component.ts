@@ -17,7 +17,6 @@ import { PageComponent } from '../page/page.component';
 })
 export class WpisComponent extends PageComponent implements OnInit {
   paramsLoaded = new EventEmitter();
-  id: number = 1;
   entry?: EntryModel;
   failedEntry?: FailedEntryInterface;
   widthOfVideos: number = 500;
@@ -46,15 +45,13 @@ export class WpisComponent extends PageComponent implements OnInit {
       }
 
       this.route.params.subscribe(params => {
-        if(isNaN(params["id"])) this.router.navigateByUrl('/error404');
-        this.id = params["id"];
-        this.paramsLoaded.subscribe(() => this.loadEntry());
-        this.paramsLoaded.emit();
+        this.paramsLoaded.subscribe(key => this.loadEntry(key));
+        this.paramsLoaded.emit(params["key"]);
       });    
   }
 
-  loadEntry() : void {
-    this.entriesService.getEntry(this.id).pipe(
+  loadEntry(key: string) : void {
+    this.entriesService.getEntry(key).pipe(
       catchError(this.handleError), last()
     ).subscribe({next: (entry) => {
       if('url' in entry) {

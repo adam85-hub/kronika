@@ -10,7 +10,6 @@ import { Required } from 'src/app/shared/required.decorator';
 })
 export class ModlitwaComponent implements OnInit {
   @Input() @Required pray: PrayInterface = {
-    id: 0,
     month: 0,
     year: 0,
     description: "Undefined",

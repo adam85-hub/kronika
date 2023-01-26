@@ -5,10 +5,10 @@
     <div id="failed-entries-list-container">
         <div *ngFor="let failedEntry of failedEntries" class="failed-entry">
             <div class="failed-entry-title">
-                <b>Id:</b> {{failedEntry.id}} <b>Url:</b> {{failedEntry.url}}
+                <b>Key:</b> {{failedEntry.key}} <b>Url:</b> {{failedEntry.url}}
             </div>
             <div class="failed-entry-controls">
-                <button (click)="fixEntry(failedEntry.id)">Napraw</button>
+                <button (click)="fixEntry(failedEntry.key)">Napraw</button>
                 <button>Usuń</button>
             </div>
         </div>

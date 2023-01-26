@@ -8,7 +8,7 @@ import { VideoModel } from "./video.model";
 
 export class EntryModel
 { 
-    public id: number;
+    public key?: string;
     public Title: string;
     public Date: SimpleDate;
     public TitlePhoto: string;
@@ -16,7 +16,7 @@ export class EntryModel
     
     constructor(entry: EntryInterface, elements?: ElementInterface[])
     { 
-        this.id = entry.id;
+        this.key = entry.key;
         this.Title = entry.Title;
         this.TitlePhoto = entry.TitlePhoto;
         let dateArray = entry.Date.split(".");
@@ -60,7 +60,7 @@ export class EntryModel
 
     toInterface(): EntryInterface {
         let entry: EntryInterface = {
-            id: this.id,
+            key: this.key,
             Title: this.Title,
             Date: this.getStringDate(),
             TitlePhoto: this.TitlePhoto,

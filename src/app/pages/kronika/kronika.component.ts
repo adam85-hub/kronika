@@ -28,7 +28,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.isLoading = true; 
     let year = this.route.snapshot.queryParamMap.get("year");
     if(year != null) {
-      if(Number(year) != NaN) this.selectedYear = Number(year);
+      if(!Number.isNaN(Number(year))) this.selectedYear = Number(year);
     }  
     this.setYearsToSelect();
   }
@@ -83,6 +83,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
         this.entries.push(new EntryModel(entry, entry.Elements));
       })
       this.entries.sort((b, a) => a.Date.valueOf() - b.Date.valueOf());
+      this.entries.forEach((entry) => console.log(entry.key));
       
       this.cachingService.set(`entries${this.selectedYear}`, this.entries, 3);
       this.isLoading = false;
@@ -100,7 +101,9 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.getEntries();
   }
 
-  toEntry(id: number) {
-    this.router.navigateByUrl(`/kronika/${id}`);
+  toEntry(key?: string) {
+    if (key == undefined) throw Error("Unexpected behavior: key of selected entry is undefined");
+
+    this.router.navigateByUrl(`/kronika/${key}`);
   }
 }

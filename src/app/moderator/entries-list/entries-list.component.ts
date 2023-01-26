@@ -59,7 +59,7 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
   }
 
   edit(entry: EntryModel): void {
-    this.router.navigateByUrl(`/moderator/edit/${entry.id}`);
+    this.router.navigateByUrl(`/moderator/edit/${entry.key}`);
   }
 
   openDeleteDialog(index: number) {
@@ -71,9 +71,11 @@ export class EntriesListComponent extends PanelOptionComponent implements OnInit
 
   deleteEntry() {
     if (this.entryToDeleteIndex == undefined) throw Error("Entry to delete is undefined");
+    const key = this.entries[this.entryToDeleteIndex].key;
+    if (key == undefined) throw Error("Unexpected behavior: key of selected entry is undefined");
     this.deleteLoading = true;
 
-    this.entriesService.deleteEntry(this.entries[this.entryToDeleteIndex].id).subscribe((success) => {
+    this.entriesService.deleteEntry(key).subscribe((success) => {
       if (success) {
         if (this.entryToDeleteIndex == undefined) throw Error("Entry to delete is undefined");
         this.deleteLoading = false;

@@ -11,7 +11,7 @@
     <ng-container *ngIf="!isLoading; else loading">
         <ng-container *ngIf="entries.length > 0; else noEntriesTemplate">
             <div id="grid-container">
-                <div *ngFor="let entry of entries;" class="entry-container" (click)="toEntry(entry.id)">
+                <div *ngFor="let entry of entries;" class="entry-container" (click)="toEntry(entry.key)">
                     <div class="img-container"><img [src]="entry.TitlePhoto" loading="lazy"></div>
                     <div class="entry-title">{{entry.Title}} <br/> Data: {{entry.getStringDate()}}</div>
                 </div>

@@ -33,7 +33,7 @@ export class FailedEntriesListComponent extends PanelOptionComponent implements 
     entriesList.style.height = (window.innerHeight - entriesList.offsetTop - 10) + "px";
   }
 
-  fixEntry(id: number) {
-    this.router.navigateByUrl(`/moderator/fix/${id}`);
+  fixEntry(key: string) {
+    this.router.navigateByUrl(`/moderator/fix/${key}`);
   }
 }

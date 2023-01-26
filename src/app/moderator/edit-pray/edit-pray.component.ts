@@ -59,10 +59,6 @@ export class EditPrayComponent implements OnInit {
           this.saving = false;
         }
         else {
-          console.log("Result:");
-          console.log(result);
-          console.log("Pray:");
-          console.log(this.pray);
           this.modifyErrorDialog = true;
         }
       },

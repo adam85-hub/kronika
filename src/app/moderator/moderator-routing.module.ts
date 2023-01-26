@@ -19,8 +19,8 @@ const routes: Routes = [
       { path: 'prays', component: PraysListComponent },
     ]
   },
-  { path: 'edit/:id', component: EditEntryComponent },
-  { path: 'fix/:id', component: FixEntryComponent },
+  { path: 'edit/:key', component: EditEntryComponent },
+  { path: 'fix/:key', component: FixEntryComponent },
 ];
 
 @NgModule({

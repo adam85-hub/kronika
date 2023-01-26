@@ -61,13 +61,15 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
 
   deletePray() {    
     if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
+    if (this.prayToDelete.key == undefined) throw Error("Unexpected behavior: prayToDelete is undefined");
+    
 
     this.praysService.deletePray(this.prayToDelete.key).subscribe((success) => {
       if (this.prays == null || this.prays.length === 0) throw Error("Unexpected behavior: prays list is null or empty");
       
       const filterCondition = (value: PrayInterface) => {
         if (this.prayToDelete == null) throw Error("Unexpected behavior: prayToDelete is null");
-        return value.id === this.prayToDelete.id;
+        return value.key === this.prayToDelete.key;
       }
 
       if (success == true) {
@@ -113,8 +115,8 @@ export class PraysListComponent extends PanelOptionComponent implements OnInit {
       next: (result) => {
         this.prays?.push(result);
         this.sortPrays();
-        const newIndex = this.prays?.findIndex((x: PrayInterface) => result.id === x.id);
-        if (newIndex === undefined || newIndex === -1) throw Error("Unexpected behavior: pray with id " + result.id + " does not exist in prays array");
+        const newIndex = this.prays?.findIndex((x: PrayInterface) => result.key === x.key);
+        if (newIndex === undefined || newIndex === -1) throw Error("Unexpected behavior: pray with key " + result.key + " does not exist in prays array");
         this.editShown[newIndex] = true;
       },
       error: (e) => {

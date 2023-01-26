@@ -56,7 +56,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     });
   }
 
-  loadEntry(key: number) {    
+  loadEntry(key: string) {    
     this.entriesService.getEntry(key).pipe(last()).subscribe(response => {     
       if('Title' in response) {
         this.entry = new EntryModel(response, response.Elements);         
@@ -154,17 +154,18 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
   onFileSelected(event: any): void {
     if (this.entry == undefined) throw Error("Entry is undefined");
+    if (this.entry.key == undefined) throw Error("Entry key is undefined");
     this.pLoading[this.imageUploadIndex] = true;
 
     // multiple file upload
     if (event.target.files.length > 1) {
       let i = 0;
       for (const photo of event.target.files) {
-        this.entriesService.uploadPhoto(photo, this.entry.id).subscribe((response) => {
+        this.entriesService.uploadPhoto(photo, this.entry.key).subscribe((response) => {
           if (this.entry == undefined) throw Error("Entry is undefined");
 
           i++;
-          const imageUrl = response;
+          const imageUrl = this.entriesService.photosUrl + response.filename;
           if (i == 1) this.entry.Elements[this.imageUploadIndex].setAttr(imageUrl);
           else {
             this.addElement(new ImageModel(this.entry.Elements.length + 1, imageUrl));
@@ -178,10 +179,10 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
     }
 
     let photo = event.target.files[0];    
-    this.entriesService.uploadPhoto(photo, this.entry.id).subscribe((response) => {
+    this.entriesService.uploadPhoto(photo, this.entry.key).subscribe((response) => {
       if (this.entry == undefined) throw Error("Entry is undefined");
 
-      const imageUrl = response;
+      const imageUrl = this.entriesService.photosUrl + response.filename;
 
       // Jeżeli indeks jest równy -1 to ustawiamy zdjęcie tytułowe
       if (this.imageUploadIndex == -1) this.entry.TitlePhoto = imageUrl;

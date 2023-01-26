@@ -24,7 +24,7 @@ export class EntriesService {
     return this.http.get<number[]>(`${this.apiUrl}/years`);
   }
 
-  getEntry(key: number) : Observable<EntryInterface|FailedEntryInterface> {
+  getEntry(key: string) : Observable<EntryInterface|FailedEntryInterface> {
     return this.http.get<EntryInterface|FailedEntryInterface>(`${this.apiUrl}/entry/${key}`); 
   }
 
@@ -46,14 +46,14 @@ export class EntriesService {
     return this.http.post<EntryInterface>(`${this.apiUrl}/entry`, entry, {'headers': headers});
   }
 
-  uploadPhoto(file: File, entryKey: number): Observable<string> {
+  uploadPhoto(file: File, entryKey: string): Observable<{"filename": string}> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     let formData = new FormData();
     formData.append("photo", file, file.name);
-    return this.http.post(`${this.apiUrl}/entry/${entryKey}/photo`, formData, {'headers': headers, 'responseType': 'text'});
+    return this.http.post<{"filename": string}>(`${this.apiUrl}/entry/${entryKey}/photo`, formData, {'headers': headers});
   }
 
-  deleteEntry(entryKey: number): Observable<boolean> {
+  deleteEntry(entryKey: string): Observable<boolean> {
     const headers = new HttpHeaders().append('Token', this.auth.getToken());
     const success = new Subject<boolean>();
     
@@ -70,5 +70,9 @@ export class EntriesService {
 
   get apiUrl() {
     return SETUP.apiUrl;
+  }
+
+  get photosUrl() {
+    return SETUP.photosUrl;
   }
 }

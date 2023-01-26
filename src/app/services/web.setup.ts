@@ -3,7 +3,8 @@ const baseUrl = 'http://localhost:3000';
 
 export const SETUP = {
     baseUrl: baseUrl,
-    apiUrl: baseUrl
+    apiUrl: baseUrl,
+    photosUrl: baseUrl + "/entry/"
 }
 
 //* Production:
