@@ -35,7 +35,6 @@ export class FixEntryComponent extends ModeratorComponent implements OnInit {
     super.ngOnInit();
     this.route.params.subscribe((params) => {
       let key = params['key'];
-      if(isNaN(key)) this.router.navigateByUrl("/error404"); 
       this.paramsLoaded.subscribe(key => this.loadEntry(key));
       this.paramsLoaded.emit(key);
     });

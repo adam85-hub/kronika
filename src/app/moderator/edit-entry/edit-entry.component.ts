@@ -50,7 +50,6 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
         return;
       }
       
-      if(isNaN(key)) this.router.navigateByUrl("/error404"); 
       this.paramsLoaded.subscribe(key => this.loadEntry(key));
       this.paramsLoaded.emit(key);      
     });

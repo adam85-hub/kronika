@@ -31,7 +31,7 @@ export class PanelComponent extends ModeratorComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logOut().subscribe(s => this.returnToMain());
+    this.auth.logOut().subscribe(_ => this.returnToMain());
   }
 }
 
