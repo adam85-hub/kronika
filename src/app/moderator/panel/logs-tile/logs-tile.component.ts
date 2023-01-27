@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
 import { saveAs } from 'file-saver';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-logs-tile',
@@ -9,13 +10,11 @@ import { saveAs } from 'file-saver';
 })
 export class LogsTileComponent implements OnInit {
 
-  LogTypes: LogType[] = [
-    new LogType("Info", "info"),
-    new LogType("Errors", "error"),
-    new LogType("Requests", "request")
+  DownloadTypes: DownloadType[] = [
+    new DownloadType("Log", "log"),
+    new DownloadType("Backup", "backup"),
   ]
 
-  logContent: string = "";
   loading = false;
 
   constructor(private logService: LogService) { }
@@ -25,38 +24,42 @@ export class LogsTileComponent implements OnInit {
 
   selected(index: number) {
     this.resetSelected();
-    this.LogTypes[index].selected = true;
-    this.loading = true;
-
-    this.logService.getLog(this.LogTypes[index].queryName).subscribe({
-      next: (result) => {
-        this.logContent = result;
-        this.loading = false;
-      },
-      error: (e) => {
-        console.log(e);
-        alert("Wystąpił problem z pobraniem ");
-      }
-    });
+    this.DownloadTypes[index].selected = true;
   }
 
   resetSelected() {
-    for (let log of this.LogTypes) {
+    for (let log of this.DownloadTypes) {
       log.selected = false;
     }
   }
 
-  download() {
-    const selectedIndex = this.LogTypes.findIndex((x) => x.selected);
-    if (selectedIndex === -1) return;
+  async download() {
+    const downloadType = this.DownloadTypes.find((x) => x.selected);
+    if (downloadType == undefined) throw Error("Unextpected behavior: downloadType is undefined");
+    
+    if (downloadType.queryName === "log") {
+      this.loading = true;
+      const logContent = await lastValueFrom(this.logService.getLog());
+      let file = new Blob([logContent], { type: "text/plain;charset=utf-8" });
+      saveAs(file, "kronika.log");
+    }
 
-    let file = new Blob([this.logContent], { type: "text/plain;charset=utf-8" });
-    saveAs(file, this.LogTypes[selectedIndex].name + ".log");
-
+    if (downloadType.queryName === "backup") {
+      alert("Not implemented yet");
+    }
+    
     this.resetSelected();
+    this.loading = false;
+  }
+
+  get isAnythingSelected() {
+    for (const downloadType of this.DownloadTypes) {
+      if (downloadType.selected) return true;
+    }
+    return false;
   }
 }
 
-class LogType {
+class DownloadType {
   constructor(public name: string, public queryName: string, public selected = false) {}
 }

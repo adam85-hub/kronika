@@ -10,9 +10,9 @@ import { SETUP } from "./web.setup";
 export class LogService {
   constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
-  getLog(logType: string): Observable<string> {
+  getLog(): Observable<string> {
     const headers = new HttpHeaders().append("Token", this.auth.getToken());
 
-    return this.http.get(`${SETUP.apiUrl}/get-log.php?type=${logType}`, { "responseType": "text", "headers": headers });
+    return this.http.get(`${SETUP.apiUrl}/log`, { "responseType": "text", "headers": headers });
   }
 }

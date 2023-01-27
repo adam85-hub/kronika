@@ -9,7 +9,7 @@
 #log-types {
     border: 2px solid $font-color;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     height: 50px;
 
     .btn-type {
@@ -50,7 +50,7 @@
 
     transition: color 0.4s, border-color 0.4s;
 
-    &:hover {
+    &:hover:enabled {
         cursor: pointer;
         border-color: black;
         color: black;  

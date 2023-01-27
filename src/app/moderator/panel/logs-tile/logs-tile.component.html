@@ -1,11 +1,12 @@
 <div>
     <div id="log-types">
-        <button class="btn-type" *ngFor="let logType of LogTypes; let i = index" [ngClass]="logType.selected ? 'selected' : ''"
-            (click)="selected(i)">{{logType.name}}</button>
+        <button class="btn-type" *ngFor="let downloadType of DownloadTypes; let i = index" [ngClass]="downloadType.selected ? 'selected' : ''"
+            (click)="selected(i)">{{downloadType.name}}</button>
     </div>
-    <button id="btn-download" (click)="download()" [disabled]="loading" [ngClass]="loading == true ? 'btn-loading' : ''">
+    <button id="btn-download" (click)="download()" [disabled]="loading || !isAnythingSelected" [ngClass]="loading == true ? 'btn-loading' : ''">
         <ng-container *ngIf="loading == false; else loader">
-            Pobierz
+            <ng-container *ngIf="isAnythingSelected; else nothingSelected">Pobierz</ng-container>
+            <ng-template #nothingSelected>Wybierz rzecz do pobrania</ng-template>
             <img src="assets/download-arrow.svg" id="download-arrow">
         </ng-container>
         <ng-template #loader>
