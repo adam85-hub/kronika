@@ -14,26 +14,6 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-  /**
-   * Handles errors in connetcions with back-end
-   * @param error Error
-   * @returns Observable error
-   */
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error("An error ocurred: ", error.error);
-      return throwError(() => new Error("Sprawdź swoje połączenie internetowe."));
-    }
-    else if (error.status === 401){
-      console.error("An error ocurred: ", error.error);
-      return throwError(() => new Error("Nie jesteś zalogowany."));
-    }
-    else {
-      console.error(`Backend returned code of ${error.status}, body of error was: `, error.error);
-    }
-
-    return throwError(() => new Error("Stało się coś złego; prosimy spróbować poźniej"));
-  }
 
   /**
    * Służy do uzyskania tokenu pozwalającego na edytowanie danych
@@ -43,9 +23,7 @@ export class AuthenticationService {
   public logIn(password: string): Observable<LoginInterface> {
     const headers = new HttpHeaders().set("password", password);
 
-    return this.http.get<LoginInterface>(this.apiUrl + "/login", {'headers': headers}).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.get<LoginInterface>(this.apiUrl + "/login", { 'headers': headers });
   }
 
   /**
@@ -58,9 +36,7 @@ export class AuthenticationService {
     if(token != undefined || token != null) {
       const headers = new HttpHeaders().set('Token', token);
 
-      return this.http.get(this.apiUrl + "/logout", {'headers' : headers, responseType: 'text'}).pipe(
-        catchError(this.handleError)
-      );
+      return this.http.get(this.apiUrl + "/logout", { 'headers': headers, responseType: 'text' });
     }
 
     return obs$.asObservable();
@@ -89,9 +65,7 @@ export class AuthenticationService {
     if(token != undefined && token != null && token != '') {
       const headers = new HttpHeaders().append('Token', token);
 
-      return this.http.get<boolean>(this.apiUrl + "/verifytoken", { 'headers': headers }).pipe(
-        catchError(this.handleError)
-      );
+      return this.http.get<boolean>(this.apiUrl + "/verifytoken", { 'headers': headers });
     }
 
     return obs$.asObservable();

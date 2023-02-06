@@ -32,7 +32,13 @@
     }
 }
 
-
+.alert-danger {
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: $error-color;
+    font-weight: bold;
+    font-size: 20px;
+}
 
 #wait-container {
     padding: 20px;
