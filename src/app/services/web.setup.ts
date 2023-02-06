@@ -1,5 +1,5 @@
-//* Development:
-const baseUrl = 'http://localhost:3000';
+//* Development/Production(same):
+const baseUrl = 'https://ylhbqu.deta.dev';
 
 export const SETUP = {
     baseUrl: baseUrl,
