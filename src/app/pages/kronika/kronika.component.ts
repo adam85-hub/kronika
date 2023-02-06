@@ -28,7 +28,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     this.isLoading = true; 
     let year = this.route.snapshot.queryParamMap.get("year");
     if(year != null) {
-      if(!Number.isNaN(Number(year))) this.selectedYear = Number(year);
+      this.selectedYear = Number(year);
     }  
     this.setYearsToSelect();
   }
@@ -37,7 +37,7 @@ export class KronikaComponent extends PageComponent implements OnInit {
     const cachedYears = this.cachingService.get("years");
     if (cachedYears !== false) {
       this.years = cachedYears;
-      if (this.selectedYear === undefined || this.years.find(y => y === this.selectedYear) === undefined) this.selectedYear = this.years[0];
+      if (this.selectedYear == undefined || this.years.find(y => y == this.selectedYear) == undefined) this.selectedYear = this.years[0];
       this.getEntries();  
 
       setTimeout(() => {
