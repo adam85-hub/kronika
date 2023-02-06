@@ -15,4 +15,8 @@ export class LogService {
 
     return this.http.get(`${SETUP.apiUrl}/log`, { "responseType": "text", "headers": headers });
   }
+
+  getBackupLink(): string {
+    return `${SETUP.apiUrl}/backup`;
+  }
 }

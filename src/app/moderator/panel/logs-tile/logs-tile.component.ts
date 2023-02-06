@@ -45,7 +45,8 @@ export class LogsTileComponent implements OnInit {
     }
 
     if (downloadType.queryName === "backup") {
-      alert("Not implemented yet");
+      const url = this.logService.getBackupLink();
+      window.open(url, '_blank')?.focus();
     }
     
     this.resetSelected();
