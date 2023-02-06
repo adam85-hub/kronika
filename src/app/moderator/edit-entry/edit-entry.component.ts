@@ -138,7 +138,7 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
 
   pastedToVideo(index: number) {
     var idx = index;
-    setTimeout(() => {
+    const getindex = () => {
       if(this.entry != undefined) {
         let videoI = this.entry.Elements.findIndex((element) => element.index === idx);
         let link = this.entry.Elements[videoI].getAttr();
@@ -146,7 +146,8 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
         let newValue = "/" + link.substring(index+3);
         this.entry.Elements[videoI].setAttr(newValue); 
       }
-    }, 100);    
+    }
+    setTimeout(getindex.bind(this, idx), 100); 
   }
 
   uploadPhoto(elementIndex: number) {
