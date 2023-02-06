@@ -137,15 +137,16 @@ export class EditEntryComponent extends ModeratorComponent implements OnInit {
   }
 
   pastedToVideo(index: number) {
+    var idx = index;
     setTimeout(() => {
       if(this.entry != undefined) {
-        let videoI = this.entry.Elements.findIndex((element) => element.index === index);
+        let videoI = this.entry.Elements.findIndex((element) => element.index === idx);
         let link = this.entry.Elements[videoI].getAttr();
         let index = link.indexOf("?v=");
         let newValue = "/" + link.substring(index+3);
         this.entry.Elements[videoI].setAttr(newValue); 
       }
-    }, 10);    
+    }, 100);    
   }
 
   uploadPhoto(elementIndex: number) {
